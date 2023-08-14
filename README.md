@@ -1,10 +1,7 @@
-# TypeScript With ts-node-dev
+# Project api Finance
 
-```
-
-Project api Finance
 ## Tecnologias
-```
+
 ```
 Typescript, Express, axios, nodemon, Mysql, Prisma
 ```
