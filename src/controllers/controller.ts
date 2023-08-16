@@ -1,19 +1,32 @@
-import axios from 'axios'
+import {People} from '../model/People'
 import { Request, Response } from 'express'
-
+import { PrismaClient } from '@prisma/client'
 export const pegarMatchController = {
-    getMatch: async (req: Request, res: Response) => {
+    createPeople: async (req: Request, res: Response): Promise<{people?: People}> => {
+        // try {
+        //     let {
+        //         id,
+        //         firstName,
+        //         lastName,
+        //         email,
+        //         birthDate,
+        //         balance,
+        //     } = req.body
 
-        let url = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos'
-        let api_key = req.query.api_key
-        try {
-            let sol = req.query.sol
-            const response = await axios.get(`${url}${sol}${api_key}`)
-            res.json(response)
-            console.log(response.data)
-        } catch (err) {
-            console.log('error', err)
-        }
+        //     const people: People = {
+        //         id,
+        //         firstName,
+        //         lastName,
+        //         email,
+        //         birthDate,
+        //         balance
+        //     }
+        //     const response = await
+
+
+        // } catch (err) {
+
+        // }
 
     }
 }
