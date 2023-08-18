@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient();
 
-export const  PeopleService = {
+export class PeopleService  {
     
     async createPeople(input: any): Promise<People | null> {
         const id = input.id;
@@ -24,14 +24,40 @@ export const  PeopleService = {
             },
         })
         return people;
-    },
+    }
     async getPeople(input:any): Promise<People | null>{
-        const email = input.email;
+        const id = input.id;
         const people = await prisma.people.findUnique({
             where:{
-                email,
+                id,
             }
         })
         return people;
+    }
+    async updatePeople(id: any, data: any): Promise<People| any>{
+
+        const people = await prisma.people.update({
+            where:{
+                id,
+            }, 
+            data,
+            select:{
+                birthDate: true,
+                email: true,
+                balanceMonth: true,
+            }
+        })
+        return people;
+
+    }
+    async deletePeople(id: any): Promise<People| any>{
+
+        const people = await prisma.people.delete({
+            where:{
+                id,
+            }, 
+        })
+        return people;
+
     }
 }

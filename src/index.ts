@@ -1,6 +1,6 @@
 import express, { Express, Request, Response, Router } from 'express';
 import dotenv from 'dotenv';
-import {router} from '../src/controllers/PeopleController'
+import {router} from '../src/routes/PeopleRoutes'
 import cors from 'cors';
 // import {router} from '../src/routes/Router'
 
