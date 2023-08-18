@@ -122,6 +122,13 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
+.javascript/**/migrations/
+typescript/**/migrations/
+misc/**/migrations/
+databases/**/migrations/
+experimental/**/*.db
+.prisma
+
 # yarn v2
 .yarn/cache
 .yarn/unplugged
