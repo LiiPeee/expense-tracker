@@ -1,30 +1,21 @@
 import { People } from '../model/People'
-import { Request, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
-import { PeopleRepository } from '../repository/PeopleRepository';
 const prisma = new PrismaClient();
 
-export class PeopleService {
-    constructor(
-        private readonly peopleRepository: PeopleRepository
-    ) { }
+export class PeopleRepository {
 
-    async createPeople(input: any): Promise<People | null> {
-        const person = {
-            id: input.id,
-            firstName: input.firstName,
-            lastName: input.firstName,
-            email: input.email,
-            birthDate: input.birthDate,
-            balanceMonth: input.balanceMonth
-        }
+    async createPeople(data: People): Promise<People>{ 
 
-        const people = await this.peopleRepository.createPeople(person)
+        let people = await prisma.people.create({
+            data:{
+                ...data
+            }
+        })
         return people;
     }
     async getPeople(input: any): Promise<People | null> {
-        const { id } = input;
-        const people = await this.peopleRepository.getPeople({
+        const id = input.id;
+        const people = await prisma.people.findUnique({
             where: {
                 id,
             }

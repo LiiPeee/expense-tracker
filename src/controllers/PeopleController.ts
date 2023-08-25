@@ -3,10 +3,12 @@ import { PeopleService } from '../service/PeopleService'
 
 
 export class PeopleController {
+    constructor(private readonly peopleService: PeopleService){
+
+    }
     async createPeople (req: Request, res: Response)  {
         try {
-            const peopleSerice = new PeopleService();
-            const people = await peopleSerice.createPeople(req.body)
+            const people = await this.peopleService.createPeople(req.body)
             res.json({ people })
 
         } catch (err) {
@@ -16,8 +18,7 @@ export class PeopleController {
     }
     async getPeople (req: Request, res: Response) {
         try {
-            const peopleService = new PeopleService();
-            const people = await peopleService.getPeople(req.body)
+            const people = await this.peopleService.getPeople(req.body)
             res.status(200).json({ people })
         } catch (err) {
             res.status(500).json(err)
@@ -25,8 +26,7 @@ export class PeopleController {
     }
     async updatePeople(req: Request, res: Response){
         try{
-            const peopleService = new PeopleService();
-            const people = await peopleService.updatePeople(Number(req.params.id), req.body)
+            const people = await this.peopleService.updatePeople(Number(req.params.id), req.body)
             res.status(200).json({people})
 
         }catch(err){
@@ -36,8 +36,7 @@ export class PeopleController {
     }
     async deletePeople(req: Request, res: Response){
         try{
-            const peopleService = new PeopleService();
-            const people = await peopleService.deletePeople(Number(req.params.id))
+            const people = await this.peopleService.deletePeople(Number(req.params.id))
             res.status(200).json({delete: 'deleted',
             people: people
         })
