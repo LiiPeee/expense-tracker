@@ -10,25 +10,15 @@ export class PeopleService {
     ) { }
 
     async createPeople(input: any): Promise<People | null> {
-        const person = {
-            id: input.id,
-            firstName: input.firstName,
-            lastName: input.firstName,
-            email: input.email,
-            birthDate: input.birthDate,
-            balanceMonth: input.balanceMonth
-        }
-
-        const people = await this.peopleRepository.createPeople(person)
+        const people = await this.peopleRepository.createPeople(input)
+				if(!people.firstName){
+					throw new Error('Pessoa não pode ser criada sem o nome!')
+				}
         return people;
     }
     async getPeople(input: any): Promise<People | null> {
-        const { id } = input;
-        const people = await this.peopleRepository.getPeople({
-            where: {
-                id,
-            }
-        })
+        const id = input;
+        const people = await this.peopleRepository.getPeople({ id })
         return people;
     }
     async updatePeople(id: any, data: any): Promise<People | any> {
