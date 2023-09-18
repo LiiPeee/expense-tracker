@@ -1,12 +1,8 @@
-import { Categoria } from "./Categoria";
-import { Transacao } from "./Transacao";
 
-export type Contato = {
+export interface Contato {
     id: number;
     creatDate: Date;
     endDate: Date;
-    nome: string;
+    nome?: string;
     tel: string;
-    transacao: Transacao[]
-    categoria: Categoria
 }

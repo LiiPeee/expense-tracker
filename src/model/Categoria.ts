@@ -1,12 +1,9 @@
 import { Contato } from "./Contato";
 import { Transacao } from "./Transacao";
 
-export type Categoria = {
+export interface Categoria {
     id: number;
     createDate: Date;
     endDate: Date
-    tipoDeDespesa: string[]
-    contato: Contato[]
-    transacao: Transacao;
-    
+    tipoDeDespesa?: string[]
 }
