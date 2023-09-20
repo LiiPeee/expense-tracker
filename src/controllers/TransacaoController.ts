@@ -16,5 +16,13 @@ export class TransacaoController {
             res.status(500).json({ err })
         }
     }
+    async encontrarTransacao(req: Request, res: Response){
+        try{
+            const getTransacao = await this.transacaoService.pegarTransacao(req.params)
+            res.json(getTransacao)
+        }catch (err){
+            res.status(500).json({err})
+        }
+    }
 
 }

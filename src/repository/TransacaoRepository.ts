@@ -5,41 +5,35 @@ const prisma = new PrismaClient();
 export class TransacaoRepository {
     async criarTransacao(data: any): Promise<Transacao> {
         const transacaoData: any = {
-            valor: data.valor,
-            comentario: data.comentario,
-            formaDePagmnt: data.formaDePagmnt,
-            pago: data.pago,
-            contato: {
+            valor: data?.valor,
+            comentario: data?.comentario,
+            formaDePagamento: data?.formaDePagamento,
+            pago: data?.pago,
+            contatos: {
                 create: {
-                    nome: data.contato.nome,
-                    tel: data.contato.tel,
+                    nome: data.contatos?.nome,
+                    tel: data.contatos?.tel,
                 }
             },
-            categoria: {
+            categorias: {
                 create: {
-                    tipoDeDespesa: data.categoria.tipoDeDespesa
+                    tipoDeLancamento: data.categorias?.tipoDeLancamento
                 }
             }
         };
-        // if (data.contato) {
-        //     transacaoData.contato = {
-        //         create: {
-        //             nome: data.contato.nome,
-        //             tel: data.contato.tel,
-        //         },
-        //     };
-        // }
-        // if (data.categoria) {
-        //     transacaoData.categoria = {
-        //         create: {
-        //             tipoDeDespesa: data.categoria.tipoDeDespesa
-        //         }
-        //     }
-        // }
         const criandoTransacao = await prisma.transacao.create({
             data: transacaoData,
         });
 
         return criandoTransacao;
+    }
+    async getTransacao(input: any) {
+        const { id } = input;
+        const pegarTransacao = await prisma.transacao.findFirst({
+            where: {
+                id: parseInt(id),
+            }, include: { categorias: true }
+        })
+        return pegarTransacao;
     }
 }

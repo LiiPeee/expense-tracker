@@ -11,33 +11,34 @@ datasource db {
 }
 
 model Transacao {
-  id            Int         @id  @default(autoincrement())
-  createDate    DateTime?    @default(now()) @db.Timestamp(0)
-  endDate       DateTime?    @default(now()) @db.Timestamp(0)
-  valor         Decimal   
-  comentario    String?
-  formaDePagmnt String
-  pago          String
-  contato       Contato[]
-  categoria     Categoria[]
+  id               Int         @id @default(autoincrement())
+  createDate       DateTime?   @default(now()) @db.Timestamp(0)
+  endDate          DateTime?   @default(now()) @db.Timestamp(0)
+  valor            Decimal     @db.Decimal(10, 2)
+  comentario       String?
+  formaDePagamento String
+  pago             String
+  contatos         Contato[]
+  categorias       Categoria[]
 }
 
 model Categoria {
   id            Int       @id @default(autoincrement())
-  createDate    DateTime?  @default(now()) @db.Timestamp(0)
-  endDate       DateTime?  @default(now()) @db.Timestamp(0)
-  tipoDeDespesa String
+  createDate    DateTime? @default(now()) @db.Timestamp(0)
+  endDate       DateTime? @default(now()) @db.Timestamp(0)
+  tipoTransacao String
+  recorrencia   String
   contato       Contato[]
-  transacao     Transacao @relation(fields: [transacaoId], references: [id])
+  transacoes    Transacao @relation(fields: [transacaoId], references: [id])
   transacaoId   Int
-} 
+}
 
 model Contato {
-  id          Int         @id @default(autoincrement())
-  creatDate   DateTime?    @default(now()) @db.Timestamp(0)
-  endDate     DateTime?    @default(now()) @db.Timestamp(0)
-  nome        String?
-  tel         String?
-  transacao   Transacao[]
-  categoria   Categoria[]
+  id        Int         @id @default(autoincrement())
+  creatDate DateTime?   @default(now()) @db.Timestamp(0)
+  endDate   DateTime?   @default(now()) @db.Timestamp(0)
+  nome      String?
+  tel       String?
+  transacao Transacao[]
+  categoria Categoria[]
 }
