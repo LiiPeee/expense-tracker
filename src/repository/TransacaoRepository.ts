@@ -24,7 +24,7 @@ export class TransacaoRepository {
 		};
 		const criandoTransacao = await prisma.transacao.create({
 			data: transacaoData,
-			include:{
+			include: {
 				categorias: true
 			}
 		});
@@ -67,13 +67,17 @@ export class TransacaoRepository {
 		}
 
 	}
-	async deletarTransacao(input: any): Promise<void> {
-		const { id } = input;
-
+	async deletarTransacao(input: any): Promise<any> {
+		const { id } = input
 		const deletar = await prisma.transacao.delete({
 			where: {
-				id: id
+				id: parseInt(id)
+			},
+			include:{
+				categorias: true,
+				contatos: true
 			}
 		})
+		return deletar;
 	}
 }

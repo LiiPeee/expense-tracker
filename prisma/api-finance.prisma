@@ -10,16 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Conta {
+  id         Int         @id @default(autoincrement())
+  createDate DateTime?   @default(now()) @db.Timestamp(0)
+  endDate    DateTime?   @default(now()) @db.Timestamp(0)
+  balance    Int
+  transacao  Transacao[]
+}
+
 model Transacao {
   id               Int         @id @default(autoincrement())
   createDate       DateTime?   @default(now()) @db.Timestamp(0)
-  endDate          DateTime?   @default(now()) @db.Timestamp(0)
+  paymenDate       DateTime?   @default(now()) @db.Timestamp(0)
   valor            Decimal     @db.Decimal(10, 2)
   comentario       String?
   formaDePagamento String
   pago             String
   contatos         Contato[]
   categorias       Categoria[]
+  conta            Conta?       @relation(fields: [contaId], references: [id])
+  contaId          Int
 }
 
 model Categoria {

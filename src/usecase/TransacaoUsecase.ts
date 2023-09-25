@@ -32,8 +32,8 @@ export class TransacaoUsecase {
     return enviando;
 
   }
-  async atualizarTransacao(input: any, data: any ){
-    const {id} = input
+  async atualizarTransacao(input: any, data: any) {
+    const { id } = input
     const atualizar = await this.transacaoRepository.atualizarTransacao(id, data);
     return atualizar;
   }
@@ -51,7 +51,7 @@ export class TransacaoUsecase {
   }
 
   async deletarTransacao(input: any) {
-    await this.deletarTransacao(input);
+    await this.transacaoRepository.deletarTransacao(input);
   }
   //
 }

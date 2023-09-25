@@ -42,7 +42,7 @@ export class TransacaoController {
     }
     async deletarTransacao(req: Request, res: Response) {
         try {
-            const deletar = await this.transacaoUsecase.deletarTransacao(req.params.id)
+            await this.transacaoUsecase.deletarTransacao(req.params)
             res.json({
                 resposta: {
                     delete: "sucess"
