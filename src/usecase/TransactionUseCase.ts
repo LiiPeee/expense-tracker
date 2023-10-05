@@ -1,30 +1,28 @@
-import { Transacao } from "../model/Transacao";
-import { TransacaoRepository } from "../repository/TransacaoRepository";
-import { TipoLançamento } from "../model/enums/TipoLançamento";
+import { Transaction } from "../model/Transaction";
+import { TransactionRepository } from "../repository/TransactionRepository";
 
-export class TransacaoUsecase {
-  public transacaoRepository: TransacaoRepository;
-  constructor(transacaoRepository: TransacaoRepository) {
+export class TransactionUseCase {
+  public transacaoRepository: TransactionRepository;
+  constructor(transacaoRepository: TransactionRepository) {
     this.transacaoRepository = transacaoRepository;
 
   }
-  async criandoTransacao(input: any): Promise<any> {
+  async createTransaction(input: any): Promise<any> {
 
     const transacao = {
-      id: input?.id,
-      valor: input?.valor,
-      comentario: input?.comentario,
-      formaDePagamento: input?.formaDePagamento,
-      pago: input?.pago,
-      contatos: input?.contatos,
-      categorias: input?.categorias
+      id: input.id,
+      value: input.value,
+      comment: input.comment,
+      formatPayment: input.formatPayment,
+      paid: input.paid,
+      contact: input.contact,
+      category: input.category
     }
-    if (transacao.categorias.tipoTransacao == 'provento') {
-      transacao.categorias.tipoTransacao == TipoLançamento.Provento;
-    } else {
-      transacao.categorias.tipoTransacao == TipoLançamento.Despesa
-    }
-    if (!transacao.contatos) {
+    // if (transacao.categorias.tipoTransacao == 'provento') {
+    
+    // } else {
+    // }
+    if (!transacao.contact) {
       console.log("faltando")
     }
 

@@ -1,11 +1,11 @@
-import { PrismaClient, Transacao } from "@prisma/client";
+import { PrismaClient, Transaction } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export class TransacaoRepository {
-	async criarTransacao(data: any): Promise<Transacao> {
+export class TransactionRepository {
+	async criarTransacao(data: any): Promise<Transaction> {
 		const transacaoData: any = {
-			valor: data?.valor,
+			value: data?.valor,
 			comentario: data?.comentario,
 			formaDePagamento: data?.formaDePagamento,
 			pago: data?.pago,
@@ -22,10 +22,10 @@ export class TransacaoRepository {
 				}
 			}
 		};
-		const criandoTransacao = await prisma.transacao.create({
+		const criandoTransacao = await prisma.transaction.create({
 			data: transacaoData,
 			include: {
-				categorias: true
+				category: true
 			}
 		});
 
@@ -33,34 +33,34 @@ export class TransacaoRepository {
 	}
 	async pegarTransacaoId(input: any) {
 		const { id } = input;
-		const pegarTransacao = await prisma.transacao.findFirst({
+		const pegarTransacao = await prisma.transaction.findFirst({
 			where: {
 				id: parseInt(id),
-			}, include: { categorias: true }
+			}, include: { category: true }
 		})
 		return pegarTransacao;
 	}
 	async getTodasTransacoes() {
-		const pegarTodasTransacoes = await prisma.transacao.findMany();
+		const pegarTodasTransacoes = await prisma.transaction.findMany();
 		return pegarTodasTransacoes;
 	}
 	async atualizarTransacao(inputId: any, input: any) {
 		const { id } = inputId;
-		const pegarTransacao = await prisma.transacao.findFirst({
+		const pegarTransacao = await prisma.transaction.findFirst({
 			where: {
 				id: parseInt(id),
 			}
 		})
 		if (pegarTransacao) {
-			const atualizarTransacao = await prisma.transacao.update({
+			const atualizarTransacao = await prisma.transaction.update({
 				where: {
 					id: parseInt(id),
 				},
 				data: {
-					valor: input?.valor,
-					pago: input?.pagos,
-					comentario: input?.comentario,
-					formaDePagamento: input?.formaDePagamento
+					value: input?.value,
+					paid: input?.paid,
+					comment: input?.comment,
+					formatPayment: input?.formatPayment
 				}
 			})
 			return atualizarTransacao;
@@ -69,13 +69,13 @@ export class TransacaoRepository {
 	}
 	async deletarTransacao(input: any): Promise<any> {
 		const { id } = input
-		const deletar = await prisma.transacao.delete({
+		const deletar = await prisma.transaction.delete({
 			where: {
 				id: parseInt(id)
 			},
 			include:{
-				categorias: true,
-				contatos: true
+				category: true,
+				contact: true
 			}
 		})
 		return deletar;
