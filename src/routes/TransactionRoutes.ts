@@ -4,13 +4,13 @@ import { TransactionUseCase } from "../usecase/TransactionUseCase";
 import { TransactionRepository } from "../repository/TransactionRepository";
 
 
-export const router = express.Router();
+export const routerTransaction = express.Router();
 
 const transacaoRepository = new TransactionRepository();
 const transacaoService = new TransactionUseCase(transacaoRepository);
 const transactionController = new TransactionController(transacaoService);
-router.post('/transacao', transactionController.createTransaction.bind(transactionController));
-router.get('/transacao/:id', transactionController.getTransactionById.bind(transactionController))
-router.get("/transacao", transactionController.getAllTransaction.bind(transactionController))
-router.put("/transaca/:id", transactionController.updateTransaction.bind(transactionController))
-router.delete("/transacao/:id", transactionController.deleteTransactionById.bind(transactionController))
+routerTransaction.post('/transacao', transactionController.createTransaction.bind(transactionController));
+routerTransaction.get('/transacao/:id', transactionController.getTransactionById.bind(transactionController))
+routerTransaction.get("/transacao", transactionController.getAllTransaction.bind(transactionController))
+routerTransaction.put("/transaca/:id", transactionController.updateTransaction.bind(transactionController))
+routerTransaction.delete("/transacao/:id", transactionController.deleteTransactionById.bind(transactionController))

@@ -5,7 +5,8 @@ export class Account {
         public endDate: Date,
         public createDate: Date,
         public name: string,
-        public password: string,
+        public email: string,
         public balance: number,
-        public transacao: Transaction) { }
+        public transacao?: Transaction,
+        public password?: string) { }
 }

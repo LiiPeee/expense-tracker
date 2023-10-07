@@ -3,7 +3,7 @@ import { PrismaClient, Transaction } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export class TransactionRepository {
-	async criarTransacao(data: any): Promise<Transaction> {
+	async createTransaction(data: any): Promise<Transaction> {
 		const transacaoData: any = {
 			value: data?.valor,
 			comentario: data?.comentario,
@@ -31,7 +31,7 @@ export class TransactionRepository {
 
 		return criandoTransacao;
 	}
-	async pegarTransacaoId(input: any) {
+	async getTransactionById(input: any) {
 		const { id } = input;
 		const pegarTransacao = await prisma.transaction.findFirst({
 			where: {
@@ -40,11 +40,11 @@ export class TransactionRepository {
 		})
 		return pegarTransacao;
 	}
-	async getTodasTransacoes() {
+	async getAllTransaction() {
 		const pegarTodasTransacoes = await prisma.transaction.findMany();
 		return pegarTodasTransacoes;
 	}
-	async atualizarTransacao(inputId: any, input: any) {
+	async updateTransaction(inputId: any, input: any) {
 		const { id } = inputId;
 		const pegarTransacao = await prisma.transaction.findFirst({
 			where: {
@@ -67,7 +67,7 @@ export class TransactionRepository {
 		}
 
 	}
-	async deletarTransacao(input: any): Promise<any> {
+	async deleteTransaction(input: any): Promise<any> {
 		const { id } = input
 		const deletar = await prisma.transaction.delete({
 			where: {

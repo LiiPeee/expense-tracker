@@ -15,7 +15,8 @@ model Account {
   createDate  DateTime      @default(now()) @db.Timestamp(0)
   endDate     DateTime      @default(now()) @db.Timestamp(0)
   name        String
-  password    String
+  email       String
+  password    String?
   balance     Int
   transaction Transaction?
 }

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { TransactionUseCase } from "../usecase/TransactionUseCase";
 
 export class TransactionController {
-    public transactionUseCase: TransactionUseCase | undefined;
+    public transactionUseCase: TransactionUseCase;
     constructor(transactionUseCase: TransactionUseCase) {
         this.transactionUseCase = transactionUseCase;
     }
@@ -18,7 +18,7 @@ export class TransactionController {
     }
     async getTransactionById(req: Request, res: Response) {
         try {
-            const getTransacao = await this.transactionUseCase?.pegarTodasTransacoes();
+            const getTransacao = await this.transactionUseCase.getTransactionById(req.params);
             res.json(getTransacao)
         } catch (err) {
             res.status(500).json({ err })
@@ -26,7 +26,7 @@ export class TransactionController {
     }
     async getAllTransaction(req: Request, res: Response) {
         try {
-            const getTodasTransacoes = await this.transactionUseCase?.pegarTodasTransacoes();
+            const getTodasTransacoes = await this.transactionUseCase?.getAllTransaction();
             res.json(getTodasTransacoes)
         } catch (err: any) {
             res.status(500).json({ err })
@@ -34,7 +34,7 @@ export class TransactionController {
     }
     async updateTransaction(req: Request, res: Response) {
         try {
-            const attTransacao = await this.transactionUseCase?.atualizarTransacao(req.params.id, req.body);
+            const attTransacao = await this.transactionUseCase?.updateTransaction(req.params.id, req.body);
             res.json(attTransacao).status(200)
         } catch (err: any) {
             res.status(500).json({ err })
@@ -42,7 +42,7 @@ export class TransactionController {
     }
     async deleteTransactionById(req: Request, res: Response) {
         try {
-            await this.transactionUseCase?.deletarTransacao(req.params.id)
+            await this.transactionUseCase.deleteTransaction(req.params.id)
             res.json({
                 resposta: {
                     delete: "sucess"

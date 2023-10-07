@@ -1,21 +1,17 @@
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt"
+import { Account } from "../model/Account";
 
 const prisma = new PrismaClient();
-export class AccountRepository{
-
-
-    async createAccout(data: any){
-        const accountData: any ={
-            name: data.name,
-            password: data.password,
-            balance: data.balance
-        }
-
-        const account = await prisma.account.create({ data: accountData});
+export class AccountRepository {
+    async createAccout(data: any): Promise<Account> {
+        const { name, email, balance } = data;
+        const password = data?.password
+        const account = await prisma.account.create({ data: { name, email, password, balance } });
 
         return account;
 
     }
 
-    
+
 }

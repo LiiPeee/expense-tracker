@@ -7,7 +7,7 @@
     "build": "tsc",
     "test": "jest",
     "dev": "nodemon src/index.ts",
-    "start": "nodemon dist/index.js"
+    "start": "nodemon src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/LiiPeee/tamplate-node-ts#readme",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.4",

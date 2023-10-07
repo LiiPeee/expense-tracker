@@ -2,13 +2,12 @@ import { Transaction } from "../model/Transaction";
 import { TransactionRepository } from "../repository/TransactionRepository";
 
 export class TransactionUseCase {
-  public transacaoRepository: TransactionRepository;
-  constructor(transacaoRepository: TransactionRepository) {
-    this.transacaoRepository = transacaoRepository;
+  public transactionRepository: TransactionRepository;
+  constructor(transactionRepository: TransactionRepository) {
+    this.transactionRepository = transactionRepository;
 
   }
   async createTransaction(input: any): Promise<any> {
-
     const transacao = {
       id: input.id,
       value: input.value,
@@ -18,38 +17,38 @@ export class TransactionUseCase {
       contact: input.contact,
       category: input.category
     }
-    // if (transacao.categorias.tipoTransacao == 'provento') {
+    // if (transacao.category.typeTransaction == 'provento') {
     
     // } else {
     // }
-    if (!transacao.contact) {
-      console.log("faltando")
-    }
+    // if (!transacao.contact) {
+    //   console.log("faltando")
+    // }
 
-    const enviando = await this.transacaoRepository.criarTransacao(transacao);
+    const enviando = await this.transactionRepository.createTransaction(transacao);
     return enviando;
 
   }
-  async atualizarTransacao(input: any, data: any) {
+  async updateTransaction(input: any, data: any) {
     const { id } = input
-    const atualizar = await this.transacaoRepository.atualizarTransacao(id, data);
+    const atualizar = await this.transactionRepository.updateTransaction(id, data);
     return atualizar;
   }
-  async pegarTransacaoId(input: any) {
-    const pegandoTransacao = await this.transacaoRepository.pegarTransacaoId(input);
+  async getTransactionById(input: any) {
+    const pegandoTransacao = await this.transactionRepository.getTransactionById(input);
     // if (pegandoTransacao?.id) {
     //   console.log("error")
     // }
     return pegandoTransacao;
   }
-  async pegarTodasTransacoes() {
-    const pegarTodasTransacoes = await this.transacaoRepository.getTodasTransacoes();
+  async getAllTransaction() {
+    const pegarTodasTransacoes = await this.transactionRepository.getAllTransaction();
 
     return pegarTodasTransacoes;
   }
 
-  async deletarTransacao(input: any) {
-    await this.transacaoRepository.deletarTransacao(input);
+  async deleteTransaction(input: any) {
+    await this.transactionRepository.deleteTransaction(input);
   }
   //
 }
