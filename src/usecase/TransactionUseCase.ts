@@ -1,4 +1,3 @@
-import { Transaction } from "../model/Transaction";
 import { TransactionRepository } from "../repository/TransactionRepository";
 
 export class TransactionUseCase {
@@ -17,8 +16,10 @@ export class TransactionUseCase {
       contact: input.contact,
       category: input.category
     }
+    // se transação for provento pegar o valor do balance  e reduzir se for a despesas reduzir do balance do account
+
     // if (transacao.category.typeTransaction == 'provento') {
-    
+
     // } else {
     // }
     // if (!transacao.contact) {

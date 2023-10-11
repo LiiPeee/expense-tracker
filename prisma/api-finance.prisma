@@ -11,13 +11,14 @@ datasource db {
 }
 
 model Account {
-  id          Int           @id @default(autoincrement())
-  createDate  DateTime      @default(now()) @db.Timestamp(0)
-  endDate     DateTime      @default(now()) @db.Timestamp(0)
+  id          Int          @id @default(autoincrement())
+  createDate  DateTime     @default(now()) @db.Timestamp(0)
+  endDate     DateTime     @default(now()) @db.Timestamp(0)
   name        String
   email       String
-  password    String?
+  password    String
   balance     Int
+  token       String?
   transaction Transaction?
 }
 
@@ -29,20 +30,20 @@ model Transaction {
   comment       String?
   formatPayment String
   paid          String
-  contact      Contact[]
+  contact       Contact[]
   category      Category[]
   account       Account    @relation(fields: [accountId], references: [id])
   accountId     Int        @unique
 }
 
 model Category {
-  id            Int         @id @default(autoincrement())
-  createDate    DateTime?   @default(now()) @db.Timestamp(0)
-  endDate       DateTime?   @default(now()) @db.Timestamp(0)
+  id              Int         @id @default(autoincrement())
+  createDate      DateTime?   @default(now()) @db.Timestamp(0)
+  endDate         DateTime?   @default(now()) @db.Timestamp(0)
   typeTransaction String
-  recurrence   String
-  transaction    Transaction @relation(fields: [transacaoId], references: [id])
-  transacaoId   Int
+  recurrence      String
+  transaction     Transaction @relation(fields: [transacaoId], references: [id])
+  transacaoId     Int
 }
 
 model Contact {
