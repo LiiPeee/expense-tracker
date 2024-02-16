@@ -1,10 +1,9 @@
-import { TransactionRepository } from "../repository/TransactionRepository";
+import { TransactionRepository } from "../repository/transaction-repository";
 
 export class TransactionUseCase {
   public transactionRepository: TransactionRepository;
   constructor(transactionRepository: TransactionRepository) {
     this.transactionRepository = transactionRepository;
-
   }
   async createTransaction(input: any): Promise<any> {
     const transacao = {
@@ -14,8 +13,8 @@ export class TransactionUseCase {
       formatPayment: input.formatPayment,
       paid: input.paid,
       contact: input.contact,
-      category: input.category
-    }
+      category: input.category,
+    };
     // se transação for provento pegar o valor do balance  e reduzir se for a despesas reduzir do balance do account
 
     // if (transacao.category.typeTransaction == 'provento') {
@@ -26,24 +25,30 @@ export class TransactionUseCase {
     //   console.log("faltando")
     // }
 
-    const enviando = await this.transactionRepository.createTransaction(transacao);
+    const enviando = await this.transactionRepository.createTransaction(
+      transacao
+    );
     return enviando;
-
   }
   async updateTransaction(input: any, data: any) {
-    const { id } = input
-    const atualizar = await this.transactionRepository.updateTransaction(id, data);
+    const { id } = input;
+    const atualizar = await this.transactionRepository.updateTransaction(
+      id,
+      data
+    );
     return atualizar;
   }
   async getTransactionById(input: any) {
-    const pegandoTransacao = await this.transactionRepository.getTransactionById(input);
+    const pegandoTransacao =
+      await this.transactionRepository.getTransactionById(input);
     // if (pegandoTransacao?.id) {
     //   console.log("error")
     // }
     return pegandoTransacao;
   }
   async getAllTransaction() {
-    const pegarTodasTransacoes = await this.transactionRepository.getAllTransaction();
+    const pegarTodasTransacoes =
+      await this.transactionRepository.getAllTransaction();
 
     return pegarTodasTransacoes;
   }
