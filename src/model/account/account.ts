@@ -1,8 +1,8 @@
-import mongoose, { Document, Schema, Types } from "mongoose";
-import { Transaction } from "./transaction";
+import mongoose, { Document, Schema } from "mongoose";
+import { Transaction } from "../transaction/transaction";
 
 export interface IAccount extends Document {
-  _id: Types.ObjectId;
+  _id: mongoose.Types.ObjectId;
   endDate: Date;
   createDate: Date;
   name: string;
@@ -10,14 +10,9 @@ export interface IAccount extends Document {
   balance?: number;
   password: string;
   token?: string;
-  transaction?: Transaction;
+  transaction?: mongoose.Types.ObjectId[] | Transaction[];
 }
-const accountSchema: Schema<IAccount> = new Schema({
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-    auto: true,
-    unique: true,
-  },
+const accountSchema: Record<string, any> = {
   name: {
     type: String,
     required: true,
@@ -51,7 +46,11 @@ const accountSchema: Schema<IAccount> = new Schema({
     type: String,
     required: false,
   },
-});
+};
+const accounDefinition: Schema<IAccount> = new mongoose.Schema(accountSchema);
 
-export const AccountModel = mongoose.model<IAccount>("Account", accountSchema);
+export const AccountModel = mongoose.model<IAccount>(
+  "Account",
+  accounDefinition
+);
 export default AccountModel;

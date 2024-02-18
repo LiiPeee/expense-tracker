@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
-import { IAccount } from "../model/account";
+import mongoose from "mongoose";
+import { AccountDto, IAccountDto } from "../model/account/account-dto";
 import { AccountRepository } from "../repository/account-repository";
 
 export class AccountUseCase {
@@ -8,20 +9,36 @@ export class AccountUseCase {
     this.accountRespository = accountRespository;
   }
 
-  async createAccount(data: any): Promise<IAccount> {
+  async createAccount(data: any): Promise<IAccountDto> {
     const { name, email, password, balance } = data;
     const hashPassword = await bcrypt.hash(password, 10);
-    const account = await this.accountRespository.createAccout({
+
+    await this.accountRespository.createAccout({
       name,
       email,
       password: hashPassword,
       balance,
     });
-
-    const { password: _, ...user } = account;
-
-    return user;
+    const accountData: IAccountDto = {
+      name,
+      email,
+      balance,
+    };
+    return new AccountDto(accountData);
   }
+  async findAccountById(input: any): Promise<any> {
+    if (!mongoose.Types.ObjectId.isValid(input)) {
+      throw new Error("falha na consulta");
+    }
+    const result = await this.accountRespository.findById(input);
+    const accountDto: IAccountDto = {
+      name: result.name,
+      email: result.email,
+      balance: result.balance,
+    };
+    return new AccountDto(accountDto);
+  }
+
   //   async login(data: any): Promise<IAccount | any> {
   //     const { name, password } = data;
 

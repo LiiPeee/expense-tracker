@@ -1,5 +1,5 @@
-import { Category } from "./category";
-import { Contact } from "./contact";
+import { Category } from "../category";
+import { Contact } from "../contact";
 
 export class Transaction {
   constructor(

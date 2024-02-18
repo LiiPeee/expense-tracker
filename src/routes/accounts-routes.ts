@@ -1,6 +1,6 @@
 import * as express from "express";
 import { AccountController } from "../controllers/account-controller";
-import { AccountModel } from "../model/account";
+import { AccountModel } from "../model/account/account";
 import { AccountRepository } from "../repository/account-repository";
 import { AccountUseCase } from "../usecase/account-use-case";
 export const routerAccount = express.Router();
@@ -11,4 +11,8 @@ const accountController = new AccountController(accountUsecase);
 routerAccount.post(
   "/account",
   accountController.createAccount.bind(accountController)
+);
+routerAccount.get(
+  "/account/:id",
+  accountController.findAccountById.bind(accountController)
 );

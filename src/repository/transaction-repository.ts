@@ -1,4 +1,4 @@
-import { Transaction } from "../model/transaction";
+import { Transaction } from "../model/transaction/transaction";
 
 export class TransactionRepository {
   async createTransaction(data: any): Promise<Transaction> {
