@@ -1,9 +1,11 @@
-import * as express from "express";
-// import { TransactionRepository } from "../repository/TransactionRepository";
+// import * as express from "express";
+// import { TransactionUseCase } from "../../aplication/usecase/transaction-usecase";
+// import { TransactionRepository } from "../../domain/repository/transaction-repository";
+// import { TransactionController } from "../controllers/transaction-controller";
 
-export const routerTransaction = express.Router();
+// export const routerTransaction = express.Router();
 
-// // const transacaoRepository = new TransactionRepository();
+// const transacaoRepository = new TransactionRepository();
 // const transacaoService = new TransactionUseCase(transacaoRepository);
 // const transactionController = new TransactionController(transacaoService);
 // routerTransaction.post(

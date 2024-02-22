@@ -1,5 +1,5 @@
-import { Category } from "../category";
-import { Contact } from "../contact";
+import { Category } from "../entity/category";
+import { Contact } from "../entity/contact";
 
 export interface ITransatcionDto {
   value: string;
