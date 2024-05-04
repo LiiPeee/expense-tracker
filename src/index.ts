@@ -1,6 +1,8 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express, { Express } from "express";
+import "express-async-errors";
+import { errorMiddleware } from "./data/middlaware/error";
 import { routerAccount } from "./presentation/routes/accounts-routes";
 // import {router} from '../src/routes/Router'
 
@@ -12,6 +14,7 @@ app.use(express.json());
 
 // app.use("", routerTransaction);
 app.use("", routerAccount);
+app.use(errorMiddleware);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

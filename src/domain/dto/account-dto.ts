@@ -1,12 +1,12 @@
 export interface IAccountDto {
-  name: string;
-  email: string;
+  name?: string;
+  email?: string;
   balance?: number;
 }
 
 export class AccountDto implements IAccountDto {
-  name: string;
-  email: string;
+  name?: string;
+  email?: string;
   balance?: number;
 
   constructor(account: IAccountDto) {

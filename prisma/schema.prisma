@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABAE_URL")
+  url      = env("DATABASE_URL")
 }
 
 model Account{
@@ -18,7 +18,7 @@ model Account{
   email String @unique
   balance Float
   password String
-  token String?  
+  // token String?  
   transaction Transaction[]
 }
 

@@ -1,5 +1,5 @@
-import { IAccount } from "../account/account";
-import { IContact } from "../contact";
+import { IAccount } from "./account";
+import { IContact } from "./contact";
 
 export interface ITransaction {
   id: string;
