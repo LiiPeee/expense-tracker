@@ -1,81 +1,86 @@
-// import { ITransaction } from "../entity/transaction/transaction";
+import { PrismaClient } from "@prisma/client";
+import { Category, TransctionDto } from "../../domain/dto/transaction-dto";
+import { CreateTransactionInput } from "../../domain/inputAndOutput";
 
-// export class TransactionRepository {
-//   constructor() {}
-//   async createTransaction(data: any): Promise<ITransaction | any> {
-//     const account: any = await AccountModel.findOne({
-//       email: data.email,
-//     });
-//     if (!account) {
-//       throw new Error("Você não pode fazer uma transação ser ter conta");
-//     }
-//     const {
-//       contact: [{ name, phone }],
-//       category: [{ typeTransaction, recurrence }],
-//     } = data;
-//     const contact = await ContactModel.create({ name, phone });
-//     const category = await CategoryModel.create({
-//       typeTransaction,
-//       recurrence,
-//     });
-//     const transactionData = {
-//       ...data,
-//       contact: contact._id,
-//       category: category._id,
-//       account: account._id,
-//     };
 
-//     const criandoTransacao = this.transaction.create(transactionData);
+export class TransactionRepository {
+  private prisma = new PrismaClient();
 
-//     return criandoTransacao;
-//   }
-//   //   async getTransactionById(input: any) {
-//   //     const { id } = input;
-//   //     const pegarTransacao = await prisma.transaction.findFirst({
-//   //       where: {
-//   //         id: parseInt(id),
-//   //       },
-//   //       include: { category: true },
-//   //     });
-//   //     return pegarTransacao;
-//   //   }
-//   //   async getAllTransaction() {
-//   //     const pegarTodasTransacoes = await prisma.transaction.findMany();
-//   //     return pegarTodasTransacoes;
-//   //   }
-//   //   async updateTransaction(inputId: any, input: any) {
-//   //     const { id } = inputId;
-//   //     const pegarTransacao = await prisma.transaction.findFirst({
-//   //       where: {
-//   //         id: parseInt(id),
-//   //       },
-//   //     });
-//   //     if (pegarTransacao) {
-//   //       const atualizarTransacao = await prisma.transaction.update({
-//   //         where: {
-//   //           id: parseInt(id),
-//   //         },
-//   //         data: {
-//   //           value: input?.value,
-//   //           paid: input?.paid,
-//   //           comment: input?.comment,
-//   //           formatPayment: input?.formatPayment,
-//   //         },
-//   //       });
-//   //       return atualizarTransacao;
-//   //     }
-//   //   }
-//   //   async deleteTransaction(input: any): Promise<any> {
-//   //     const { id } = input;
-//   //     const deletar = await prisma.transaction.delete({
-//   //       where: {
-//   //         id: parseInt(id),
-//   //       },
-//   //       include: {
-//   //         category: true,
-//   //         contact: true,
-//   //       },
-//   //     });
-//   //     return deletar;
-//   //   }
-// }
+  async createTransaction(email: string,data: CreateTransactionInput): Promise<TransctionDto | null> {
+    const seekAccount = await this.prisma.account.findUnique({
+      where: {
+        email: email,
+      },
+    });
+    if(seekAccount && seekAccount.balance !== null && seekAccount.balance !== undefined){
+      // if(data.value > seekAccount.balance){
+      //   throw new DataBaseError('you couldnt make that transaction')
+      // }
+      if(data.category === 'RECEIVE'){
+        
+          const newBalance = seekAccount.balance + data.value;
+  
+          const updateAccount = await this.prisma.account.update({
+            where:{ id: seekAccount.id},
+            data: {balance: newBalance}
+          })
+  
+          const newTransaction = await this.prisma.transaction.create({
+            data: {
+            ...data,
+              account: {
+                connect: { id: updateAccount?.id },
+              },
+              contacts: {
+                create: data.contacts.map((contact) => ({
+                  name: contact.name,
+                  phone: contact.phone,
+                })),
+              },
+            } ,
+          })
+          const result = {
+            value: newTransaction?.value,
+            formatPayment: newTransaction?.formatPayment,
+            paid:newTransaction?.paid,
+            category: newTransaction.category as unknown as Category,
+          }
+          return new TransctionDto(result);
+      } if(data.category === 'EXPENSE'){
+
+        const newBalance = seekAccount.balance - data.value;
+  
+        const updateAccount = await this.prisma.account.update({
+          where:{ id: seekAccount.id},
+          data: {balance: newBalance}
+        })
+
+        const newTransaction = await this.prisma.transaction.create({
+          data: {
+          ...data,
+            account: {
+              connect: { id: updateAccount?.id },
+            },
+            contacts: {
+              create: data.contacts.map((contact) => ({
+                name: contact.name,
+                phone: contact.phone,
+              })),
+            },
+          } ,
+        })
+        const result = {
+          value: newTransaction?.value,
+          formatPayment: newTransaction?.formatPayment,
+          paid:newTransaction?.paid,
+          category: newTransaction.category as unknown as Category,
+        }
+        return new TransctionDto(result);
+      }
+      
+      
+    }
+    return null;
+    
+  }
+}

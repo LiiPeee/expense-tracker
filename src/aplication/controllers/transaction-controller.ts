@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { TransactionUseCase } from "../../aplication/usecase/transaction-usecase";
+import { BadRequestError, DataBaseError } from "../../data/middlaware/api-error";
+import { TransactionUseCase } from "../../data/usecase/transaction-usecase";
 
 export class TransactionController {
   public transactionUseCase: TransactionUseCase;
@@ -7,16 +8,15 @@ export class TransactionController {
     this.transactionUseCase = transactionUseCase;
   }
   async createTransaction(req: Request, res: Response): Promise<any> {
-    try {
-      let transacao = await this.transactionUseCase?.createTransaction(
-        req.body
+    const { email} = req.body.email;
+    const {  value,formatPayment,paid,contacts} = req.body.transaction 
+    if(!email && !value && !formatPayment && !paid  && !contacts.name && contacts.phone) throw new BadRequestError('you dont send parameters necessary')
+    let transaction = await this.transactionUseCase.createTransaction(
+        req.body.email, req.body.transaction
       );
-      console.log(transacao);
-      res.json(transacao);
-    } catch (err: any) {
-      console.log(err);
-      res.status(500).json({ err });
-    }
+    if(!transaction) throw new DataBaseError('somenthing is wrong in Database')
+    return res.json(transaction).status(201)
+  
   }
   // async getTransactionById(req: Request, res: Response) {
   //   try {

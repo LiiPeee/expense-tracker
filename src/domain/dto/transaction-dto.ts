@@ -1,24 +1,27 @@
-import { IContact } from "../entity/contact";
 
 export interface ITransatcionDto {
-  value: string;
-  formatPayment: string;
-  paid: string;
-  contact: IContact;
-  comment?: string;
+  value?: number;
+  formatPayment?: string;
+  paid?: boolean;
+  comment?: string | null;
+  category: Category;
+}
+export enum Category{
+  RECEIVE , 
+  EXPENSE 
 }
 export class TransctionDto implements ITransatcionDto {
-  value: string;
-  formatPayment: string;
-  paid: string;
-  contact: IContact;
-  comment?: string | undefined;
+  value?: number;
+  formatPayment?: string;
+  paid?: boolean;
+  category: Category;
+  comment?: string | null;
 
   constructor(transaction: ITransatcionDto) {
     this.value = transaction.value;
     this.formatPayment = transaction.formatPayment;
     this.comment = transaction.comment;
-    this.contact = transaction.contact;
     this.paid = transaction.paid;
+    this.category = transaction.category;
   }
 }

@@ -11,7 +11,7 @@ routerAccount.post(
   "/account",
   accountController.createAccount.bind(accountController)
 );
-// routerAccount.get(
-//   "/account/:id",
-//   accountController.findAccountById.bind(accountController)
-// );
+routerAccount.get(
+  "/account/:email",
+  accountController.findAccountByEmail.bind(accountController)
+);

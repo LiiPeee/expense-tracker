@@ -4,6 +4,7 @@ import express, { Express } from "express";
 import "express-async-errors";
 import { errorMiddleware } from "./data/middlaware/error";
 import { routerAccount } from "./presentation/routes/accounts-routes";
+import { routerTransaction } from "./presentation/routes/transaction-routes";
 // import {router} from '../src/routes/Router'
 
 dotenv.config();
@@ -12,7 +13,7 @@ const port = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 
-// app.use("", routerTransaction);
+app.use("", routerTransaction);
 app.use("", routerAccount);
 app.use(errorMiddleware);
 

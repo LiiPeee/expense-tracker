@@ -1,17 +1,18 @@
-// import * as express from "express";
-// import { TransactionUseCase } from "../../aplication/usecase/transaction-usecase";
-// import { TransactionRepository } from "../../domain/repository/transaction-repository";
-// import { TransactionController } from "../controllers/transaction-controller";
+import express from "express";
+import { TransactionController } from "../../aplication/controllers/transaction-controller";
+import { TransactionUseCase } from "../../data/usecase/transaction-usecase";
+import { TransactionRepository } from "../repositorie/transaction-repository";
 
-// export const routerTransaction = express.Router();
 
-// const transacaoRepository = new TransactionRepository();
-// const transacaoService = new TransactionUseCase(transacaoRepository);
-// const transactionController = new TransactionController(transacaoService);
-// routerTransaction.post(
-//   "/transacao",
-//   transactionController.createTransaction.bind(transactionController)
-// );
+export const routerTransaction = express.Router();
+
+const transacaoRepository = new TransactionRepository();
+const transacaoService = new TransactionUseCase(transacaoRepository);
+const transactionController = new TransactionController(transacaoService);
+routerTransaction.post(
+  "/transaction",
+  transactionController.createTransaction.bind(transactionController)
+);
 // routerTransaction.get(
 //   "/transacao/:id",
 //   transactionController.getTransactionById.bind(transactionController)

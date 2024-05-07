@@ -1,9 +1,7 @@
 import bcrypt from "bcrypt";
 import { AccountDto, IAccountDto } from "../../domain/dto/account-dto";
-import {
-  InputCreateAccount,
-  InputFindAccount,
-} from "../../domain/repository/interface/inputs";
+
+import { InputCreateAccount } from "../../domain/inputAndOutput";
 import { AccountRepository } from "../../presentation/repositorie/account-repository";
 
 export class AccountUseCase {
@@ -29,7 +27,7 @@ export class AccountUseCase {
     };
     return new AccountDto(accountData);
   }
-  async findAccountById(input: InputFindAccount): Promise<AccountDto> {
+  async findAccountByEmail(input: string): Promise<AccountDto> {
     const result = await this.accountRespository.findByEmail(input);
     const accountDto = {
       name: result?.name,

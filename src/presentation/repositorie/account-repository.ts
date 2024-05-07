@@ -1,9 +1,6 @@
 import { Account, PrismaClient } from "@prisma/client";
+import { InputCreateAccount } from "../../domain/inputAndOutput";
 import { IAccountRepository } from "../../domain/repository/interface/IAcountRepository";
-import {
-  InputCreateAccount,
-  InputFindAccount,
-} from "../../domain/repository/interface/inputs";
 
 export class AccountRepository implements IAccountRepository {
   private prisma = new PrismaClient();
@@ -12,10 +9,10 @@ export class AccountRepository implements IAccountRepository {
     await this.prisma.account.create({ data });
   }
 
-  async findByEmail(data: InputFindAccount): Promise<Account | null> {
+  async findByEmail(data: string): Promise<Account | null> {
     const account = await this.prisma.account.findUnique({
       where: {
-        email: data.email,
+        email: data,
       },
     });
 
