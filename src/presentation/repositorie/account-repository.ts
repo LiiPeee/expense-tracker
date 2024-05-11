@@ -18,4 +18,14 @@ export class AccountRepository implements IAccountRepository {
 
     return account;
   }
+
+  async updateBalance(email: string, newBalance: number): Promise<Account | null> {
+    
+    const updateAccount = await this.prisma.account.update({
+      where:{ email: email},
+      data: {balance: newBalance}
+    })
+
+    return updateAccount;
+  }
 }
