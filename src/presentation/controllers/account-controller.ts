@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
-import {
-  BadRequestError,
-  DataBaseError,
-} from "../../data/middlaware/api-error";
 import { AccountUseCase } from "../../data/usecase/account-use-case";
+import { BadRequestError, DataBaseError } from "../errors/api-error";
 
 export class AccountController {
   constructor(private readonly accountUsecase: AccountUseCase) {}

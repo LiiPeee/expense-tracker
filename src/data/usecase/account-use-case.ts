@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import { AccountDto, IAccountDto } from "../../domain/dto/account-dto";
 
 import { InputCreateAccount } from "../../domain/inputAndOutput";
-import { AccountRepository } from "../../presentation/repositorie/account-repository";
+import { AccountRepository } from "../../infrastructure/repository/account-repository";
 
 export class AccountUseCase {
   public accountRespository: AccountRepository;
