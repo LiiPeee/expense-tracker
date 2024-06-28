@@ -1,6 +1,6 @@
 import { ITransaction } from "./transaction";
 
-export interface IAccount {
+export type IAccountProps = {
   id: number;
   endDate?: Date | null;
   createDate: Date;
@@ -8,6 +8,5 @@ export interface IAccount {
   email: string;
   balance?: number;
   password: string;
-  token?: string;
   transaction?: ITransaction;
-}
+};

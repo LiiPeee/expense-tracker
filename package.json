@@ -30,9 +30,11 @@
   },
   "dependencies": {
     "@prisma/client": "^5.9.1",
+    "@types/crypto-js": "^4.2.2",
     "@types/node-cron": "^3.0.11",
-    "bcrypt": "^5.1.1",
+    "bcr": "^1.0.0",
     "cors": "^2.8.5",
+    "crypto-ts": "^1.0.2",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",

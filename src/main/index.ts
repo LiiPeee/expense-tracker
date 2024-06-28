@@ -2,9 +2,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { Express } from "express";
 import "express-async-errors";
-import { errorMiddleware } from "./presentation/errors/error";
-import { routerAccount } from "./presentation/routes/accounts-routes";
-import { routerTransaction } from "./presentation/routes/transaction-routes";
+import { errorMiddleware } from "../presentation/errors/error";
+import { routerAccount } from "../presentation/routes/accounts-routes";
+import { routerTransaction } from "../presentation/routes/transaction-routes";
 // import {router} from '../src/routes/Router'
 
 dotenv.config();

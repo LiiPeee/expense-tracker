@@ -1,9 +1,10 @@
 import { InputCreateAccount } from "../inputAndOutput";
+
 export interface CreateAccountOutput {
   name: string;
   balance: number;
 }
 
-export interface IAccountRepository {
-  createAccount(data: InputCreateAccount): Promise<CreateAccountOutput>;
+export abstract class IAccountRepository extends IRespositoryBase {
+  abstract create(data: InputCreateAccount): Promise<CreateAccountOutput>;
 }

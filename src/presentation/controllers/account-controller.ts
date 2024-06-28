@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AccountUseCase } from "../../data/usecase/account-use-case";
+import { AccountUseCase } from "../../data/usecase/account/create-account.usecase";
 import { BadRequestError, DataBaseError } from "../errors/api-error";
 
 export class AccountController {

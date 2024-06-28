@@ -1,1 +1,1 @@
-export class IRespositoryBase {}
+export class RepositoryBase {}
