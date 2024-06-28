@@ -1,12 +1,12 @@
 import { Account, PrismaClient } from "@prisma/client";
 import { InputCreateAccount } from "../../domain/inputAndOutput";
-import { IAccountRepository } from "../../domain/repository/interface/IAcountRepository";
+import { CreateAccountOutput } from "../../domain/repository/IAcountRepository";
 
-export class AccountRepository implements IAccountRepository {
+export class AccountRepository {
   private prisma = new PrismaClient();
 
-  async createAccout(data: InputCreateAccount): Promise<void> {
-    await this.prisma.account.create({ data });
+  async createAccount(data: InputCreateAccount): Promise<CreateAccountOutput> {
+    return await this.prisma.account.create({ data });
   }
 
   async findByEmail(data: string): Promise<Account | null> {
@@ -19,12 +19,11 @@ export class AccountRepository implements IAccountRepository {
     return account;
   }
 
-  async updateBalance(email: string, newBalance: number): Promise<Account | null> {
-    
+  async newBalance(email: string, newBalance: number): Promise<Account | null> {
     const updateAccount = await this.prisma.account.update({
-      where:{ email: email},
-      data: {balance: newBalance}
-    })
+      where: { email: email },
+      data: { balance: newBalance },
+    });
 
     return updateAccount;
   }

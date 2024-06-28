@@ -18,7 +18,6 @@ model Account{
   email String @unique
   balance Float
   password String
-  // token String?  
   transaction Transaction[]
 }
 
@@ -31,6 +30,7 @@ model Transaction{
   paid Boolean @default(false)
   contacts Contact[]
   comment String?
+  recurrence Boolean
   category Category @default(EXPENSE)
   account Account @relation(fields: [accountId], references: [id])
   accountId Int

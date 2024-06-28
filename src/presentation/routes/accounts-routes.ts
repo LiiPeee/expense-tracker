@@ -1,7 +1,7 @@
 import * as express from "express";
-import { AccountController } from "../../aplication/controllers/account-controller";
-import { AccountUseCase } from "../../data/usecase/account-use-case";
-import { AccountRepository } from "../repositorie/account-repository";
+import { AccountUseCase } from "../../data/usecase/account/create-account.usecase";
+import { AccountRepository } from "../../infrastructure/repository/account-repository";
+import { AccountController } from "../controllers/account-controller";
 export const routerAccount = express.Router();
 const accountRespository = new AccountRepository();
 const accountUsecase = new AccountUseCase(accountRespository);
