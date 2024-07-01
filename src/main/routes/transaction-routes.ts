@@ -2,7 +2,7 @@ import express from "express";
 import { TransactionUseCase } from "../../data/usecase/create-transaction.usecase";
 import { AccountRepository } from "../../infrastructure/repository/account-repository";
 import { TransactionRepository } from "../../infrastructure/repository/transaction-repository";
-import { TransactionController } from "../controllers/transaction-controller";
+import { TransactionController } from "../../presentation/controllers/transaction-controller";
 
 export const routerTransaction = express.Router();
 
