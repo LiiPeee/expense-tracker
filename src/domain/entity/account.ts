@@ -1,12 +1,21 @@
 import { ITransaction } from "./transaction";
 
 export type IAccountProps = {
-  id: number;
-  endDate?: Date | null;
-  createDate: Date;
+  endDate?: Date;
+  createDate?: Date;
   name: string;
   email: string;
   balance?: number;
   password: string;
-  transaction?: ITransaction;
+  transaction: ITransaction;
 };
+
+export class Account {
+  constructor(props: IAccountProps) {
+    Object.assign(this, props);
+  }
+
+  public static create(props: IAccountProps) {
+    return this;
+  }
+}
