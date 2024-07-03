@@ -5,8 +5,6 @@ import { setupApp } from "./config/app";
 dotenv.config();
 
 const startServer = async (): Promise<void> => {
-
-
   const app: Express = await setupApp();
 
   const port = process.env.PORT || 3000;
