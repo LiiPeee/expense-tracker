@@ -1,22 +1,19 @@
-// import cors from "cors";
-// import dotenv from "dotenv";
-// import express, { Express } from "express";
-// import "express-async-errors";
-// import { errorMiddleware } from "../presentation/errors/error";
-// import { routerAccount } from "../presentation/routes/accounts-routes";
-// import { routerTransaction } from "../presentation/routes/transaction-routes";
-// // import {router} from '../src/routes/Router'
+import dotenv from "dotenv";
+import { Express } from "express";
+import { setupApp } from "./config/app";
 
-// dotenv.config();
-// const app: Express = express();
-// const port = process.env.PORT;
-// app.use(cors());
-// app.use(express.json());
+dotenv.config();
 
-// app.use("", routerTransaction);
-// app.use("", routerAccount);
-// app.use(errorMiddleware);
+const startServer = async (): Promise<void> => {
+  const app: Express = await setupApp();
 
-// app.listen(port, () => {
-//   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-// });
+  const port = process.env.PORT || 3000;
+
+  app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+  });
+};
+
+startServer().catch((error) => {
+  console.error("Failed to start server:", error);
+});

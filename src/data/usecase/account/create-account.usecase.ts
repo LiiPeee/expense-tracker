@@ -2,27 +2,30 @@ import { AccountDto, IAccountDto } from "../../../domain/dto/account-dto";
 import { Encrypter } from "../../../domain/dto/encrypter";
 
 import { InputCreateAccount } from "../../../domain/inputAndOutput";
+import { IAccountRepository } from "../../../domain/repository/IAcountRepository";
 import { UseCase } from "../../../domain/use-case/usecase";
-import { AccountRepository } from "../../../infrastructure/repository/account-repository";
+import { DataBaseError } from "../../../presentation/errors/api-error";
 
-export class AccountUseCase
+export class CreateAccountUseCase
   implements UseCase<InputCreateAccount, IAccountDto>
 {
   constructor(
-    private readonly _accountRespository: AccountRepository,
-    private readonly encrypter: Encrypter
+    private readonly _accountRespository: IAccountRepository,
+    private readonly _encrypter: Encrypter
   ) {}
   async execute(input: InputCreateAccount): Promise<IAccountDto> {
     const { name, email, password, balance } = input;
 
-    const hashPassword = this.encrypter.encrypt(password);
+    const hashPassword = this._encrypter.encrypt(password);
 
-    await this._accountRespository.createAccount({
+    const account = await this._accountRespository.create({
       name,
       email,
       password: hashPassword,
       balance,
     });
+    if (!account) throw new DataBaseError("Something is wrong in DB");
+
     const accountData: IAccountDto = {
       name,
       email,
