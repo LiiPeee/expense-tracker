@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon src/main/index.ts",
     "start": "nodemon src/index.ts"
   },
   "keywords": [],

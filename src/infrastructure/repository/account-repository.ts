@@ -1,10 +1,16 @@
 import { PrismaClient } from "@prisma/client";
 import { Account } from "../../domain/entity/account";
 import { InputCreateAccount } from "../../domain/inputAndOutput";
-import { CreateAccountOutput } from "../../domain/repository/IAcountRepository";
-import { IRepositoryBase } from "../../domain/repository/IRepositoryBase";
-export class AccountRepository implements IRepositoryBase<Account> {
+import {
+  CreateAccountOutput,
+  IAccountRepository,
+} from "../../domain/repository/IAcountRepository";
+export class AccountRepository implements IAccountRepository {
   constructor(private readonly prisma: PrismaClient) {}
+
+  public static createClient(prismaClient: PrismaClient) {
+    return new AccountRepository(prismaClient);
+  }
   async create(data: InputCreateAccount): Promise<CreateAccountOutput> {
     return await this.prisma.account.create({ data });
   }
