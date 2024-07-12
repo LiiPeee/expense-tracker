@@ -7,12 +7,17 @@ export interface CreateAccountOutput {
   balance: number;
 }
 
+export interface GetAccount {
+  email: string;
+}
+
 export abstract class IAccountRepository implements IRepositoryBase<Account> {
-  get(input: string): Promise<any> {
-    throw new Error("Method not implemented.");
-  }
-  getMany(input: any): Promise<any> {
-    throw new Error("Method not implemented.");
-  }
+  abstract update(email: string, data: any): Promise<any>;
+  abstract getUnique(email: string): Promise<any>;
+
+  abstract get(input: string): Promise<any>;
+
+  abstract getMany(input: any): Promise<any>;
+
   abstract create(data: InputCreateAccount): Promise<CreateAccountOutput>;
 }

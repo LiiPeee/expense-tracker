@@ -7,9 +7,14 @@ export type InputCreateAccount = {
   password: string;
   balance: number;
 };
+
+export type InputSignAccount = {
+  email: string;
+  password: string;
+};
 export interface CreateTransactionInput {
   value: number;
-  category: Category
+  category: Category;
   formatPayment: string;
   paid: boolean;
   comment?: string | null;
