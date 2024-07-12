@@ -26,7 +26,11 @@ export class AccountRepository implements IAccountRepository {
 
   }
 
+<<<<<<< HEAD
   async get(email: string): Promise<any> {
+=======
+  async getUnique(email: string): Promise<any> {
+>>>>>>> 6834eb4 (feat: i did some refactor and i put cron job in the code and start cron-job in transaction)
     const account = await this.prisma.account.findFirst({
       where: {
         email,
@@ -41,7 +45,11 @@ export class AccountRepository implements IAccountRepository {
         email: email,
       },
       data: {
+<<<<<<< HEAD
         ...data,
+=======
+        token: data,
+>>>>>>> 6834eb4 (feat: i did some refactor and i put cron job in the code and start cron-job in transaction)
       },
     });
 

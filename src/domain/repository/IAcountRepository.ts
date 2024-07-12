@@ -9,6 +9,10 @@ export interface GetAccount {
   email: string;
 }
 
+export interface GetAccount {
+  email: string;
+}
+
 export abstract class IAccountRepository implements IRepositoryBase<Account> {
   abstract update(email: string, data: any): Promise<any>;
   abstract getUnique(email: string): Promise<Account | null>;
