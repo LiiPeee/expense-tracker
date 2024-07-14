@@ -10,40 +10,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Account{
-  id Int @id @default(autoincrement())
-  endDate DateTime?  
-  createDate DateTime @default(now())
-  name String
-  email String @unique
-  balance Float
-  token String?
-  password String
+model Account {
+  id          Int           @id @default(autoincrement())
+  endDate     DateTime?
+  createDate  DateTime      @default(now())
+  name        String
+  email       String        @unique
+  balance     Float
+  token       String?
+  password    String
   transaction Transaction[]
 }
 
-model Transaction{
-  id Int @id @default(autoincrement())
-  createDate DateTime @default(now())
-  endDate DateTime? 
-  value Float
-  formatPayment String
-  paid Boolean @default(false)
-  contacts Contact[]
-  comment String?
-  recurrence Boolean
-  category Category @default(EXPENSE)
-  account Account @relation(fields: [accountId], references: [id])
-  accountId Int
+model Transaction {
+  id                     Int       @id @default(autoincrement())
+  createDate             DateTime  @default(now())
+  endDate                DateTime?
+  value                  Float
+  formatPayment          String
+  paid                   Boolean   @default(false)
+  contacts               Contact[]
+  comment                String?
+  recurrence             Boolean
+  installments_date      DateTime?
+  number_of_installments Int?
+  category               Category  @default(EXPENSE)
+  account                Account   @relation(fields: [accountId], references: [id])
+  accountId              Int
 }
-model Contact{
-  id Int @id @default(autoincrement())
-  creatDate DateTime @default(now())
-  endDate DateTime?
-  transaction Transaction[] 
-  name String
-  phone String
+
+model Contact {
+  id          Int           @id @default(autoincrement())
+  creatDate   DateTime      @default(now())
+  endDate     DateTime?
+  transaction Transaction[]
+  name        String
+  phone       String
 }
+
 enum Category {
   RECEIVE
   EXPENSE
