@@ -1,27 +1,27 @@
-import { Request, Response } from "express";
-import { CreateTransactionUseCase } from "../../data/usecase/create-transaction.usecase";
+import { Request } from "express";
+import { ICreateTransactionUseCase } from "../../domain/use-case/create-transaction.usecase";
 import { BadRequestError, DataBaseError } from "../errors/api-error";
+import { created, serverError } from "../helper/helper";
+import { Controller } from "../protocols/controller";
+import { HttpResponse } from "../protocols/http";
 
-export class TransactionController {
-  constructor(private readonly transactionUseCase: CreateTransactionUseCase) {}
-  async createTransaction(req: Request, res: Response): Promise<any> {
-    const { email } = req.body.email;
-    const { value, formatPayment, paid, contacts } = req.body.transaction;
-    if (
-      !email &&
-      !value &&
-      !formatPayment &&
-      !paid &&
-      !contacts.name &&
-      contacts.phone
-    )
-      throw new BadRequestError("you dont send parameters necessary");
-    let transaction = await this.transactionUseCase.createTransaction(
-      req.body.email,
-      req.body.transaction
-    );
-    if (!transaction)
-      throw new DataBaseError("somenthing is wrong in Database");
-    return res.json(transaction).status(201);
+export class TransactionController implements Controller {
+  constructor(private readonly transactionUseCase: ICreateTransactionUseCase) { }
+  async handle(req: Request): Promise<HttpResponse> {
+    try {
+      const { email } = req.body;
+      const { value, formatPayment, paid, contacts } = req.body.transaction;
+
+      if (!email && !value && !formatPayment && !paid && !contacts.name && contacts.phone) throw new BadRequestError("you dont send parameters necessary");
+
+      const transaction = await this.transactionUseCase.execute(
+        req.body.email,
+        req.body.transaction
+      );
+      if (!transaction) throw new DataBaseError("somenthing is wrong in Database");
+      return created(transaction);
+    } catch (error: any) {
+      return serverError(error);
+    }
   }
 }

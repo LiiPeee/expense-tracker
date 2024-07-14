@@ -12,7 +12,11 @@ export type InputSignAccount = {
   email: string;
   password: string;
 };
+
 export interface CreateTransactionInput {
+  recurrence: boolean;
+  number_of_installments?: number;
+  installments_date?: Date;
   value: number;
   category: Category;
   formatPayment: string;

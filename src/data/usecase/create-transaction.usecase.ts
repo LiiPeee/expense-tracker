@@ -1,57 +1,47 @@
 import { TransctionDto } from "../../domain/dto/transaction-dto";
 import { CreateTransactionInput } from "../../domain/inputAndOutput";
+import { IAccountRepository } from "../../domain/repository/IAcountRepository";
+import { ITransactionRepository } from "../../domain/repository/ITransactionRepository";
 import { ICreateTransactionUseCase } from "../../domain/use-case/create-transaction.usecase";
-import { AccountRepository } from "../../infrastructure/repository/account-repository";
-import { TransactionRepository } from "../../infrastructure/repository/transaction-repository";
 import {
-  BadRequestError,
-  NotFoundError,
+  NotFoundError
 } from "../../presentation/errors/api-error";
 
-import * as schedule from "node-schedule";
 
 export class CreateTransactionUseCase implements ICreateTransactionUseCase {
   constructor(
-    private readonly transactionRepository: TransactionRepository,
-    private readonly accountRepository: AccountRepository
-  ) {}
-  async create(
-    email: string,
-    input: CreateTransactionInput
-  ): Promise<TransctionDto> {
-    const findAccount = await this.accountRepository.getUnique(email);
-    var rule = new schedule.RecurrenceRule();
+    private readonly transactionRepository: ITransactionRepository,
+    private readonly accountRepository: IAccountRepository
+  ) { }
 
-    if (!findAccount) throw new NotFoundError("cannt find your account");
+  async execute(email: string, input: CreateTransactionInput): Promise<TransctionDto> {
 
-    if (input.category === "RECEIVE") {
-      rule.minute = 1;
-      if (input.paid === true) {
-        const balance: number = findAccount.balance + input.value;
-        await this.accountRepository.newBalance(findAccount.email, balance);
-      }
-    }
+    const account = await this.accountRepository.getUnique(email);
 
-    // crio um recorrencia
-    else if (input.category === "EXPENSE") {
-      if (findAccount.balance < input.value)
-        throw new BadRequestError(
-          "you cannt make this transaction because value is bigger than balance"
-        );
+    if (!account) throw new NotFoundError("cannt find your account");
 
-      if (input.paid === true) {
-        const balance: number = findAccount.balance - input.value;
-        balance.toFixed(2);
-        await this.accountRepository.newBalance(findAccount.email, balance);
-      }
-    }
+    if (input.recurrence) return await this.createInstallments(account.email, input);
 
-    const createTransaction =
-      await this.transactionRepository.createTransaction(
-        findAccount.email,
+    return await this.transactionRepository.create(
+      account.email,
+      input
+    );
+  }
+  private async createInstallments(email: string, input: CreateTransactionInput): Promise<any> {
+    let date = new Date();
+
+    if (!input.number_of_installments) return;
+
+    for (let index = 1; index <= input.number_of_installments; index++) {
+      let j = 1
+      const newDate = new Date(date.setMonth(date.getMonth() + j))
+      input.installments_date = newDate;
+      const transaction = await this.transactionRepository.create(
+        email,
         input
       );
+      if (input.number_of_installments === index) return transaction
 
-    return createTransaction;
+    }
   }
 }
