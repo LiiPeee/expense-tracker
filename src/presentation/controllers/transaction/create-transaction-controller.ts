@@ -1,11 +1,12 @@
 import { Request } from "express";
-import { ICreateTransactionUseCase } from "../../domain/use-case/create-transaction.usecase";
-import { BadRequestError, DataBaseError } from "../errors/api-error";
-import { created, serverError } from "../helper/helper";
-import { Controller } from "../protocols/controller";
-import { HttpResponse } from "../protocols/http";
+import { ICreateTransactionUseCase } from "../../../domain/controller/create-transaction.usecase";
+import { BadRequestError, DataBaseError } from "../../errors/api-error";
+import { created, serverError } from "../../helper/helper";
+import { Controller } from "../../protocols/controller";
+import { HttpResponse } from "../../protocols/http";
 
-export class TransactionController implements Controller {
+
+export class CreateTransactionController implements Controller {
   constructor(private readonly transactionUseCase: ICreateTransactionUseCase) { }
   async handle(req: Request): Promise<HttpResponse> {
     try {
@@ -15,7 +16,6 @@ export class TransactionController implements Controller {
       if (!email && !value && !formatPayment && !paid && !contacts.name && contacts.phone) throw new BadRequestError("you dont send parameters necessary");
 
       const transaction = await this.transactionUseCase.execute(
-        req.body.email,
         req.body.transaction
       );
       if (!transaction) throw new DataBaseError("somenthing is wrong in Database");

@@ -3,7 +3,7 @@ import { CreateTransactionInput } from "../inputAndOutput";
 
 export abstract class ICreateTransactionUseCase {
   abstract execute(
-    email: string,
+
     input: CreateTransactionInput
   ): Promise<TransctionDto>;
 }

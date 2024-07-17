@@ -14,6 +14,7 @@ export type InputSignAccount = {
 };
 
 export interface CreateTransactionInput {
+  email: string,
   recurrence: boolean;
   number_of_installments?: number;
   installments_date?: Date;
@@ -23,4 +24,11 @@ export interface CreateTransactionInput {
   paid: boolean;
   comment?: string | null;
   contacts: IContact[];
+}
+
+
+export interface GetTransactionInput {
+  id: number;
+  year: number;
+  month: number;
 }
