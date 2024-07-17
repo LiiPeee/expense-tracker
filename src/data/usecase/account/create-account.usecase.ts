@@ -1,5 +1,6 @@
 import { Encrypter } from "../../../domain/dto/encrypter";
 import { Jwt } from "../../../domain/dto/jwt";
+import { AccountDto, IAccountDto } from "../../../domain/models/dto/create-account-dto";
 
 import { InputCreateAccount } from "../../../domain/inputAndOutput";
 import { Account } from "../../../domain/models/account";

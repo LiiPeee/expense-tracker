@@ -1,4 +1,4 @@
-import { Account } from "../entity/account";
+import { Account } from "../models/account";
 import { IRepositoryBase } from "./IRepositoryBase";
 
 export interface CreateAccountOutput {
