@@ -1,5 +1,5 @@
-import { Category } from "../dto/transaction-dto";
 import { CreateTransactionInput } from "../inputAndOutput";
+import { Category } from "../models/dto/create-transaction-dto";
 
 export interface CreateTransaction {
     value?: number;

@@ -1,5 +1,5 @@
-import { TransctionDto } from "../../../domain/dto/transaction-dto";
 import { CreateTransactionInput } from "../../../domain/inputAndOutput";
+import { TransctionDto } from "../../../domain/models/dto/create-transaction-dto";
 import { IAccountRepository } from "../../../domain/repository/IAcountRepository";
 import { ITransactionRepository } from "../../../domain/repository/ITransactionRepository";
 import { UseCase } from "../../../domain/use-case/usecase";

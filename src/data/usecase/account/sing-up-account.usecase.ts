@@ -1,7 +1,7 @@
-import { IAccountDto } from "../../../domain/dto/account-dto";
 import { IBcrypter } from "../../../domain/dto/bcrypter";
 import { Jwt } from "../../../domain/dto/jwt";
 import { InputSignAccount } from "../../../domain/inputAndOutput";
+import { IAccountDto } from "../../../domain/models/dto/create-account-dto";
 import { IAccountRepository } from "../../../domain/repository/IAcountRepository";
 import { UseCase } from "../../../domain/use-case/usecase";
 

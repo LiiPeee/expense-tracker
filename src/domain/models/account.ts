@@ -1,4 +1,4 @@
-import { ITransaction } from "./transaction";
+import { ITransaction } from "../entity/transaction";
 
 export type IAccountProps = {
   endDate?: Date;
@@ -15,7 +15,4 @@ export class Account {
     Object.assign(this, props);
   }
 
-  public static create(props: IAccountProps) {
-    return this;
-  }
 }

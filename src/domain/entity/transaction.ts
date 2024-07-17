@@ -1,4 +1,4 @@
-import { IAccount } from "./account";
+import { Account } from "../models/account";
 import { IContact } from "./contact";
 
 export interface ITransaction {
@@ -11,7 +11,7 @@ export interface ITransaction {
   contact: IContact[];
   comment?: string;
   email: string;
-  account: IAccount;
+  account: Account;
   typeTransaction: string;
   recurrence: string;
 }
