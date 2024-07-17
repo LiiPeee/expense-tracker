@@ -10,7 +10,6 @@ export class CreateTransactionController implements Controller {
   constructor(private readonly transactionUseCase: ICreateTransactionUseCase) { }
   async handle(req: Request): Promise<HttpResponse> {
     try {
-
       const { email } = req.body;
       const { value, formatPayment, paid, contacts } = req.body.transaction;
 

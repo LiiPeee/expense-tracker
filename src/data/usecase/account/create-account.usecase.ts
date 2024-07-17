@@ -1,8 +1,9 @@
 import { Encrypter } from "../../../domain/dto/encrypter";
-import { AccountDto, IAccountDto } from "../../../domain/models/dto/account-dto";
+import { Jwt } from "../../../domain/dto/jwt";
 
 import { InputCreateAccount } from "../../../domain/inputAndOutput";
 import { Account } from "../../../domain/models/account";
+import { IAccountDto } from "../../../domain/models/dto/account-dto";
 import { IAccountRepository } from "../../../domain/repository/IAcountRepository";
 import { UseCase } from "../../../domain/use-case/usecase";
 import { validateEmail } from "../../helper/email-validator";
@@ -11,6 +12,7 @@ export class CreateAccountUseCase implements UseCase<InputCreateAccount, IAccoun
   constructor(
     private readonly _accountRespository: IAccountRepository,
     private readonly _encrypter: Encrypter,
+    private readonly _jwt: Jwt
 
   ) { }
   async execute(input: InputCreateAccount): Promise<IAccountDto> {
@@ -22,6 +24,12 @@ export class CreateAccountUseCase implements UseCase<InputCreateAccount, IAccoun
     const account = new Account({ email: input.email, name: input.name, password: hashPassword, balance: 0 });
 
     await this._accountRespository.create(account);
+
+    const getAccount = await this._accountRespository.getUnique(input.email)
+
+    const token = this._jwt.sign(getAccount.id, process.env.JWT_SECRET);
+
+    await this._accountRespository.update(email, token)
 
     const accountData: IAccountDto = {
       name: input.name,
