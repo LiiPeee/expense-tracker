@@ -13,7 +13,7 @@ export interface CreateTransaction {
 
 export abstract class ITransactionRepository {
     abstract update(email: string, data: any): Promise<any>;
-    abstract getUnique(email: string): Promise<any>;
+    abstract getByMonth(id: number, month: number, year: number): Promise<any>;
 
     abstract get(input: string): Promise<any>;
 

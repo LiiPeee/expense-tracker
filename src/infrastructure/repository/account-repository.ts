@@ -6,7 +6,7 @@ import {
   IAccountRepository,
 } from "../../domain/repository/IAcountRepository";
 export class AccountRepository implements IAccountRepository {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaClient) { }
 
   public static createClient(prismaClient: PrismaClient) {
     return new AccountRepository(prismaClient);
@@ -41,7 +41,7 @@ export class AccountRepository implements IAccountRepository {
         email: email,
       },
       data: {
-        token: data,
+        ...data,
       },
     });
 

@@ -1,22 +1,21 @@
-import { TransctionDto } from "../../domain/dto/transaction-dto";
-import { CreateTransactionInput } from "../../domain/inputAndOutput";
-import { IAccountRepository } from "../../domain/repository/IAcountRepository";
-import { ITransactionRepository } from "../../domain/repository/ITransactionRepository";
-import { ICreateTransactionUseCase } from "../../domain/use-case/create-transaction.usecase";
-import {
-  NotFoundError
-} from "../../presentation/errors/api-error";
+import { TransctionDto } from "../../../domain/dto/transaction-dto";
+import { CreateTransactionInput } from "../../../domain/inputAndOutput";
+import { IAccountRepository } from "../../../domain/repository/IAcountRepository";
+import { ITransactionRepository } from "../../../domain/repository/ITransactionRepository";
+import { UseCase } from "../../../domain/use-case/usecase";
+import { NotFoundError } from "../../../presentation/errors/api-error";
 
 
-export class CreateTransactionUseCase implements ICreateTransactionUseCase {
+
+export class CreateTransactionUseCase implements UseCase<CreateTransactionInput, TransctionDto> {
   constructor(
     private readonly transactionRepository: ITransactionRepository,
     private readonly accountRepository: IAccountRepository
   ) { }
 
-  async execute(email: string, input: CreateTransactionInput): Promise<TransctionDto> {
+  async execute(input: CreateTransactionInput): Promise<TransctionDto> {
 
-    const account = await this.accountRepository.getUnique(email);
+    const account = await this.accountRepository.getUnique(input.email);
 
     if (!account) throw new NotFoundError("cannt find your account");
 
