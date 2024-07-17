@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
-import { Category, TransctionDto } from "../../domain/dto/transaction-dto";
 import { CreateTransactionInput } from "../../domain/inputAndOutput";
+import { Category, TransctionDto } from "../../domain/models/dto/create-transaction-dto";
+import { GetTransactionDto } from "../../domain/models/dto/get-transaction-dto";
 import { ITransactionRepository } from "../../domain/repository/ITransactionRepository";
 
 export class TransactionRepository implements ITransactionRepository {
@@ -48,7 +49,7 @@ export class TransactionRepository implements ITransactionRepository {
     return new TransctionDto(transactionDto);
   }
 
-  async getByMonth(id: number, month: number, year: number): Promise<any> {
+  async getByMonth(id: number, month: number, year: number): Promise<GetTransactionDto[] | null> {
     const start = new Date(year, month - 1, 1)
     const end = new Date(year, month, 0, 23, 59, 59, 999)
     const transaction = await this.prisma.transaction.findMany({
@@ -58,9 +59,23 @@ export class TransactionRepository implements ITransactionRepository {
           gte: start,
           lt: end
         }
-
       }
     })
-    return transaction;
+
+
+    const response = transaction.map((res) => {
+      return new GetTransactionDto({
+        createDate: res.createDate.toLocaleDateString("pt-BR"),
+        value: res.value,
+        formatPayment: res.formatPayment,
+        paid: res.paid,
+        comment: res.comment ? res.comment : null,
+        recurrence: res.recurrence,
+        installments_date: res.installments_date?.toLocaleDateString("pt-BR"),
+        number_of_installments: res.number_of_installments as any,
+        category: res.category as any as Category,
+      })
+    })
+    return response;
   }
 }

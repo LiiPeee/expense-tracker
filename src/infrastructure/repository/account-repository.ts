@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { Account } from "../../domain/entity/account";
 import { InputCreateAccount } from "../../domain/inputAndOutput";
+import { Account } from "../../domain/models/account";
 import {
   CreateAccountOutput,
   IAccountRepository,
