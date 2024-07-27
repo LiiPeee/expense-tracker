@@ -1,32 +1,25 @@
-# Project api Finance
+# Project Expense tracker
 
 ```
-Sistema financeiro de controle de contas a pagar e gastos diarios
+This system if to expense tracker, i'm creation this aplication for tracker my expense and help other people to control your money.
 ```
 
-## Tecnologias
+## Tecnology
 
 ```
-Typescript, Express, axios, nodemon, Mysql, Prisma
+Typescript - Express - axios - nodemon - PostgresSQL - Prisma
+Clean Arctheture - Solid
 ```
 
 ## Run
 
 ```
-npx jest
-
 npm run dev
 ```
 OR
-```
-yarn dev
 ```
 
 ## Build
 ```
 npm run build
-```
-or
-```
-yarn build
 ```
