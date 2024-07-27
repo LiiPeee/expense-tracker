@@ -7,26 +7,19 @@ System about expense tracker to show for you where you spend your money, in addi
 ## Technology 
 
 ```
-Typescript, Express, axios, nodemon, Mysql, Prisma
+Typescript - Express - axios - nodemon - PostgresSQL - Prisma
+Clean Arctheture - Solid
 ```
 
 ## Run
 
 ```
-npx jest
-
 npm run dev
 ```
 OR
-```
-yarn dev
 ```
 
 ## Build
 ```
 npm run build
-```
-or
-```
-yarn build
 ```
