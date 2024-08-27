@@ -1,67 +1,36 @@
 import { Encrypter } from "../../../domain/dto/encrypter";
-import { Jwt } from "../../../domain/dto/jwt";
-import { AccountDto, IAccountDto } from "../../../domain/models/dto/create-account-dto";
+import { AccountDto, IAccountDto } from "../../../domain/models/dto/account-dto";
 
 import { InputCreateAccount } from "../../../domain/inputAndOutput";
+import { Account } from "../../../domain/models/account";
 import { IAccountRepository } from "../../../domain/repository/IAcountRepository";
 import { UseCase } from "../../../domain/use-case/usecase";
-import { DataBaseError } from "../../../presentation/errors/api-error";
+import { validateEmail } from "../../helper/email-validator";
 
 export class CreateAccountUseCase implements UseCase<InputCreateAccount, IAccountDto> {
   constructor(
     private readonly _accountRespository: IAccountRepository,
     private readonly _encrypter: Encrypter,
-    private readonly _jwt: Jwt
 
   ) { }
   async execute(input: InputCreateAccount): Promise<IAccountDto> {
-    const { name, email, password, balance } = input;
 
-    const hashPassword = this._encrypter.encrypt(password);
+    const accountVerify = await this._accountRespository.getUnique(input.email);
 
-    const account = await this._accountRespository.create({
-      name,
-      email,
-      password: hashPassword,
-      balance,
-    });
-    if (!account) throw new DataBaseError("Something is wrong in DB");
+    await validateEmail(accountVerify.email)
 
-    const getAccount = await this._accountRespository.getUnique(input.email)
+    const hashPassword = this._encrypter.encrypt(input.password);
 
-    const token = this._jwt.sign(getAccount.id, process.env.JWT_SECRET);
+    const account = new Account({ email: input.email, name: input.name, password: hashPassword, balance: 0 });
 
-    await this._accountRespository.update(email, token)
+    await this._accountRespository.create(account);
 
     const accountData: IAccountDto = {
-      name,
-      email,
-      balance,
+      name: input.name,
+      email: input.email,
     };
     return new AccountDto(accountData);
   }
 
-  // async findAccountByEmail(input: string): Promise<AccountDto> {
-  //   const result = await this._accountRespository.findByEmail(input);
-  //   const accountDto = {
-  //     name: result?.name,
-  //     email: result?.email,
-  //     balance: result?.balance,
-  //   };
-  //   return new AccountDto(accountDto);
-  // }
 
-  //   async login(data: any): Promise<IAccount | any> {
-  //     const { name, password } = data;
-
-  //     const getUser = await this.accountRespository.findById({ name, password });
-
-  //     const verifyPass = bcrypt.compare(password, getUser.password);
-  //     if (!verifyPass) {
-  //       throw new Error("Invalid password");
-  //     }
-  //     await jwt.sign({ id: getUser.id, name: getUser.name }, "seilatest");
-
-  //     return getUser;
-  //   }
 }

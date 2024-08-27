@@ -1,4 +1,4 @@
-import { SingUpAccountUseCase } from "../../../data/usecase/account/sing-up-account.usecase";
+import { SingUpAccountUseCase } from "../../../data/usecase/account/login-account.usecase";
 import { Bcrypter } from "../../../data/utils/bcrypter.adapter";
 import { JwtAdapter } from "../../../data/utils/jwt.adapter";
 import { AccountRepository } from "../../../infrastructure/repository/account-repository";
