@@ -62,7 +62,6 @@ export class TransactionRepository implements ITransactionRepository {
       }
     })
 
-
     const response = transaction.map((res) => {
       return new GetTransactionDto({
         createDate: res.createDate.toLocaleDateString("pt-BR"),

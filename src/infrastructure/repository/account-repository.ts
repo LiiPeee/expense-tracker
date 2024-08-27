@@ -2,9 +2,9 @@ import { PrismaClient } from "@prisma/client";
 import { InputCreateAccount } from "../../domain/inputAndOutput";
 import { Account } from "../../domain/models/account";
 import {
-  CreateAccountOutput,
-  IAccountRepository,
+  IAccountRepository
 } from "../../domain/repository/IAcountRepository";
+import { DataBaseError } from "../../presentation/errors/api-error";
 export class AccountRepository implements IAccountRepository {
   constructor(private readonly prisma: PrismaClient) { }
 
@@ -12,21 +12,25 @@ export class AccountRepository implements IAccountRepository {
     return new AccountRepository(prismaClient);
   }
 
-  async create(data: InputCreateAccount): Promise<CreateAccountOutput> {
-    return await this.prisma.account.create({ data });
+  async create(data: InputCreateAccount): Promise<Account> {
+    const account = await this.prisma.account.create({ data });
+    if (!account) throw new DataBaseError("Somenthing wrong in create in DB");
+    return account;
   }
 
-  async get(input: string): Promise<Account | null> {
+  async getUnique(input: string): Promise<Account> {
     const account = await this.prisma.account.findUnique({
       where: {
         email: input,
       },
     });
 
+    if (!account) throw new DataBaseError("Something is wrong in DB");
+
     return account;
   }
 
-  async getUnique(email: string): Promise<any> {
+  async get(email: string): Promise<any> {
     const account = await this.prisma.account.findFirst({
       where: {
         email,
