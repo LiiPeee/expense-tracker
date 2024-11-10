@@ -14,16 +14,18 @@ export type InputSignAccount = {
 };
 
 export interface CreateTransactionInput {
-  email: string,
-  recurrence: boolean;
-  number_of_installments?: number;
-  installments_date?: Date;
-  value: number;
-  category: Category;
-  formatPayment: string;
-  paid: boolean;
-  comment?: string | null;
-  contacts: IContact[];
+  email: string;
+  transaction: {
+    installments_date?: Date;
+    recurrence?: Recurrence;
+    number_of_installments?: number;
+    value: number;
+    category: Category;
+    formatPayment: string;
+    paid: boolean;
+    comment?: string | null;
+    contacts: IContact[];
+  }
 }
 
 
@@ -31,4 +33,8 @@ export interface GetTransactionInput {
   id: number;
   year: number;
   month: number;
+}
+export enum Recurrence {
+  WEEK = "WEEK",
+  MONTH = "MONTH",
 }

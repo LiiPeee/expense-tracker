@@ -31,10 +31,10 @@ model Transaction {
   paid                   Boolean   @default(false)
   contacts               Contact[]
   comment                String?
-  recurrence             Boolean
-  installments_date      DateTime?
+  recurrence             Recurrence? @default(MONTH)
   number_of_installments Int?
   category               Category  @default(EXPENSE)
+  installments_date      DateTime?
   account                Account   @relation(fields: [accountId], references: [id])
   accountId              Int
 }
@@ -46,9 +46,15 @@ model Contact {
   transaction Transaction[]
   name        String
   phone       String
+  email       String?
 }
 
 enum Category {
   RECEIVE
   EXPENSE
+}
+
+enum Recurrence {
+  WEEK
+  MONTH
 }

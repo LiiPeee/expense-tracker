@@ -12,7 +12,7 @@ export const makeSignUpController = async (): Promise<Controller> => {
   const bcrypter = new Bcrypter();
   const jwt = new JwtAdapter();
   const repo = AccountRepository.createClient(prisma);
-  const usecase = new SingUpAccountUseCase(repo, bcrypter, jwt);
+  const usecase = new SingUpAccountUseCase(repo, bcrypter);
   const controller = new SignUpAccounController(usecase);
   return controller;
 };
