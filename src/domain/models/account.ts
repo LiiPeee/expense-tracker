@@ -1,7 +1,7 @@
 import { ITransaction } from "../entity/transaction";
 
 export type IAccountProps = {
-  id: number;
+  // id: string;
   endDate?: Date | null;
   createDate?: Date;
   name: string;
@@ -13,7 +13,7 @@ export type IAccountProps = {
 };
 
 export class Account {
-  id: number;
+  // id: string;
   endDate?: Date | null;
   createDate?: Date;
   name: string;
@@ -26,7 +26,7 @@ export class Account {
 
 
   constructor(props: Account) {
-    this.id = props.id;
+    // this.id = props.id;
     this.endDate = props.endDate;
     this.createDate = props.createDate;
     this.name = props.name;

@@ -1,3 +1,4 @@
+import { Recurrence } from "../../inputAndOutput";
 import { Category } from "./create-transaction-dto";
 
 export interface IGetTransactionDto {
@@ -6,8 +7,7 @@ export interface IGetTransactionDto {
     formatPayment: string;
     paid: boolean;
     comment: string | null;
-    recurrence: boolean;
-    installments_date?: string | null;
+    recurrence: Recurrence;
     number_of_installments: number;
     category: Category
 
@@ -20,8 +20,7 @@ export class GetTransactionDto implements IGetTransactionDto {
     formatPayment: string;
     paid: boolean;
     comment: string | null;
-    recurrence: boolean;
-    installments_date?: string | null;
+    recurrence: Recurrence;
     number_of_installments: number;
     category: Category;
 
@@ -33,7 +32,6 @@ export class GetTransactionDto implements IGetTransactionDto {
         this.paid = transaction.paid;
         this.comment = transaction?.comment;
         this.recurrence = transaction.recurrence;
-        this.installments_date = transaction.installments_date;
         this.number_of_installments = transaction.number_of_installments;
         this.category = transaction.category;
     }

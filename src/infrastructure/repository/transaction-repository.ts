@@ -1,24 +1,12 @@
 import { PrismaClient } from "@prisma/client";
-import { CreateTransactionInput } from "../../domain/inputAndOutput";
+import { CreateTransactionInput, Recurrence } from "../../domain/inputAndOutput";
 import { Category, TransctionDto } from "../../domain/models/dto/create-transaction-dto";
 import { GetTransactionDto } from "../../domain/models/dto/get-transaction-dto";
 import { ITransactionRepository } from "../../domain/repository/ITransactionRepository";
+import { NotFoundError } from "../../presentation/errors/api-error";
 
 export class TransactionRepository implements ITransactionRepository {
   constructor(private readonly prisma: PrismaClient) { }
-
-
-  update(email: string, data: any): Promise<any> {
-    throw new Error("Method not implemented.");
-  }
-
-  get(input: string): Promise<any> {
-    throw new Error("Method not implemented.");
-  }
-  getMany(input: any): Promise<any> {
-    throw new Error("Method not implemented.");
-  }
-
 
   public static createClient(prismaClient: PrismaClient) {
     return new TransactionRepository(prismaClient);
@@ -26,12 +14,12 @@ export class TransactionRepository implements ITransactionRepository {
   async create(email: string, data: CreateTransactionInput): Promise<TransctionDto> {
     const newTransaction = await this.prisma.transaction.create({
       data: {
-        ...data,
+        ...data.transaction,
         account: {
           connect: { email: email },
         },
         contacts: {
-          create: data.contacts.map((contact) => ({
+          create: data.transaction.contacts.map((contact) => ({
             name: contact.name,
             phone: contact.phone,
           })),
@@ -39,7 +27,7 @@ export class TransactionRepository implements ITransactionRepository {
       },
     });
     const transactionDto = {
-      recurrence: newTransaction.recurrence,
+      recurrence: newTransaction?.recurrence as any as Recurrence,
       value: newTransaction?.value,
       formatPayment: newTransaction?.formatPayment,
       paid: newTransaction?.paid,
@@ -55,12 +43,13 @@ export class TransactionRepository implements ITransactionRepository {
     const transaction = await this.prisma.transaction.findMany({
       where: {
         accountId: id,
-        installments_date: {
+        createDate: {
           gte: start,
           lt: end
         }
       }
     })
+    if (!transaction) throw new NotFoundError("don't have any transaction")
 
     const response = transaction.map((res) => {
       return new GetTransactionDto({
@@ -69,8 +58,7 @@ export class TransactionRepository implements ITransactionRepository {
         formatPayment: res.formatPayment,
         paid: res.paid,
         comment: res.comment ? res.comment : null,
-        recurrence: res.recurrence,
-        installments_date: res.installments_date?.toLocaleDateString("pt-BR"),
+        recurrence: res.recurrence as any as Recurrence,
         number_of_installments: res.number_of_installments as any,
         category: res.category as any as Category,
       })

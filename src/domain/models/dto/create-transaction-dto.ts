@@ -1,9 +1,11 @@
+import { Recurrence } from "../../inputAndOutput";
+
 export interface ITransatcionDto {
   value?: number;
   formatPayment?: string;
   paid?: boolean;
   comment?: string;
-  recurrence: boolean;
+  recurrence: Recurrence;
   category: Category;
 }
 export enum Category {
@@ -14,7 +16,7 @@ export class TransctionDto implements ITransatcionDto {
   value?: number;
   formatPayment?: string;
   paid?: boolean;
-  recurrence: boolean;
+  recurrence: Recurrence;
   category: Category;
   comment?: string;
   number_of_installments?: number;

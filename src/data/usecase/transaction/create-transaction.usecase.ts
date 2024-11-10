@@ -19,28 +19,56 @@ export class CreateTransactionUseCase implements UseCase<CreateTransactionInput,
 
     if (!account) throw new NotFoundError("cannt find your account");
 
-    if (input.recurrence) return await this.createInstallments(account.email, input);
+    if (input.transaction.recurrence === "WEEK") return await this.createInstallmentsPerWeek(account.email, input);
+
+    if (input.transaction.recurrence === "MONTH") return await this.createInstallmentsPerMonth(account.email, input);
 
     return await this.transactionRepository.create(
       account.email,
       input
     );
   }
-  private async createInstallments(email: string, input: CreateTransactionInput): Promise<any> {
+  private async createInstallmentsPerMonth(email: string, input: CreateTransactionInput): Promise<any> {
     let date = new Date();
 
-    if (!input.number_of_installments) return;
+    if (!input.transaction.number_of_installments) return;
 
-    for (let index = 1; index <= input.number_of_installments; index++) {
-      let j = 1
-      const newDate = new Date(date.setMonth(date.getMonth() + j))
-      input.installments_date = newDate;
+    for (let index = 1; index <= input.transaction.number_of_installments; index++) {
+      const newDate = new Date(date.setMonth(date.getMonth() + 1
+      ));
+
+      input.transaction.installments_date = newDate;
+
       const transaction = await this.transactionRepository.create(
         email,
         input
       );
-      if (input.number_of_installments === index) return transaction
+
+      if (input.transaction.number_of_installments === index) return transaction
 
     }
   }
+  private async createInstallmentsPerWeek(email: string, input: CreateTransactionInput): Promise<any> {
+    if (!input.transaction.number_of_installments || !input.transaction.installments_date) return;
+
+    let startDate = new Date(input.transaction.installments_date);
+
+    let week = 7 * 24 * 60 * 60 * 1000;
+
+    for (let index = 0; index <= input.transaction.number_of_installments; index++) {
+
+      const newDate = new Date(startDate.getTime() + index * week)
+
+      input.transaction.installments_date = newDate;
+
+      const transaction = await this.transactionRepository.create(
+        email,
+        input
+      );
+
+      if (input.transaction.number_of_installments === index) return transaction
+
+    }
+  }
+
 }
