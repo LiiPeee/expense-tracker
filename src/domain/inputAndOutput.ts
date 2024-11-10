@@ -48,3 +48,7 @@ export interface GetTransactionInput {
   year: number;
   month: number;
 }
+export enum Recurrence {
+  WEEK = "WEEK",
+  MONTH = "MONTH",
+}

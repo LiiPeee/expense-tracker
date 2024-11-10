@@ -8,7 +8,7 @@ export class GetTransactionUseCase implements UseCase<GetTransactionInput, any> 
     async execute(input: GetTransactionInput): Promise<any> {
         const { id, month, year } = input
 
-        const transaction = await this._transactionRepostiry.getByMonth(id, month, year)
+        const transaction = await this._transactionRepostiry.getByMonth(id, month, year);
 
         return transaction;
 

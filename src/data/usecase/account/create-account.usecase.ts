@@ -15,9 +15,7 @@ export class CreateAccountUseCase implements UseCase<InputCreateAccount, IAccoun
   ) { }
   async execute(input: InputCreateAccount): Promise<IAccountDto> {
 
-    const accountVerify = await this._accountRespository.getUnique(input.email);
-
-    await validateEmail(accountVerify.email)
+    await validateEmail(input.email)
 
     const hashPassword = this._encrypter.encrypt(input.password);
 
