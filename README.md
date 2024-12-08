@@ -1,10 +1,10 @@
-# Project api Finance
+# Project Expense Tracker
 
 ```
-Sistema financeiro de controle de contas a pagar e gastos diarios
+System about expense tracker to show for you where you spend your money, in additional save contacts.
 ```
 
-## Tecnologias
+## Technology 
 
 ```
 Typescript, Express, axios, nodemon, Mysql, Prisma
