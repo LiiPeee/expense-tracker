@@ -6,12 +6,9 @@ export class GetTransactionUseCase implements UseCase<GetTransactionInput, any> 
 
     constructor(private readonly _transactionRepostiry: ITransactionRepository) { }
     async execute(input: GetTransactionInput): Promise<any> {
-        const { id, month, year } = input
-
-        const transaction = await this._transactionRepostiry.getByMonth(id, month, year);
+        const transaction = await this._transactionRepostiry.getByMonth(input);
 
         return transaction;
-
     }
 
 }
