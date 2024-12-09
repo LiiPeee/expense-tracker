@@ -1,32 +1,28 @@
-# Project Expense Tracker
+
+# Project Expense tracker
 
 ```
-System about expense tracker to show for you where you spend your money, in additional save contacts.
+This system if to expense tracker,
+i'm creation this aplication for tracker my expense
+in addition help other people to control your money.
 ```
 
-## Technology 
+## Tecnology
 
 ```
-Typescript, Express, axios, nodemon, Mysql, Prisma
+Typescript - Express - axios - nodemon - PostgresSQL - Prisma
+Clean Arctheture - Solid
 ```
 
 ## Run
 
 ```
-npx jest
-
 npm run dev
 ```
 OR
-```
-yarn dev
 ```
 
 ## Build
 ```
 npm run build
-```
-or
-```
-yarn build
 ```
