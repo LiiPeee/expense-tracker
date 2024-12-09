@@ -24,12 +24,14 @@ export interface CreateTransactionInput {
     formatPayment: string;
     paid: boolean;
     comment?: string | null;
-    contacts: IContact[];
+    contacts: IContact;
   }
 }
 
 
 export interface GetTransactionInput {
+  skip: number;
+  take: number;
   id: number;
   year: number;
   month: number;

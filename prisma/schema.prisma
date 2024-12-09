@@ -17,9 +17,8 @@ model Account {
   name        String
   email       String        @unique
   balance     Float
-  token       String?
   password    String
-  transaction Transaction[]
+  transaction Transaction[] @relation("AccountTransactions")
 }
 
 model Transaction {
@@ -29,13 +28,14 @@ model Transaction {
   value                  Float
   formatPayment          String
   paid                   Boolean   @default(false)
-  contacts               Contact[]
+  contacts               Contact? @relation(fields: [contactId], references: [id])
+  contactId              Int?
   comment                String?
   recurrence             Recurrence? @default(MONTH)
   number_of_installments Int?
   category               Category  @default(EXPENSE)
   installments_date      DateTime?
-  account                Account   @relation(fields: [accountId], references: [id])
+  account                Account   @relation("AccountTransactions", fields: [accountId], references: [id])
   accountId              Int
 }
 
@@ -46,7 +46,7 @@ model Contact {
   transaction Transaction[]
   name        String
   phone       String
-  email       String?
+  email       String
 }
 
 enum Category {
