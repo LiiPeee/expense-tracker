@@ -22,19 +22,14 @@ export class TransactionRepository implements ITransactionRepository {
             connect: { email: email },
           },
           contacts: {
-            create: {
-              name: contacts.name,
-              phone: contacts.phone,
-              email: contacts.email
-              ,
-            },
+            connect: { id: contacts.id }
           },
         }
       });
       const transactionDto = {
         recurrence: newTransaction?.recurrence as any as Recurrence,
         value: newTransaction?.value,
-        formatPayment: newTransaction?.formatPayment,
+        formatPayment: newTransaction?.paymentName,
         paid: newTransaction?.paid,
         category: newTransaction.category as any as Category,
         number_of_installments: newTransaction?.number_of_installments as any,
@@ -61,7 +56,7 @@ export class TransactionRepository implements ITransactionRepository {
     const transactionDto = {
       recurrence: newTransaction?.recurrence as any as Recurrence,
       value: newTransaction?.value,
-      formatPayment: newTransaction?.formatPayment,
+      formatPayment: newTransaction?.paymentName,
       paid: newTransaction?.paid,
       category: newTransaction.category as any as Category,
       number_of_installments: newTransaction?.number_of_installments as any,
@@ -91,7 +86,7 @@ export class TransactionRepository implements ITransactionRepository {
       return new GetTransactionDto({
         createDate: res.createDate.toLocaleDateString("pt-BR"),
         value: res.value,
-        formatPayment: res.formatPayment,
+        formatPayment: res.paymentName,
         paid: res.paid,
         comment: res.comment ? res.comment : null,
         recurrence: res.recurrence as any as Recurrence,
@@ -100,5 +95,14 @@ export class TransactionRepository implements ITransactionRepository {
       })
     })
     return response;
+  }
+  async getTransactionByContact(input: any): Promise<any> {
+
+    const contact = await this.prisma.contact.findFirst({
+      where: { email: input }, include: {
+        transactions: true
+      }
+    });
+    return contact;
   }
 }

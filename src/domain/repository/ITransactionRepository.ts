@@ -15,4 +15,6 @@ export abstract class ITransactionRepository {
     abstract getByMonth(input: GetTransactionInput): Promise<any>;
 
     abstract create(email: string, input: CreateTransactionInput): Promise<CreateTransaction>;
+
+    abstract getTransactionByContact(input: any): Promise<any>;
 }

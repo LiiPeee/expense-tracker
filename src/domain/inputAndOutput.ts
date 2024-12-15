@@ -16,12 +16,13 @@ export type InputSignAccount = {
 export interface CreateTransactionInput {
   email: string;
   transaction: {
+    contact: any;
     installments_date?: Date;
     recurrence?: Recurrence;
     number_of_installments?: number;
     value: number;
     category: Category;
-    formatPayment: string;
+    paymentName: string;
     paid: boolean;
     comment?: string | null;
     contacts: IContact;
