@@ -11,50 +11,56 @@ datasource db {
 }
 
 model Account {
-  id           Int           @id @default(autoincrement())
-  endDate      DateTime?
-  createDate   DateTime      @default(now())
-  name         String
-  email        String        @unique
-  balance      Float
-  password     String
-  transactions Transaction[] @relation("AccountTransactions") 
+  id         Int       @id @default(autoincrement())
+  endDate    DateTime?
+  createDate DateTime  @default(now())
+  name       String
+  email      String    @unique
+  balance    Float
+  password   String
+  transaction Transaction[] @relation("AccountTransaction")
 }
 
 model Transaction {
-  id                     Int        @id @default(autoincrement())
-  createDate             DateTime   @default(now())
+  id                     Int         @id @default(autoincrement())
+  createDate             DateTime    @default(now())
   endDate                DateTime?
+  account                Account     @relation("AccountTransaction", fields: [accountId], references: [id])
+  accountId              Int
   value                  Float
   paymentName            String
-  paid                   Boolean    @default(false)
-  contacts                Contact    @relation("ContactTransactions", fields: [contactId], references: [id])
-  contactId              Int     
+  paid                   Boolean     @default(false)
+  contact                Contact     @relation("ContactTransactions", fields: [contactId], references: [id])
+  contactId              Int
   comment                String?
-  recurrence             Recurrence? @default(MONTH)
+  recurrence             Recurrence @default(M)
   number_of_installments Int?
-  category               Category    @default(EXPENSE)
+  category               Category    @relation("CategoryTransaction", fields: [categoryId], references: [id])
+  categoryId             Int
   installments_date      DateTime?
-  account                Account     @relation("AccountTransactions", fields: [accountId], references: [id])
-  accountId              Int        
 }
 
 model Contact {
   id           Int           @id @default(autoincrement())
   createDate   DateTime      @default(now())
   endDate      DateTime?
-  transactions Transaction[] @relation("ContactTransactions") 
+  transactions Transaction[] @relation("ContactTransactions")
   name         String
   phone        String
   email        String
 }
 
-enum Category {
-  RECEIVE
-  EXPENSE
+model Category {
+  id           Int           @id @default(autoincrement())
+  createDate   DateTime      @default(now())
+  endDate      DateTime?
+  name         String
+  transactions Transaction[] @relation("CategoryTransaction")
 }
 
 enum Recurrence {
-  WEEK
-  MONTH
+  W
+  M
+  D
+  B
 }

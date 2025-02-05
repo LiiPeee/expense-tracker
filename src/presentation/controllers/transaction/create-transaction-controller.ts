@@ -11,9 +11,9 @@ export class CreateTransactionController implements Controller {
   async handle(req: Request): Promise<HttpResponse> {
     try {
       const { email } = req.body;
-      const { value, formatPayment, paid, contacts } = req.body.transaction;
+      const { value, formatPayment, paid, contacts, category } = req.body.transaction;
 
-      if (!email && !value && !formatPayment && !paid && !contacts.name && contacts.phone) throw new BadRequestError("you dont send parameters necessary");
+      if (!email && !value && !formatPayment && !paid && contacts.id && category.id) throw new BadRequestError("you dont send parameters necessary");
 
       const transaction = await this.transactionUseCase.execute(
         req.body);

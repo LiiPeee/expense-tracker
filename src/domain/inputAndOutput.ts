@@ -16,9 +16,8 @@ export type InputSignAccount = {
 export interface CreateTransactionInput {
   email: string;
   transaction: {
-    contact: any;
     installments_date?: Date;
-    recurrence?: Recurrence;
+    recurrence: Recurrence;
     number_of_installments?: number;
     value: number;
     category: Category;
@@ -38,6 +37,8 @@ export interface GetTransactionInput {
   month: number;
 }
 export enum Recurrence {
-  WEEK = "WEEK",
-  MONTH = "MONTH",
+  M = "M",
+  w = "W",
+  D = "D",
+  B = "B"
 }

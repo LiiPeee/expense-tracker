@@ -19,9 +19,9 @@ export class CreateTransactionUseCase implements UseCase<CreateTransactionInput,
 
     if (!account) throw new NotFoundError("cannt find your account");
 
-    if (input.transaction.recurrence === "WEEK") return await this.createInstallmentsPerWeek(account.email, input);
+    if (input.transaction.recurrence === "M") return await this.createInstallmentsPerWeek(account.email, input);
 
-    if (input.transaction.recurrence === "MONTH") return await this.createInstallmentsPerMonth(account.email, input);
+    if (input.transaction.recurrence === "W") return await this.createInstallmentsPerMonth(account.email, input);
 
     return await this.transactionRepository.create(
       account.email,
