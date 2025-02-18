@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { ICreateTransactionUseCase } from "../../../domain/controller/create-transaction.usecase";
+import { ICreateTransactionUseCase } from "../../../domain/controller/transaction/create-transaction.usecase";
 import { BadRequestError, DataBaseError } from "../../errors/api-error";
 import { Controller } from "../../protocols/controller";
 import { HttpResponse } from "../../protocols/http";

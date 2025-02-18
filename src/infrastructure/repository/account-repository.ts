@@ -13,7 +13,6 @@ export class AccountRepository implements IAccountRepository {
 
   async create(data: InputCreateAccount): Promise<Account> {
     const account = await this.prisma.account.create({ data });
-    // if (!account) throw new DataBaseError("Somenthing wrong in create in DB");
     return account;
   }
 
@@ -55,7 +54,7 @@ export class AccountRepository implements IAccountRepository {
     return updateAccount;
   }
 
-  getMany(input: any): Promise<any> {
-    throw new Error("Method not implemented.");
+  async getMany(input: any): Promise<any> {
+    return await this.prisma.account.findMany()
   }
 }

@@ -47,7 +47,7 @@ model Contact {
   transactions Transaction[] @relation("ContactTransactions")
   name         String
   phone        String
-  email        String
+  email        String @unique
 }
 
 model Category {

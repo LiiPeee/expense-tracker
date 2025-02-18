@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { IGetTransactionByContactUseCase } from "../../../domain/controller/get-transaction-by-contact.usecase";
+import { IGetTransactionByContactUseCase } from "../../../domain/controller/transaction/get-transaction-by-contact.usecase";
 import { NotFoundError } from "../../errors/api-error";
 import { Controller } from "../../protocols/controller";
 import { HttpResponse } from "../../protocols/http";

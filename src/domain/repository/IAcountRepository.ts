@@ -1,5 +1,4 @@
 import { Account } from "../models/account";
-import { IRepositoryBase } from "./IRepositoryBase";
 
 export interface CreateAccountOutput {
   name: string;
@@ -13,9 +12,10 @@ export interface GetAccount {
   email: string;
 }
 
-export abstract class IAccountRepository implements IRepositoryBase<Account | null> {
+export abstract class IAccountRepository {
   abstract update(email: string, data: any): Promise<any>;
-  abstract getUnique(email: string): Promise<Account | null>;
+
+  abstract getUnique(email: string): Promise<any>;
 
   abstract get(input: string): Promise<any>;
 
