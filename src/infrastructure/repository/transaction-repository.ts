@@ -20,7 +20,7 @@ export class TransactionRepository implements ITransactionRepository {
           connect: { email: email },
         },
         contact: {
-          connect: { id: data.transaction.contacts.id }
+          connect: { id: data.transaction.contact.id }
         },
         category: {
           connect: { id: data.transaction.category.id }

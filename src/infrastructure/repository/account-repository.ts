@@ -16,35 +16,26 @@ export class AccountRepository implements IAccountRepository {
     return account;
   }
 
-  async getUnique(input: string): Promise<Account | null> {
+  async getUnique(email: string): Promise<Account | null> {
     return await this.prisma.account.findUnique({
       where: {
-        email: input,
+        email: email,
       },
     });
 
   }
 
-  async get(email: string): Promise<any> {
-    const account = await this.prisma.account.findFirst({
-      where: {
-        email,
-      },
-    });
-
-    return account;
-  }
   async update(email: string, data: any): Promise<any> {
     const account = await this.prisma.account.update({
       where: {
         email: email,
       },
-      data: {
-      },
+      data: data
     });
 
     return account;
   }
+
   async newBalance(email: string, newBalance: number): Promise<Account> {
     const updateAccount = await this.prisma.account.update({
       where: { email: email },

@@ -14,7 +14,7 @@ export class ContactRepository implements IContactRepository {
     }
 
     async create(data: any) {
-        await this.prisma.contact.create(data);
+        return await this.prisma.contact.create({ data: data });
     }
 
     async getMany() {

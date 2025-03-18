@@ -24,7 +24,7 @@ export interface CreateTransactionInput {
     paymentName: string;
     paid: boolean;
     comment?: string | null;
-    contacts: IContact;
+    contact: IContact;
   }
 }
 
