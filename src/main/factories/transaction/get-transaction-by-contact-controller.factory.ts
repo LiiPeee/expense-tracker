@@ -1,4 +1,4 @@
-import { GetTransactionByContact } from "../../../data/usecase/transaction/get-transaction-by-contact";
+import { GetTransactionByContact } from "../../../data-layer/usecase/transaction/get-transaction-by-contact";
 import { TransactionRepository } from "../../../infrastructure/repository/transaction-repository";
 import { GetTransactionByContactController } from "../../../presentation/controllers/transaction/get-transaction-by-contact-controller";
 import { Controller } from "../../../presentation/protocols/controller";

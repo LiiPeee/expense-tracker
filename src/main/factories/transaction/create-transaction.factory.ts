@@ -1,4 +1,4 @@
-import { CreateTransactionUseCase } from "../../../data/usecase/transaction/create-transaction.usecase";
+import { CreateTransactionUseCase } from "../../../data-layer/usecase/transaction/create-transaction.usecase";
 import { AccountRepository } from "../../../infrastructure/repository/account-repository";
 import { TransactionRepository } from "../../../infrastructure/repository/transaction-repository";
 import { CreateTransactionController } from "../../../presentation/controllers/transaction/create-transaction-controller";

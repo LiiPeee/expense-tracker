@@ -1,5 +1,5 @@
 import { CreateTransactionInput } from "../../inputAndOutput";
-import { TransctionDto } from "../../models/dto/create-transaction-dto";
+import { TransctionDto } from "../../models/entities/transaction";
 
 export abstract class ICreateTransactionUseCase {
   abstract execute(

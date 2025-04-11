@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { CreateTransactionInput, GetTransactionInput, Recurrence } from "../../domain/inputAndOutput";
-import { Category, TransctionDto } from "../../domain/models/dto/create-transaction-dto";
+import { GetTransactionInput } from "../../domain/inputAndOutput";
 import { GetTransactionDto } from "../../domain/models/dto/get-transaction-dto";
 import { ITransactionRepository } from "../../domain/repository/ITransactionRepository";
+import { CreateTransactionInput } from "../../domain/use-case/create-transaction-usecase";
 import { NotFoundError } from "../../presentation/errors/api-error";
 
 export class TransactionRepository implements ITransactionRepository {
@@ -11,32 +11,32 @@ export class TransactionRepository implements ITransactionRepository {
   public static createClient(prismaClient: PrismaClient) {
     return new TransactionRepository(prismaClient);
   }
-  async create(email: string, data: CreateTransactionInput): Promise<TransctionDto> {
+  async create(data: CreateTransactionInput): Promise<any> {
 
     const newTransaction = await this.prisma.transaction.create({
       data: {
-        ...data.transaction,
+        ...data,
         account: {
-          connect: { email: email },
+          connect: { email: data.email },
         },
         contact: {
-          connect: { id: data.transaction.contact.id }
+          connect: { id: data.contact.id }
         },
         category: {
-          connect: { id: data.transaction.category.id }
+          connect: { id: data.category.id }
         }
       }
     });
-    const transactionDto = {
-      recurrence: newTransaction?.recurrence as any,
-      value: newTransaction?.value,
-      formatPayment: newTransaction?.paymentName,
-      paid: newTransaction?.paid,
-      category: newTransaction.categoryId,
-      number_of_installments: newTransaction?.number_of_installments as any,
-      contact: newTransaction.contactId
-    };
-    return new TransctionDto(transactionDto);
+    // const transactionDto = {
+    //   recurrence: newTransaction?.recurrence as any,
+    //   value: newTransaction?.value,
+    //   formatPayment: newTransaction?.paymentName,
+    //   paid: newTransaction?.paid,
+    //   category: newTransaction.categoryId,
+    //   number_of_installments: newTransaction?.number_of_installments as any,
+    //   contact: newTransaction.contactId
+    // };
+    return newTransaction;
 
   }
 

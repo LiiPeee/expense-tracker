@@ -1,6 +1,6 @@
-import { SingUpAccountUseCase } from "../../../data/usecase/account/login-account.usecase";
-import { Bcrypter } from "../../../data/utils/bcrypter.adapter";
-import { JwtAdapter } from "../../../data/utils/jwt.adapter";
+import { SingUpAccountUseCase } from "../../../data-layer/usecase/account/login-account.usecase";
+import { Bcrypter } from "../../../data-layer/utils/bcrypter.adapter";
+import { JwtAdapter } from "../../../data-layer/utils/jwt.adapter";
 import { AccountRepository } from "../../../infrastructure/repository/account-repository";
 import { SignUpAccounController } from "../../../presentation/controllers/account/sign-up-account-controller";
 import { Controller } from "../../../presentation/protocols/controller";

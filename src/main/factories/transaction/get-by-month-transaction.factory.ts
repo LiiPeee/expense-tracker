@@ -1,4 +1,4 @@
-import { GetTransactionUseCase } from "../../../data/usecase/transaction/get-transaction.usecase";
+import { GetTransactionUseCase } from "../../../data-layer/usecase/transaction/get-transaction.usecase";
 import { TransactionRepository } from "../../../infrastructure/repository/transaction-repository";
 import { GetTransactionController } from "../../../presentation/controllers/transaction/get-all-transaction-controller";
 import { Controller } from "../../../presentation/protocols/controller";

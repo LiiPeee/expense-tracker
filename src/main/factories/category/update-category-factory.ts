@@ -1,4 +1,4 @@
-import { UpdateCategoryUseCase } from "../../../data/usecase/category/update-category.usecase";
+import { UpdateCategoryUseCase } from "../../../data-layer/usecase/category/update-category.usecase";
 import { CategoryRepository } from "../../../infrastructure/repository/category-repository";
 import { UpdateCategoryController } from "../../../presentation/controllers/category/update-category-controller";
 import { Controller } from "../../../presentation/protocols/controller";

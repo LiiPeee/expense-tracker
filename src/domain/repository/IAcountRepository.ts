@@ -1,4 +1,4 @@
-import { Account } from "../models/account";
+import { Account } from "../models/entities/account";
 
 export interface CreateAccountOutput {
   name: string;

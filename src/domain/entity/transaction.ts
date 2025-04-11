@@ -1,10 +1,9 @@
-import { Account } from "../models/account";
+import { Account } from "../models/entities/account";
 import { IContact } from "./contact";
+import { IEntityBase } from "./entity";
 
-export interface ITransaction {
-  id: string;
-  createDate: Date;
-  endDate: Date;
+export interface ITransaction extends IEntityBase {
+
   value: string;
   formatPayment: string;
   paid: boolean;

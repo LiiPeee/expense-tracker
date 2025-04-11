@@ -1,4 +1,4 @@
-import { GetCategoryUseCase } from "../../../data/usecase/category/get-category.usecase";
+import { GetCategoryUseCase } from "../../../data-layer/usecase/category/get-category.usecase";
 import { CategoryRepository } from "../../../infrastructure/repository/category-repository";
 import { GetCategoryController } from "../../../presentation/controllers/category/get-category-controller";
 import { Controller } from "../../../presentation/protocols/controller";

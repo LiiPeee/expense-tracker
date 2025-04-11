@@ -1,4 +1,4 @@
-import { CreateContactUseCase } from "../../../data/usecase/contact/create-contact.usecase";
+import { CreateContactUseCase } from "../../../data-layer/usecase/contact/create-contact.usecase";
 import { ContactRepository } from "../../../infrastructure/repository/contact-repository";
 import { CreateContactController } from "../../../presentation/controllers/contact/create-contact-controller";
 import { Controller } from "../../../presentation/protocols/controller";

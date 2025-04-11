@@ -1,5 +1,5 @@
 import { Recurrence } from "../../inputAndOutput";
-import { Category } from "./create-transaction-dto";
+import { Category } from "../entities/transaction";
 
 export interface IGetTransactionDto {
     createDate: string;

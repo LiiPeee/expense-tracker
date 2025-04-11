@@ -1,4 +1,4 @@
-import { CreateCategoryUseCase } from "../../../data/usecase/category/create-category.usecase";
+import { CreateCategoryUseCase } from "../../../data-layer/usecase/category/create-category.usecase";
 import { CategoryRepository } from "../../../infrastructure/repository/category-repository";
 import { CreateCategoryController } from "../../../presentation/controllers/category/create-category-controller";
 import { Controller } from "../../../presentation/protocols/controller";

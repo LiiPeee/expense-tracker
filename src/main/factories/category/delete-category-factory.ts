@@ -1,4 +1,4 @@
-import { DeleteCategoryUseCase } from "../../../data/usecase/category/delete-category.usecase";
+import { DeleteCategoryUseCase } from "../../../data-layer/usecase/category/delete-category.usecase";
 import { CategoryRepository } from "../../../infrastructure/repository/category-repository";
 import { DeleteCategoryController } from "../../../presentation/controllers/category/delete-category-controller";
 import { Controller } from "../../../presentation/protocols/controller";

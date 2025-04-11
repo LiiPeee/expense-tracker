@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { CreateAccountUseCase } from "../../../data/usecase/account/create-account.usecase";
+import { CreateAccountUseCase } from "../../../data-layer/usecase/account/create-account.usecase";
 import { BadRequestError } from "../../errors/api-error";
 import { Controller } from "../../protocols/controller";
 import { HttpResponse } from "../../protocols/http";

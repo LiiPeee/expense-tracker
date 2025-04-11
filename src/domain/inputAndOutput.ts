@@ -1,5 +1,3 @@
-import { Category } from "@prisma/client";
-import { IContact } from "./entity/contact";
 
 export type InputCreateAccount = {
   name: string;
@@ -13,20 +11,7 @@ export type InputSignAccount = {
   password: string;
 };
 
-export interface CreateTransactionInput {
-  email: string;
-  transaction: {
-    installments_date?: Date;
-    recurrence: Recurrence;
-    number_of_installments?: number;
-    value: number;
-    category: Category;
-    paymentName: string;
-    paid: boolean;
-    comment?: string | null;
-    contact: IContact;
-  }
-}
+
 
 
 export interface GetTransactionInput {
@@ -35,10 +20,4 @@ export interface GetTransactionInput {
   id: number;
   year: number;
   month: number;
-}
-export enum Recurrence {
-  M = "M",
-  w = "W",
-  D = "D",
-  B = "B"
 }

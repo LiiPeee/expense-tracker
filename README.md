@@ -1,93 +1,77 @@
+# 💸 Expense Tracker
+Expense Tracker é uma aplicação para controle de gastos pessoais. Com ela, é possível cadastrar e visualizar transações financeiras de forma simples e organizada.
 
-# Project Expense tracker
+O projeto foi desenvolvido utilizando os princípios da Clean Architecture e DDD (Domain-Driven Design), garantindo uma estrutura robusta, escalável e de fácil manutenção.
 
-```
-System about expense tracker to show for you where you spend your money.
-```
-## Routes
-```
-Create Transaction -
-POST -http://localhost:8080/api/transaction
+# 🛠️ Tecnologias Utilizadas
+Node.js + TypeScript
 
-{ 
-    "email": String,
-    "transaction":{
-        "value": Number,
-        "paymentName": String,
-        "recurrence":"MONTH || WEEK",
-        "number_of_installments": Number,
-        "installments_date": String,
-        "paid": boolean,
-        "category": "EXPENSE || INCOME",
-        "comment": String,
-        "contacts":{
-            "name": String,
-            "phone": String,
-            "email": String
-        },
-     }
-}
-```
+Prisma ORM
 
-```
-Create Account -
-POST - http://localhost:8080/api/account
+PostgreSQL
 
-{
-    "name": String,
-    "email": String,
-    "password": String
-}
-```
-```
-Get Account
-GET - http://localhost:8080/account/[email]
----
-```
-```
-Get Transaction By Month
-GET - http://localhost:8080/api/transaction
+Programação Orientada a Objetos (POO)
 
-Body
-{
-    "skip": 15,
-    "take":5,
-    "id": 3,
-    "month": 11,
-    "year": 2024
-}
-```
-## Technology 
-```
-Typescript - Express - axios - nodemon - PostgresSQL - Prisma
-Clean Arctheture - Solid
-```
+Clean Architecture
 
-## COMANDS
+Domain-Driven Design (DDD)
 
-### DEV
-```
-npm run dev
-```
+## 📦 Instalação
 
-### DOCKER
-```
-docker compose up
-```
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/expense-tracker.git
 
-### PRISMA
-```
+# Acesse a pasta do projeto
+cd expense-tracker
+
+# Instale as dependências
+npm install
+
+# Configure o banco de dados no arquivo .env
+
+# Execute as migrações do Prisma
 npx prisma migrate dev
-```
-```
-npm install prisma typescript tsx @types/node --save-dev
-```
-```
-npx prisma init
-```
-```
-npx prisma
+
+# Inicie o projeto
+npm run dev
+
 ```
 
+##  📌 Rotas da API
+
+```python
+➕ Criar Transação
+POST http://localhost:8080/api/transaction
+
+Body exemplo:
+
+json
+Copy
+Edit
+{
+  "title": "Compra no mercado",
+  "amount": 150.00,
+  "type": "expense", // ou "income"
+  "category": "Alimentação"
+}
+📄 Listar Transações
+GET http://localhost:8080/api/transaction
+```
+
+## 🧱 Arquitetura
+
+A aplicação foi estruturada com base nos princípios da Clean Architecture, separando responsabilidades em camadas como:
+
+Domain: entidades e regras de negócio
+
+Application: casos de uso
+
+Infrastructure: comunicação com banco de dados (Prisma)
+
+Interface/HTTP: rotas e controladores
 
 
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)

@@ -1,4 +1,4 @@
-import { SingUpAccountUseCase } from "../../../data/usecase/account/login-account.usecase";
+import { SingUpAccountUseCase } from "../../../data-layer/usecase/account/login-account.usecase";
 import { Controller } from "../../protocols/controller";
 import { HttpResponse } from "../../protocols/http";
 import { badRequest, ok } from "../../response/helper";

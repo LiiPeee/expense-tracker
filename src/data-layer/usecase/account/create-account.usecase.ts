@@ -1,19 +1,19 @@
 import { Encrypter } from "../../../domain/dto/encrypter";
-import { AccountDto, IAccountDto } from "../../../domain/models/dto/account-dto";
+import { AccountDto } from "../../../domain/models/dto/account-dto";
 
 import { InputCreateAccount } from "../../../domain/inputAndOutput";
-import { Account } from "../../../domain/models/account";
+import { Account } from "../../../domain/models/entities/account";
 import { IAccountRepository } from "../../../domain/repository/IAcountRepository";
 import { UseCase } from "../../../domain/use-case/usecase";
 import { validateEmail } from "../../helper/email-validator";
 
-export class CreateAccountUseCase implements UseCase<InputCreateAccount, IAccountDto> {
+export class CreateAccountUseCase implements UseCase<InputCreateAccount, Account> {
   constructor(
     private readonly _accountRespository: IAccountRepository,
     private readonly _encrypter: Encrypter,
 
   ) { }
-  async execute(input: InputCreateAccount): Promise<IAccountDto> {
+  async execute(input: InputCreateAccount): Promise<Account> {
 
     await validateEmail(input.email)
 

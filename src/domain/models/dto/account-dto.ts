@@ -1,7 +1,4 @@
-export interface IAccountDto {
-  name?: string;
-  email?: string;
-}
+import { IAccountDto } from "../../dto/account";
 
 export class AccountDto implements IAccountDto {
   name?: string;
