@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IDeleteContactUseCase } from "../../../domain/controller/contact/delete-contact.usecase";
-import { DataBaseError } from "../../errors/api-error";
+import { DataBaseError } from "../../../domain/helper/errors/api-error";
 import { Controller } from "../../protocols/controller";
 import { HttpResponse } from "../../protocols/http";
 import { badRequest, created, serverError } from "../../response/helper";

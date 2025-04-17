@@ -1,6 +1,6 @@
-import { IBcrypter } from "../../../domain/dto/bcrypter";
+import { IBcrypter } from "../../../domain/entity/bcrypter";
 import { InputSignAccount } from "../../../domain/inputAndOutput";
-import { IAccountDto } from "../../../domain/models/dto/account-dto";
+import { IAccountDto } from "../../../domain/models/entities/account";
 import { IAccountRepository } from "../../../domain/repository/IAcountRepository";
 import { UseCase } from "../../../domain/use-case/usecase";
 

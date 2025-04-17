@@ -1,27 +1,44 @@
-import { ITransaction } from "../../entity/transaction";
-import { EntityBase } from "./entity-base";
+import { BadRequestError } from '@/domain/helper/errors/api-error';
+import { IAccount, IAccountBehavior } from '../../entity/account';
+import { EntityBase } from './entity-base';
 
+export class Account extends EntityBase implements IAccount, IAccountBehavior {
+    name!: string;
+    email!: string;
+    token?: string;
+    balance!: number;
+    password!: string;
 
-export class Account extends EntityBase{
+    constructor() {
+        super();
+    }
+    setName(name: string): Account {
+        if (!name) throw new BadRequestError('You dont send name');
+        this.name = name;
 
-  name: string;
-  email: string;
-  token?: string | null;
-  balance?: number | null;
-  password: string;
-  transaction?: ITransaction | null;
+        return this;
+    }
+    setEmail(email: string): Account {
+        if (!email) throw new BadRequestError('You dont send email');
+        this.email = email;
 
+        return this;
+    }
+    setToken(token?: string): Account {
+        this.token = token;
 
+        return this;
+    }
+    setBalance(balance: number): Account {
+        if (!balance) throw new BadRequestError('You dont send balance');
+        this.balance = balance;
 
-  constructor(props: Account) {
-    super();
-    this.name = props.name;
-    this.email = props.email;
-    this.token = props.token;
-    this.balance = props.balance;
-    this.transaction = props.transaction;
-    this.password = props.password;
-  }
+        return this;
+    }
+    setPassword(password: string): Account {
+        if (!password) throw new BadRequestError('You dont send password');
+        this.password = password;
 
-
+        return this;
+    }
 }

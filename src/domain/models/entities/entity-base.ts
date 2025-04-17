@@ -13,4 +13,4 @@ export class EntityBase implements IEntityBase {
     return value instanceof EntityBase;
   }
 
-  }
+}

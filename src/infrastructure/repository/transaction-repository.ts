@@ -1,9 +1,9 @@
+import { CreateTransactionInput } from "@/domain/use-case/transaction/create-transaction-usecase";
 import { PrismaClient } from "@prisma/client";
+import { NotFoundError } from "../../domain/helper/errors/api-error";
 import { GetTransactionInput } from "../../domain/inputAndOutput";
 import { GetTransactionDto } from "../../domain/models/dto/get-transaction-dto";
 import { ITransactionRepository } from "../../domain/repository/ITransactionRepository";
-import { CreateTransactionInput } from "../../domain/use-case/create-transaction-usecase";
-import { NotFoundError } from "../../presentation/errors/api-error";
 
 export class TransactionRepository implements ITransactionRepository {
   constructor(private readonly prisma: PrismaClient) { }
@@ -11,19 +11,19 @@ export class TransactionRepository implements ITransactionRepository {
   public static createClient(prismaClient: PrismaClient) {
     return new TransactionRepository(prismaClient);
   }
-  async create(data: CreateTransactionInput): Promise<any> {
+  async create(input: CreateTransactionInput): Promise<any> {
 
     const newTransaction = await this.prisma.transaction.create({
       data: {
-        ...data,
+        ...input,
         account: {
-          connect: { email: data.email },
+          connect: { email: input.email },
         },
         contact: {
-          connect: { id: data.contact.id }
+          connect: { id: input.contact.id }
         },
         category: {
-          connect: { id: data.category.id }
+          connect: { id: input.category.id }
         }
       }
     });
@@ -65,9 +65,9 @@ export class TransactionRepository implements ITransactionRepository {
         formatPayment: res.paymentName,
         paid: res.paid,
         comment: res.comment ? res.comment : null,
-        recurrence: res.recurrence as any as Recurrence,
+        recurrence: res.recurrence,
         number_of_installments: res.number_of_installments as any,
-        category: res.categoryId as any as Category,
+        category: res.categoryId,
       })
     })
     return response;

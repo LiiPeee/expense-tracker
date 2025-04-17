@@ -6,7 +6,7 @@ export interface InputCategory {
 export abstract class ICategoryRepository {
     abstract update(id: number, input: any): Promise<any>;
 
-    abstract get(id: number): Promise<any>;
+    abstract get(id?: number): Promise<any>;
 
     abstract create(input: InputCategory): Promise<any>;
 

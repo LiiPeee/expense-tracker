@@ -1,7 +1,6 @@
-import { ICategory } from "../dto/category";
-import { Recurrence } from "../dto/transaction";
+import { ICategory } from "../entity/category";
+import { ITransaction, Recurrence } from "../entity/transaction";
 import { GetTransactionInput } from "../inputAndOutput";
-import { Transaction } from "../models/entities/transaction";
 
 export interface CreateTransaction {
     value?: number;
@@ -16,7 +15,7 @@ export interface CreateTransaction {
 export abstract class ITransactionRepository {
     abstract getByMonth(input: GetTransactionInput): Promise<any>;
 
-    abstract create(email: string, transaction: Transaction): Promise<any>;
+    abstract create(input: ITransaction): Promise<any>;
 
     abstract getTransactionByContact(input: any): Promise<any>;
 }

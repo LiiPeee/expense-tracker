@@ -1,3 +1,4 @@
+import { IAccount } from "../entity/account";
 import { Account } from "../models/entities/account";
 
 export interface CreateAccountOutput {
@@ -20,5 +21,5 @@ export abstract class IAccountRepository {
 
   abstract getMany(input: any): Promise<any>;
 
-  abstract create(data: Account): Promise<Account>;
+  abstract create(data: IAccount): Promise<Account>;
 }

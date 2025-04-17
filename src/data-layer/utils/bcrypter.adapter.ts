@@ -1,5 +1,5 @@
 import { compare, hash } from "bcrypt";
-import { IBcrypter } from "../../domain/dto/bcrypter";
+import { IBcrypter } from "../../domain/entity/bcrypter";
 
 export class Bcrypter implements IBcrypter {
   async hash(data: string): Promise<string> {

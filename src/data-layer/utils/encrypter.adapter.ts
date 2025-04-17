@@ -1,5 +1,5 @@
 import crypto, { createDecipheriv } from "crypto";
-import { Encrypter } from "../../domain/dto/encrypter";
+import { Encrypter } from "../../domain/entity/encrypter";
 export class EncrypterAdapter implements Encrypter {
   encrypt(pass: string): string {
     const size = crypto.randomBytes(16);

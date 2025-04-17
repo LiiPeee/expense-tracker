@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { CreateAccountUseCase } from "../../../data-layer/usecase/account/create-account.usecase";
-import { BadRequestError } from "../../errors/api-error";
+import { BadRequestError } from "../../../domain/helper/errors/api-error";
 import { Controller } from "../../protocols/controller";
 import { HttpResponse } from "../../protocols/http";
 import { badRequest, ok, serverError } from "../../response/helper";

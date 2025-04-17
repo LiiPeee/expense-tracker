@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { IGetTransactionByContactUseCase } from "../../../domain/controller/transaction/get-transaction-by-contact.usecase";
-import { NotFoundError } from "../../errors/api-error";
+import { NotFoundError } from "../../../domain/helper/errors/api-error";
 import { Controller } from "../../protocols/controller";
 import { HttpResponse } from "../../protocols/http";
 import { badRequest, ok, serverError } from "../../response/helper";

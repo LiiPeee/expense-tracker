@@ -1,34 +1,25 @@
-import { Encrypter } from "../../../domain/dto/encrypter";
-import { AccountDto } from "../../../domain/models/dto/account-dto";
+import {
+    CreateAccountInput,
+    CreateAccountOutPut,
+    ICreateAccountUseCase,
+} from '@/domain/use-case/account/create-account-usecase'
 
-import { InputCreateAccount } from "../../../domain/inputAndOutput";
-import { Account } from "../../../domain/models/entities/account";
-import { IAccountRepository } from "../../../domain/repository/IAcountRepository";
-import { UseCase } from "../../../domain/use-case/usecase";
-import { validateEmail } from "../../helper/email-validator";
+import { IEncrypter } from '@/domain/entity/encrypter'
+import { NotFoundError } from '@/domain/helper/errors/api-error'
+import { Account } from '@/domain/models/entities/account'
+import { IAccountRepository } from '../../../domain/repository/IAcountRepository'
 
-export class CreateAccountUseCase implements UseCase<InputCreateAccount, Account> {
-  constructor(
-    private readonly _accountRespository: IAccountRepository,
-    private readonly _encrypter: Encrypter,
+export class CreateAccountUseCase implements ICreateAccountUseCase {
+    constructor(private readonly _accountRespository: IAccountRepository, private readonly _encrypter: IEncrypter) {}
+    async execute(input: CreateAccountInput): Promise<CreateAccountOutPut> {
+        const hashPassword = this._encrypter.encrypt(input.password)
 
-  ) { }
-  async execute(input: InputCreateAccount): Promise<Account> {
+        const account = new Account({ email: input.email, name: input.name, password: hashPassword, balance: 0 })
 
-    await validateEmail(input.email)
+        const accountCreated = await this._accountRespository.create(account)
 
-    const hashPassword = this._encrypter.encrypt(input.password);
+        if (accountCreated) throw new NotFoundError('cannt find your account')
 
-    const account = new Account({ email: input.email, name: input.name, password: hashPassword, balance: 0 });
-
-    await this._accountRespository.create(account);
-
-    const accountData: IAccountDto = {
-      name: input.name,
-      email: input.email,
-    };
-    return new AccountDto(accountData);
-  }
-
-
+        return accountCreated
+    }
 }

@@ -1,8 +1,8 @@
+import { IUseCase } from "@/domain/use-case/usecase";
 import { GetTransactionInput } from "../../../domain/inputAndOutput";
 import { ITransactionRepository } from "../../../domain/repository/ITransactionRepository";
-import { UseCase } from "../../../domain/use-case/usecase";
 
-export class GetTransactionUseCase implements UseCase<GetTransactionInput, any> {
+export class GetTransactionUseCase implements IUseCase<GetTransactionInput, any> {
 
     constructor(private readonly _transactionRepostiry: ITransactionRepository) { }
     async execute(input: GetTransactionInput): Promise<any> {
