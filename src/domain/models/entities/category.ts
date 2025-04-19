@@ -1,12 +1,34 @@
-import { ICategory } from "../../entity/category";
-import { EntityBase } from './entity-base';
+import { BadRequestError } from "../../../data-layer/errors/bad-request-error";
+import { ICategory, ICategoryBehavior, TypeCategory } from "../../entity/category";
+import { EntityBase } from "./entity-base";
 
+export class Category extends EntityBase implements ICategory, ICategoryBehavior {
+  name!: string;
+  type!: TypeCategory;
+  is_active!: boolean;
 
-export class Category extends EntityBase implements ICategory {
-  name: string;
-
-  constructor(props: ICategory) {
+  constructor() {
     super();
-    this.name = props.name;
+  }
+
+  setName(name: string): Category {
+    if (!name) throw new BadRequestError("You dont send email");
+    this.name = name;
+
+    return this;
+  }
+
+  setType(type: TypeCategory): Category {
+    if (!type) throw new BadRequestError("You dont send email");
+    this.type = type;
+
+    return this;
+  }
+
+  setIsActive(isActive: boolean): Category {
+    if (!isActive) throw new BadRequestError("You dont send email");
+    this.is_active = isActive;
+
+    return this;
   }
 }

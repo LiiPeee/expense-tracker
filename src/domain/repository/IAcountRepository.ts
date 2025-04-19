@@ -16,8 +16,7 @@ export interface GetAccount {
 export abstract class IAccountRepository {
   abstract update(email: string, data: any): Promise<any>;
 
-  abstract getUnique(email: string): Promise<any>;
-
+  abstract getUnique(email: string): Promise<Account>;
 
   abstract getMany(input: any): Promise<any>;
 

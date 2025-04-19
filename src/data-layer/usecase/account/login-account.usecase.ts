@@ -1,15 +1,11 @@
+import { IAccount } from "src/domain/entity/account";
+import { IUseCase } from "src/domain/use-case/usecase";
 import { IBcrypter } from "../../../domain/entity/bcrypter";
 import { InputSignAccount } from "../../../domain/inputAndOutput";
-import { IAccountDto } from "../../../domain/models/entities/account";
 import { IAccountRepository } from "../../../domain/repository/IAcountRepository";
-import { UseCase } from "../../../domain/use-case/usecase";
 
-export class SingUpAccountUseCase
-  implements UseCase<InputSignAccount, IAccountDto> {
-  constructor(
-    private readonly _repository: IAccountRepository,
-    private readonly _bcrypt: IBcrypter,
-  ) { }
+export class SingUpAccountUseCase implements IUseCase<InputSignAccount, IAccount> {
+  constructor(private readonly _repository: IAccountRepository, private readonly _bcrypt: IBcrypter) {}
 
   async execute({ email, password }: InputSignAccount): Promise<any> {
     const account = await this._repository.getUnique(email);

@@ -1,9 +1,8 @@
-import { IAccount } from "@/domain/entity/account";
-import { IContact } from "@/domain/entity/contact";
+import { IAccount } from "../../entity/account";
 import { ICategory } from "../../entity/category";
+import { IContact } from "../../entity/contact";
 import { ITransaction, Recurrence } from "../../entity/transaction";
-import { EntityBase } from './entity-base';
-
+import { EntityBase } from "./entity-base";
 
 export class Transaction extends EntityBase implements ITransaction {
   account: IAccount;
@@ -14,8 +13,8 @@ export class Transaction extends EntityBase implements ITransaction {
   recurrence: Recurrence;
   category: ICategory;
   contact: IContact;
-  number_of_installments?: number;
-  installments_date?: Date;
+  number_of_installments: number;
+  installments_date: Date;
 
   constructor(props: ITransaction) {
     super();
@@ -30,5 +29,4 @@ export class Transaction extends EntityBase implements ITransaction {
     this.number_of_installments = props.number_of_installments;
     this.installments_date = props.installments_date;
   }
-
 }

@@ -1,27 +1,28 @@
+
+import { Chance } from 'chance';
+import { UniqueId } from './unique-id';
+
 export type PropOrFactory<T> = T | ((index: number) => T);
 
 export abstract class FakeBuilder<TBuild> {
+  protected _chance: Chance.Chance;
+
   protected _countObjs: number;
   private static idCounter = 0;
   
-  protected _id: PropOrFactory<string> = () => this.generateId();
+  protected _id: PropOrFactory<string> | undefined = () => UniqueId();
   protected _createdAt: PropOrFactory<Date> = () => new Date();
   protected _updatedAt: PropOrFactory<Date> = () => new Date();
 
   constructor(countObjs: number = 1) {
     this._countObjs = countObjs;
+    this._chance = Chance();
+
   }
 
-  protected generateId(): string {
-    const timestamp = Date.now().toString(36);
-    const random = Math.random().toString(36).substring(2, 6);
-    return `id-${timestamp}-${random}-${FakeBuilder.idCounter++}`;
-  }
 
-  protected _callFactory<T>(factoryOrValue: PropOrFactory<T>, index: number): T | undefined {
-    if (typeof factoryOrValue === 'function') {
-      return (factoryOrValue as (index: number) => T | undefined)(index);
-    }
+  protected _callFactory<Result>(factoryOrValue: PropOrFactory<any>): Result {
+    if (typeof factoryOrValue === 'function') return factoryOrValue();
     return factoryOrValue;
   }
 

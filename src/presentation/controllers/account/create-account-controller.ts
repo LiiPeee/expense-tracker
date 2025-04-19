@@ -1,12 +1,12 @@
 import { Request } from "express";
+import { BadRequestError } from "../../../data-layer/errors/bad-request-error";
 import { CreateAccountUseCase } from "../../../data-layer/usecase/account/create-account.usecase";
-import { BadRequestError } from "../../../domain/helper/errors/api-error";
 import { Controller } from "../../protocols/controller";
 import { HttpResponse } from "../../protocols/http";
 import { badRequest, ok, serverError } from "../../response/helper";
 
 export class CreateAccountController implements Controller {
-  constructor(private readonly accountUsecase: CreateAccountUseCase) { }
+  constructor(private readonly accountUsecase: CreateAccountUseCase) {}
   async handle(req: Request): Promise<HttpResponse> {
     try {
       const { name, email, password } = req.body;
@@ -17,8 +17,8 @@ export class CreateAccountController implements Controller {
 
       return ok(creatingAccount);
     } catch (error: any) {
-      if (badRequest(error)) return badRequest(error)
-      return serverError(error)
+      if (badRequest(error)) return badRequest(error);
+      return serverError(error);
     }
   }
 }

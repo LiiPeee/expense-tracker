@@ -1,25 +1,21 @@
-import { IAccount } from '../../entity/account';
-import { ICategory } from '../../entity/category';
-import { IContact } from '../../entity/contact';
-import { ITransaction, Recurrence } from '../../entity/transaction';
-import { IUseCase } from '../usecase';
+import { ITransaction, Recurrence } from "../../entity/transaction";
+import { IUseCase } from "../usecase";
 
 export interface CreateTransactionInput {
-  account: IAccount
+  account: { accountId: number };
   email: string;
-  installments_date?: Date;
+  installments_date: Date;
   recurrence: Recurrence;
-  number_of_installments?: number;
+  number_of_installments: number;
   value: number;
-  category: ICategory;
+  category: { categoryId: number };
   paymentName: string;
   paid: boolean;
   comment?: string;
-  contact: IContact;
+  contact: { name: string };
 }
 export type CreateTransactionOutPut = { transaction: ITransaction };
 
 export abstract class ICreateTransactionUseCase implements IUseCase<CreateTransactionInput, CreateTransactionOutPut> {
-
-  abstract execute(input: CreateTransactionInput): Promise<CreateTransactionOutPut>
+  abstract execute(input: CreateTransactionInput): Promise<CreateTransactionOutPut>;
 }

@@ -3,7 +3,7 @@ import { ICategory } from "./category";
 import { IContact } from "./contact";
 
 export interface ITransaction {
-  account: IAccount
+  account: IAccount;
   value: number;
   paymentName: string;
   paid: boolean;
@@ -11,16 +11,13 @@ export interface ITransaction {
   recurrence: Recurrence;
   category: ICategory;
   contact: IContact;
-  number_of_installments?: number;
-  installments_date?: Date;
-
-
+  number_of_installments: number;
+  installments_date: Date;
 }
 
 export enum Recurrence {
   M = "M",
   w = "W",
   D = "D",
-  B = "B"
+  B = "B",
 }
-

@@ -1,27 +1,17 @@
 // src/users/testing/user-fake-builder.ts
 
-import { ITransaction } from '../../src/domain/entity/transaction';
-import { Account } from '../../src/domain/models/entities/account';
-import { Transaction } from '../../src/domain/models/entities/transaction';
-import { FakeBuilder, PropOrFactory } from './fake-builder';
-
-
-type UserRole = 'admin' | 'user' | 'guest';
-
+import { Account } from "../../src/domain/models/entities/account";
+import { Transaction } from "../../src/domain/models/entities/transaction";
+import { FakeBuilder, PropOrFactory } from "./fake-builder";
 
 export class AccountFakeBuilder<TBuild = Account | Account[]> extends FakeBuilder<TBuild> {
   [x: string]: any;
-    
-  
-  private _name: PropOrFactory<string> = (index) => `Account ${index + 1}`;
-  private _email: PropOrFactory<string> = (index) => `user${index + 1}@example.com`;
-  private _password: PropOrFactory<string> = () => 'Password123!';
-  private _balance: PropOrFactory<number> = () =>  Math.floor(Math.random() * 50) + 18;
-  private _token: PropOrFactory<number> = () => Math.floor(Math.random() * 50) + 18;
-  private _transaction: PropOrFactory<Transaction[]> = () => [];
- 
 
-  
+  private _name: PropOrFactory<string> = this._chance.string();
+  private _email: PropOrFactory<string> = this._chance.email();
+  private _password: PropOrFactory<string> = this._chance.string();
+  private _balance: PropOrFactory<number> = 0;
+  private _token: PropOrFactory<string> = this._chance.string();
 
   private constructor(countObjs: number = 1) {
     super(countObjs);
@@ -35,9 +25,7 @@ export class AccountFakeBuilder<TBuild = Account | Account[]> extends FakeBuilde
     return new AccountFakeBuilder<Account[]>(count);
   }
 
-
-
-  withName(name: string): AccountFakeBuilder<TBuild>  {
+  withName(name: string): AccountFakeBuilder<TBuild> {
     this._name = name;
     return this;
   }
@@ -47,17 +35,17 @@ export class AccountFakeBuilder<TBuild = Account | Account[]> extends FakeBuilde
     return this;
   }
 
-  withPassword(password: string): AccountFakeBuilder<TBuild>  {
+  withPassword(password: string): AccountFakeBuilder<TBuild> {
     this._password = password;
     return this;
   }
 
-  withToken(token: number): AccountFakeBuilder<TBuild> {
+  withToken(token: string): AccountFakeBuilder<TBuild> {
     this._token = token;
     return this;
   }
 
-  withTransaction(transaction: Transaction[]): AccountFakeBuilder<TBuild>  {
+  withTransaction(transaction: Transaction[]): AccountFakeBuilder<TBuild> {
     this._transaction = transaction;
     return this;
   }
@@ -65,25 +53,19 @@ export class AccountFakeBuilder<TBuild = Account | Account[]> extends FakeBuilde
     this._balance = balance;
     return this;
   }
- 
- 
-
-  protected generateMock(index: number): Account {
-    return {
-      name: this._callFactory(this._name, index) as string,
-      email: this._callFactory(this._name, index) as string,
-      balance: this._callFactory(this._balance, index) as number,
-      password: this._callFactory(this._name, index) as string,
-      transaction: this._callFactory(this._name, index) as unknown as ITransaction,
-    };
-  }
 
   build(): TBuild {
-    if (this._countObjs === 1) {
-      return this.generateMock(0) as TBuild;
-    }
+    const account: Account[] = Array.from({ length: this._countObjs }).map(() => {
+      const account = new Account();
 
-    const items = Array.from({ length: this._countObjs }, (_, i) => this.generateMock(i));
-    return items as TBuild;
+      account.name = this._callFactory(this._name) as string;
+      account.email = this._callFactory(this._email) as string;
+      account.balance = this._callFactory(this._balance) as number;
+      account.password = this._callFactory(this._password) as string;
+      account.token = this._callFactory(this._token) as string;
+      return account;
+    });
+
+    return (this._countObjs === 1 ? account[0] : account) as TBuild;
   }
 }

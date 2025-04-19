@@ -3,21 +3,15 @@
 import { Category } from "../../src/domain/models/entities/category";
 import { Transaction } from "../../src/domain/models/entities/transaction";
 
-import { FakeBuilder, PropOrFactory } from './fake-builder';
-import { TransactionFakeBuilder } from './transaction-fake';
-
-
+import { FakeBuilder, PropOrFactory } from "./fake-builder";
+import { TransactionFakeBuilder } from "./transaction-fake";
 
 export class CategoryFakeBuilder<TBuild = Category | Category[]> extends FakeBuilder<TBuild> {
-
-
-  private _name: PropOrFactory<string> = (index) => `${index + 1}`;
+  private _name: PropOrFactory<string> = this._chance.string();
   private _transactions: PropOrFactory<Transaction[]> = () => [
     TransactionFakeBuilder.aTransaction().build(),
-    TransactionFakeBuilder.aTransaction().build()
+    TransactionFakeBuilder.aTransaction().build(),
   ];
-
-
 
   private constructor(countObjs: number = 1) {
     super(countObjs);
@@ -31,8 +25,6 @@ export class CategoryFakeBuilder<TBuild = Category | Category[]> extends FakeBui
     return new CategoryFakeBuilder<Category[]>(count);
   }
 
-
-
   withName(name: string): CategoryFakeBuilder<TBuild> {
     this._name = name;
     return this;
@@ -43,21 +35,18 @@ export class CategoryFakeBuilder<TBuild = Category | Category[]> extends FakeBui
     return this;
   }
 
-
-
-  protected generateMock(index: number): Category {
-    return {
-      name: this._callFactory(this._name, index) as string,
-      transactions: this._callFactory(this._transactions, index) as unknown as Transaction[]
-    };
-  }
-
   build(): TBuild {
-    if (this._countObjs === 1) {
-      return this.generateMock(0) as TBuild;
-    }
+    const category: Category[] = Array.from({ length: this._countObjs }).map(() => {
+      const category = new Category();
 
-    const items = Array.from({ length: this._countObjs }, (_, i) => this.generateMock(i));
-    return items as TBuild;
+      ca.name = this._callFactory(this._name) as string;
+      account.email = this._callFactory(this._email) as string;
+      account.balance = this._callFactory(this._balance) as number;
+      account.password = this._callFactory(this._password) as string;
+      account.token = this._callFactory(this._token) as string;
+      return account;
+    });
+
+    return (this._countObjs === 1 ? account[0] : account) as TBuild;
   }
 }

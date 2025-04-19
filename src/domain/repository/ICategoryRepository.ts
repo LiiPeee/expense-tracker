@@ -1,6 +1,5 @@
-
 export interface InputCategory {
-    name: string
+    name: string;
 }
 
 export abstract class ICategoryRepository {
@@ -13,5 +12,4 @@ export abstract class ICategoryRepository {
     abstract getMany(input: any): Promise<any>;
 
     abstract delete(input: any): Promise<any>;
-
 }

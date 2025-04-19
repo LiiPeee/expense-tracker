@@ -1,21 +1,22 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
-        "paths": {
-          "@/*": ["*"]
-        },
     "target": "es6",
     "module": "commonjs",
+    "baseUrl": "./", // Define o diretório base
+    "paths": {
+      "src/*": ["src/*"] // Mapeia `src/...` para `./src/...`
+    },
+    "outDir": "./dist",
+    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
     "resolveJsonModule": true,
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    "lib": ["es2020", "dom"],
+    "types": ["node"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

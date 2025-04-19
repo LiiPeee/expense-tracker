@@ -1,4 +1,5 @@
-import { ServerError, UnauthorizedError } from "../../domain/helper/errors/api-error";
+import { ServerError } from "../../data-layer/errors/api-error";
+import { UnauthorizedError } from "../../data-layer/errors/unauthorized-error";
 import { HttpResponse } from "../protocols/http";
 
 export const badRequest = (error: Error): HttpResponse => ({
