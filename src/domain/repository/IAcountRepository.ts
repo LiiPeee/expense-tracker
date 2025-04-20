@@ -18,7 +18,5 @@ export abstract class IAccountRepository {
 
   abstract getUnique(email: string): Promise<Account>;
 
-  abstract getMany(input: any): Promise<any>;
-
-  abstract create(data: IAccount): Promise<Account>;
+  abstract create(data: IAccount): Promise<IAccount | null>;
 }

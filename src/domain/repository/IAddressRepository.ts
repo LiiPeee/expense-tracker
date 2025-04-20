@@ -5,13 +5,7 @@ export interface InputCategory {
 }
 
 export abstract class IAddressRepository {
-  abstract update(id: number, input: any): Promise<any>;
+  abstract create(data: IAddress): Promise<IAddress | null>;
 
-  abstract get(id?: number): Promise<any>;
-
-  abstract create(input: IAddress): Promise<IAddress>;
-
-  abstract getMany(input: any): Promise<any>;
-
-  abstract delete(input: any): Promise<any>;
+  abstract get(data: string): Promise<IAddress | null>;
 }

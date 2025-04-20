@@ -1,18 +1,10 @@
-import { ITransaction } from "../entity/transaction";
-import { GetTransactionInput } from "../inputAndOutput";
-
-// export interface CreateTransaction {
-//   value?: number;
-//   formatPayment?: string;
-//   paid?: boolean;
-//   recurrence: Recurrence;
-//   category: ICategory;
-//   comment?: string;
-//   number_of_installments: number;
-// }
+import { ITransaction } from '../entity/transaction';
+import { GetTransactionByMonthInput } from '../use-case/transaction/get-transaction-by-month-usecase';
 
 export abstract class ITransactionRepository {
-  abstract getByMonth(input: GetTransactionInput): Promise<any>;
+  abstract getByMonth(input: GetTransactionByMonthInput): Promise<any>;
 
   abstract create(input: ITransaction): Promise<any>;
+
+  abstract getMany(input: any): Promise<any>;
 }

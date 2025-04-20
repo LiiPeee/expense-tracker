@@ -1,32 +1,9 @@
-import { PrismaClient } from "@prisma/client";
-import { Contact } from "../../domain/models/entities/contact";
-import { IContactRepository } from "../../domain/repository/IContactRepository";
+import { PrismaClient } from '@prisma/client';
+import { Contact } from '../../domain/models/entities/contact';
+import { IContactRepository } from '../../domain/repository/IContactRepository';
 
 export class ContactRepository implements IContactRepository {
   constructor(private readonly prisma: PrismaClient) {}
-
-  async getByName(name: string): Promise<Contact | null> {
-    const contact = await this.prisma.contact.findFirst({
-      where: {
-        email: name,
-      },
-    });
-
-    return contact;
-  }
-  get(id: number): Promise<any> {
-    throw new Error("Method not implemented.");
-  }
-
-  async getTransactionByContact(input: any): Promise<any> {
-    const contact = await this.prisma.contact.findFirst({
-      where: { email: input },
-      include: {
-        transactions: true,
-      },
-    });
-    return contact;
-  }
 
   public static createClient(prismaClient: PrismaClient) {
     return new ContactRepository(prismaClient);
@@ -48,5 +25,27 @@ export class ContactRepository implements IContactRepository {
         id: id,
       },
     });
+  }
+  async getByName(name: string): Promise<Contact | null> {
+    const contact = await this.prisma.contact.findFirst({
+      where: {
+        email: name,
+      },
+    });
+
+    return contact;
+  }
+  get(id: number): Promise<any> {
+    throw new Error('Method not implemented.');
+  }
+
+  async getTransactionByContact(input: any): Promise<any> {
+    const contact = await this.prisma.contact.findFirst({
+      where: { email: input },
+      include: {
+        transactions: true,
+      },
+    });
+    return contact;
   }
 }

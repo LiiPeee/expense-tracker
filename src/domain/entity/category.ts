@@ -9,10 +9,10 @@ export interface ICategoryBehavior {
 export interface ICategory extends IEntityBase {
   name: string;
   type: TypeCategory;
-  is_active: boolean;
+  isActive: boolean;
 }
 
 export enum TypeCategory {
-  expense,
-  income,
+  expense = "expense",
+  income = "income",
 }

@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { BadRequestError } from "../../../data-layer/errors/bad-request-error";
 import { DataBaseError } from "../../../data-layer/errors/data-base-error";
-import { ICreateTransactionUseCase } from "../../../domain/controller/transaction/create-transaction.usecase";
+import { ICreateTransactionUseCase } from "../../../domain/use-case/transaction/create-transaction-usecase";
 import { Controller } from "../../protocols/controller";
 import { HttpResponse } from "../../protocols/http";
 import { badRequest, created, serverError } from "../../response/helper";

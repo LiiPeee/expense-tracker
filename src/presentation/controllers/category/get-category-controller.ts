@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { DataBaseError } from "../../../data-layer/errors/data-base-error";
-import { IGetCategoryUseCase } from "../../../domain/controller/category/get-category.usecase";
+import { IGetCategoryUseCase } from "../../../domain/use-case/category/get-category-usecase";
 import { Controller } from "../../protocols/controller";
 import { HttpResponse } from "../../protocols/http";
 import { badRequest, created, serverError } from "../../response/helper";

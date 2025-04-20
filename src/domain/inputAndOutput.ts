@@ -1,4 +1,3 @@
-
 export type InputCreateAccount = {
   name: string;
   email: string;
@@ -11,10 +10,7 @@ export type InputSignAccount = {
   password: string;
 };
 
-
-
-
-export interface GetTransactionInput {
+export interface GetTransactionByMonthInput {
   skip: number;
   take: number;
   id: number;

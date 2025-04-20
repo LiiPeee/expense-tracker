@@ -60,7 +60,7 @@ model Category {
   createDate   DateTime      @default(now())
   endDate      DateTime?
   type         TypeCategory @default(expense)
-  is_active    Boolean      @default(true)
+  isActive    Boolean      @default(true)
   name         String
   transactions Transaction[] @relation("CategoryTransaction")
 }
@@ -74,10 +74,10 @@ model Address {
   neighborhood String
   city         String
   state        String
-  postal_code  String
+  postalCode  String
   country      String
   complement   String?
-  is_primary   Boolean
+  isPrimary   Boolean
   Contact Contact[] @relation("AddressContact")
 }
 

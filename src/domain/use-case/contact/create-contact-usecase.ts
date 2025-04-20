@@ -1,14 +1,13 @@
-import { IContact } from '@/domain/entity/contact';
-import { IUseCase } from '../usecase';
+import { IContact } from "../../entity/contact";
+import { IUseCase } from "../usecase";
 
 export interface CreateContactInput {
-    name: string;
-    phone: string;
-    email: string;
+  name: string;
+  phone: string;
+  email: string;
 }
 export type CreateContactOutPut = { contact: IContact };
 
 export abstract class ICreateContactUseCase implements IUseCase<CreateContactInput, CreateContactOutPut> {
-
-    abstract execute(input: CreateContactInput): Promise<CreateContactOutPut>
+  abstract execute(input: CreateContactInput): Promise<CreateContactOutPut>;
 }

@@ -1,9 +1,9 @@
-import { PrismaClient } from "@prisma/client";
-import { NotFoundError } from "../../data-layer/errors/not-found-error";
-import { ITransaction } from "../../domain/entity/transaction";
-import { GetTransactionInput } from "../../domain/inputAndOutput";
-import { GetTransactionDto } from "../../domain/models/dto/get-transaction-dto";
-import { ITransactionRepository } from "../../domain/repository/ITransactionRepository";
+import { PrismaClient } from '@prisma/client';
+import { NotFoundError } from '../../data-layer/errors/not-found-error';
+import { ITransaction } from '../../domain/entity/transaction';
+import { GetTransactionDto } from '../../domain/models/dto/get-transaction-dto';
+import { ITransactionRepository } from '../../domain/repository/ITransactionRepository';
+import { GetTransactionByMonthInput } from '../../domain/use-case/transaction/get-transaction-by-month-usecase';
 
 export class TransactionRepository implements ITransactionRepository {
   constructor(private readonly prisma: PrismaClient) {}
@@ -30,7 +30,7 @@ export class TransactionRepository implements ITransactionRepository {
     return newTransaction;
   }
 
-  async getByMonth(input: GetTransactionInput): Promise<GetTransactionDto[] | null> {
+  async getByMonth(input: GetTransactionByMonthInput): Promise<GetTransactionDto[] | null> {
     const start = new Date(input.year, input.month - 1, 1);
     const end = new Date(input.year, input.month, 0, 23, 59, 59, 999);
 
@@ -49,7 +49,7 @@ export class TransactionRepository implements ITransactionRepository {
 
     const response = transaction.map((res) => {
       return new GetTransactionDto({
-        createDate: res.createDate.toLocaleDateString("pt-BR"),
+        createDate: res.createDate.toLocaleDateString('pt-BR'),
         value: res.value,
         formatPayment: res.paymentName,
         paid: res.paid,
@@ -60,5 +60,15 @@ export class TransactionRepository implements ITransactionRepository {
       });
     });
     return response;
+  }
+
+  async getMany(input: any): Promise<any> {
+    const transaction = await this.prisma.transaction.findMany({
+      where: {
+        accountId: input.id,
+      },
+    });
+
+    return transaction;
   }
 }

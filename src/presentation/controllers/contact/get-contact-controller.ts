@@ -1,17 +1,17 @@
-import { Request } from "express";
-import { DataBaseError } from "../../../data-layer/errors/data-base-error";
-import { IGetContactUseCase } from "../../../domain/controller/contact/get-contact.usecase";
-import { Controller } from "../../protocols/controller";
-import { HttpResponse } from "../../protocols/http";
-import { badRequest, created, serverError } from "../../response/helper";
+import { Request } from 'express';
+import { DataBaseError } from '../../../data-layer/errors/data-base-error';
+import { IGetAllContactUseCase } from '../../../domain/use-case/contact/get-contact-usecase';
+import { Controller } from '../../protocols/controller';
+import { HttpResponse } from '../../protocols/http';
+import { badRequest, created, serverError } from '../../response/helper';
 
-export class GetContactController implements Controller {
-  constructor(private readonly contactUseCase: IGetContactUseCase) {}
+export class GetAllContactController implements Controller {
+  constructor(private readonly contactUseCase: IGetAllContactUseCase) {}
   async handle(req: Request): Promise<HttpResponse> {
     try {
-      const contact = await this.contactUseCase.execute(req.body);
+      const contact = await this.contactUseCase.execute();
 
-      if (!contact) throw new DataBaseError("somenthing is wrong in Database");
+      if (!contact) throw new DataBaseError('somenthing is wrong in Database');
 
       return created(contact);
     } catch (error: any) {

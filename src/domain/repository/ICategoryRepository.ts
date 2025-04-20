@@ -1,15 +1,17 @@
 export interface InputCategory {
-    name: string;
+  name: string;
 }
 
 export abstract class ICategoryRepository {
-    abstract update(id: number, input: any): Promise<any>;
+  abstract update(id: number, input: any): Promise<any>;
 
-    abstract get(id?: number): Promise<any>;
+  abstract get(id?: number): Promise<any>;
 
-    abstract create(input: InputCategory): Promise<any>;
+  abstract getByName(name: string): Promise<any>;
 
-    abstract getMany(input: any): Promise<any>;
+  abstract create(input: InputCategory): Promise<any>;
 
-    abstract delete(input: any): Promise<any>;
+  abstract getMany(input: any): Promise<any>;
+
+  abstract delete(input: any): Promise<any>;
 }

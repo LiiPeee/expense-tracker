@@ -1,6 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { InputCreateAccount } from "../../domain/inputAndOutput";
+import { IAccount } from "../../domain/entity/account";
+import { Account } from "../../domain/models/entities/account";
 import { IAccountRepository } from "../../domain/repository/IAcountRepository";
+
 export class AccountRepository implements IAccountRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
@@ -8,7 +10,7 @@ export class AccountRepository implements IAccountRepository {
     return new AccountRepository(prismaClient);
   }
 
-  async create(data: InputCreateAccount): Promise<any> {
+  async create(data: Account): Promise<IAccount | null> {
     const account = await this.prisma.account.create({ data });
     return account;
   }
@@ -39,9 +41,5 @@ export class AccountRepository implements IAccountRepository {
     });
 
     return updateAccount;
-  }
-
-  async getMany(input: any): Promise<any> {
-    return await this.prisma.account.findMany();
   }
 }
