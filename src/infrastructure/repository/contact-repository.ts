@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { Contact } from '../../domain/models/entities/contact';
 import { IContactRepository } from '../../domain/repository/IContactRepository';
 
 export class ContactRepository implements IContactRepository {
@@ -9,11 +8,14 @@ export class ContactRepository implements IContactRepository {
     return new ContactRepository(prismaClient);
   }
 
-  async create(data: any) {
-    return await this.prisma.contact.create({ data: data });
+  async create(data: any): Promise<any> {
+    const contact = await this.prisma.contact.create({
+      data: { ...data, address: { connect: { id: data.address.id } } },
+    });
+    return contact;
   }
 
-  async getMany() {
+  async getMany(): Promise<any> {
     return await this.prisma.contact.findMany();
   }
   async update(email: string, data: any) {
@@ -26,7 +28,7 @@ export class ContactRepository implements IContactRepository {
       },
     });
   }
-  async getByName(name: string): Promise<Contact | null> {
+  async getByName(name: string): Promise<any> {
     const contact = await this.prisma.contact.findFirst({
       where: {
         email: name,
