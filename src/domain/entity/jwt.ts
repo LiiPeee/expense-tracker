@@ -1,3 +1,3 @@
-export interface Jwt {
-  sign(id?: string, secret?: string): any;
+export interface IJwt {
+  sign(id: string, secret?: string): string;
 }

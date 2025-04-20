@@ -17,6 +17,7 @@ model Account {
   name       String
   email      String    @unique
   balance    Float
+  token      String
   password   String
   transaction Transaction[] @relation("AccountTransaction")
 }

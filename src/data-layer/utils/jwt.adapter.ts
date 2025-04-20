@@ -1,8 +1,8 @@
-import { sign } from "jsonwebtoken";
-import { Jwt } from "../../domain/entity/jwt";
+import { sign } from 'jsonwebtoken';
+import { IJwt } from '../../domain/entity/jwt';
 
-export class JwtAdapter implements Jwt {
-  sign(id: string, secret: string) {
+export class JwtAdapter implements IJwt {
+  sign(id: string, secret: string): string {
     return sign(id, secret);
   }
 }
