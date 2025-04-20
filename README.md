@@ -31,6 +31,17 @@ npm install
 # Configure o banco de dados no arquivo .env
 
 # Execute as migrações do Prisma
+se quiser criar imagem no docker
+
+docker run --name meu-postgres \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=root \
+  -e POSTGRES_DB=myapp_db \
+  -p 4444:5432 \
+  -v postgres_data:/var/lib/postgresql/data \
+  -d \
+  postgres:15-alpine
+
 npx prisma migrate dev
 
 # Inicie o projeto
@@ -40,20 +51,68 @@ npm run dev
 
 ##  📌 Rotas da API
 
-```python
+```
+
+➕ Criar Categoria
+POST http://localhost:8080/api/category
+Body Exemplo:
+{
+    "name": "xpto",
+    "phone": "xpto",
+    "email": "xpto.joe@gmail.com",
+    "street": "valid street in DB",
+    "type": "individual",
+    "document": "document",
+    "is_active": true or false
+}
+
+➕ Criar Contato
+POST http://localhost:8080/api/contact
+Body Exemplo:
+{
+     "name": "xpto",
+    "phone": "xpto",
+    "email": "xpto.joe@gmail.com",
+    "street": "valid street in DB",
+    "type": "individual",
+    "document": "document",
+    "is_active": true or false
+}
+
+➕ Criar Endereço
+POST http://localhost:8080/api/address
+Body Exemplo:
+{
+    "street": "xpto",
+    "number": "xpto",
+    "neighborhood": "xpto",
+    "city": "pto,
+    "state": "xpto",
+    "postalCode": "xpto,
+    "country": "xpto,
+    "isPrimary": true
+}
+
+
 ➕ Criar Transação
 POST http://localhost:8080/api/transaction
-
 Body exemplo:
-
-json
-Copy
 Edit
 {
-  "title": "Compra no mercado",
-  "amount": 150.00,
-  "type": "expense", // ou "income"
-  "category": "Alimentação"
+    "email": "xpto,
+    "value": 110,
+    "paymentName": "Celular",
+    "recurrence": "M" M de Mensal ou W de semana,
+    "number_of_installments": 8,
+    "installments_date": "12-16-2024",
+    "paid": false,
+    "category": {
+        "id": 1
+    },
+    "comment": "Devo, não nego, pago quando puder",
+    "contact": {
+        "id": 1
+    }
 }
 📄 Listar Transações
 GET http://localhost:8080/api/transaction
