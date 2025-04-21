@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { Account } from '../../domain/models/entities/account';
 import { IContactRepository } from '../../domain/repository/IContactRepository';
 
 export class ContactRepository implements IContactRepository {
@@ -6,6 +7,10 @@ export class ContactRepository implements IContactRepository {
 
   public static createClient(prismaClient: PrismaClient) {
     return new ContactRepository(prismaClient);
+  }
+
+  get(id?: string | undefined): Promise<Account> {
+    throw new Error('Method not implemented.');
   }
 
   async create(data: any): Promise<any> {
@@ -21,24 +26,21 @@ export class ContactRepository implements IContactRepository {
   async update(email: string, data: any) {
     return await this.prisma.contact.update({ where: { email: email }, data: data });
   }
-  async delete(id: number) {
+  async delete(id: string) {
     return await this.prisma.contact.delete({
       where: {
         id: id,
       },
     });
   }
-  async getByName(name: string): Promise<any> {
+  async getByName(email: string): Promise<any> {
     const contact = await this.prisma.contact.findFirst({
       where: {
-        email: name,
+        email: email,
       },
     });
 
     return contact;
-  }
-  get(id: number): Promise<any> {
-    throw new Error('Method not implemented.');
   }
 
   async getTransactionByContact(input: any): Promise<any> {

@@ -4,7 +4,7 @@ import { IUseCase } from '../usecase';
 export interface GetTransactionByMonthInput {
   skip: number;
   take: number;
-  id: number;
+  id: string;
   year: number;
   month: number;
 }

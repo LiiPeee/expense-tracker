@@ -1,7 +1,7 @@
-import { PrismaClient } from "@prisma/client";
-import { IAccount } from "../../domain/entity/account";
-import { Account } from "../../domain/models/entities/account";
-import { IAccountRepository } from "../../domain/repository/IAcountRepository";
+import { PrismaClient } from '@prisma/client';
+import { IAccount } from '../../domain/entity/account';
+import { Account } from '../../domain/models/entities/account';
+import { IAccountRepository } from '../../domain/repository/IAcountRepository';
 
 export class AccountRepository implements IAccountRepository {
   constructor(private readonly prisma: PrismaClient) {}
@@ -11,7 +11,7 @@ export class AccountRepository implements IAccountRepository {
   }
 
   async create(data: Account): Promise<IAccount | null> {
-    const account = await this.prisma.account.create({ data });
+    const account = await this.prisma.account.create({ data: data });
     return account;
   }
 

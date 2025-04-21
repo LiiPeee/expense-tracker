@@ -1,18 +1,18 @@
-import { ITransaction, Recurrence } from "../../entity/transaction";
-import { IUseCase } from "../usecase";
+import { ITransaction, Recurrence } from '../../entity/transaction';
+import { IUseCase } from '../usecase';
 
 export interface CreateTransactionInput {
-  account: { accountId: number };
+  account: { name: string };
   email: string;
   installments_date: Date;
   recurrence: Recurrence;
   number_of_installments: number;
   value: number;
-  category: { categoryId: number };
+  category: { name: string };
   paymentName: string;
   paid: boolean;
   comment?: string;
-  contact: { name: string };
+  contact: { email: string };
 }
 export type CreateTransactionOutPut = { transaction: ITransaction };
 

@@ -1,16 +1,15 @@
-import { IEntityBase } from "../../entity/entity";
+import { IEntityBase } from '../../entity/entity';
 
 export class EntityBase implements IEntityBase {
-  id?: number;
+  id?: string;
   createdAt?: Date;
   updatedAt?: Date;
 
-  constructor(id?: number) {
+  constructor(id?: string) {
     this.id = id;
   }
 
   static isEntity(value: any): boolean {
     return value instanceof EntityBase;
   }
-
 }

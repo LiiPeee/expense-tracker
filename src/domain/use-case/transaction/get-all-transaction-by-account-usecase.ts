@@ -2,7 +2,7 @@ import { ITransaction } from '../../entity/transaction';
 import { IUseCase } from '../usecase';
 
 export interface GetAllTransactionInput {
-  id: number;
+  email: string;
 }
 
 export type GetTransactionOutPut = { transaction: ITransaction };

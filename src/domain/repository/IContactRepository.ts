@@ -5,7 +5,7 @@ import { Contact } from '../models/entities/contact';
 export abstract class IContactRepository {
   abstract update(email: string, data: any): Promise<any>;
 
-  abstract get(id?: number): Promise<Account>;
+  abstract get(id?: string): Promise<Account>;
 
   abstract getByName(name: string): Promise<Contact | null>;
 
@@ -13,5 +13,5 @@ export abstract class IContactRepository {
 
   abstract create(contact: IContact): Promise<any>;
 
-  abstract delete(id: number): Promise<any>;
+  abstract delete(id: string): Promise<any>;
 }

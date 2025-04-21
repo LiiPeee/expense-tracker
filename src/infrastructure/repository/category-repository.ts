@@ -1,6 +1,6 @@
-import { PrismaClient } from "@prisma/client";
-import { Category } from "../../domain/models/entities/category";
-import { ICategoryRepository } from "../../domain/repository/ICategoryRepository";
+import { PrismaClient } from '@prisma/client';
+import { Category } from '../../domain/models/entities/category';
+import { ICategoryRepository } from '../../domain/repository/ICategoryRepository';
 
 export class CategoryRepository implements ICategoryRepository {
   constructor(private readonly prisma: PrismaClient) {}
@@ -9,7 +9,7 @@ export class CategoryRepository implements ICategoryRepository {
     return new CategoryRepository(prismaClient);
   }
 
-  async get(id: number): Promise<any> {
+  async get(id: string): Promise<any> {
     const category = await this.prisma.category.findFirst({
       where: {
         id: id,
@@ -25,7 +25,7 @@ export class CategoryRepository implements ICategoryRepository {
         name: name,
       },
     });
-    return name;
+    return category;
   }
 
   async create(data: Category): Promise<any> {
@@ -36,10 +36,10 @@ export class CategoryRepository implements ICategoryRepository {
   async getMany() {
     return await this.prisma.category.findMany();
   }
-  async update(id: number, data: any) {
+  async update(id: string, data: any) {
     return await this.prisma.category.update({ where: { id: id }, data: data });
   }
-  async delete(id: number) {
+  async delete(id: string) {
     return await this.prisma.category.delete({
       where: {
         id: id,

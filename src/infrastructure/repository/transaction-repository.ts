@@ -22,7 +22,7 @@ export class TransactionRepository implements ITransactionRepository {
           connect: { email: input.contact.email },
         },
         category: {
-          connect: { id: input.category.id },
+          connect: { name: input.category.name },
         },
       },
     });
@@ -63,9 +63,10 @@ export class TransactionRepository implements ITransactionRepository {
   }
 
   async getMany(input: any): Promise<any> {
-    const transaction = await this.prisma.transaction.findMany({
-      where: {
-        accountId: input.id,
+    const transaction = await this.prisma.contact.findMany({
+      where: { email: input.email },
+      include: {
+        transactions: true,
       },
     });
 

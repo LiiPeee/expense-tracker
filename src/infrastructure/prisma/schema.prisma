@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Account {
-  id         Int       @id @default(autoincrement())
+  id         String       @id @default(uuid())
   endDate    DateTime?
   createDate DateTime  @default(now())
   name       String
@@ -23,26 +23,26 @@ model Account {
 }
 
 model Transaction {
-  id                     Int         @id @default(autoincrement())
-  createDate             DateTime    @default(now())
+  id                     String         @id @default(uuid())
+  createDate             DateTime        @default(now())
   endDate                DateTime?
   account                Account     @relation("AccountTransaction", fields: [accountId], references: [id])
-  accountId              Int
+  accountId              String
   value                  Float
   paymentName            String
   paid                   Boolean     @default(false)
   contact                Contact     @relation("ContactTransactions", fields: [contactId], references: [id])
-  contactId              Int
+  contactId              String
   comment                String?
   recurrence             Recurrence @default(M)
   number_of_installments Int?
   category               Category    @relation("CategoryTransaction", fields: [categoryId], references: [id])
-  categoryId             Int
+  categoryId             String
   installments_date      DateTime?
 }
 
 model Contact {
-  id           Int           @id @default(autoincrement())
+  id           String           @id @default(uuid())
   createDate   DateTime      @default(now())
   endDate      DateTime?
   transactions Transaction[] @relation("ContactTransactions")
@@ -53,22 +53,22 @@ model Contact {
   document     String        @unique
   is_active    Boolean
   address      Address    @relation("AddressContact", fields: [addressId], references: [id])
-  addressId    Int
+  addressId    String
 }
 
 model Category {
-  id           Int           @id @default(autoincrement())
+  id           String           @id @default(uuid())
   createDate   DateTime      @default(now())
   endDate      DateTime?
   type         TypeCategory @default(expense)
-  isActive    Boolean      @default(true)
-  name         String
+  isActive     Boolean      @default(true)
+  name         String       @unique
   transactions Transaction[] @relation("CategoryTransaction")
 }
 
 model Address {
-  id           Int           @id @default(autoincrement())
-  createDate   DateTime      @default(now())
+  id           String           @id @default(uuid())
+  createDate   DateTime         @default(now())
   endDate      DateTime?
   street       String
   number       String

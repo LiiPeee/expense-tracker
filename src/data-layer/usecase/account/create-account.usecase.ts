@@ -3,7 +3,6 @@ import {
   CreateAccountOutPut,
   ICreateAccountUseCase,
 } from 'src/domain/use-case/account/create-account-usecase';
-import { NotFoundError } from '../../../data-layer/errors/not-found-error';
 import { IEncrypter } from '../../../domain/entity/encrypter';
 import { IJwt } from '../../../domain/entity/jwt';
 import { Account } from '../../../domain/models/entities/account';
@@ -34,8 +33,6 @@ export class CreateAccountUseCase implements ICreateAccountUseCase {
       .setToken(token);
 
     const accountCreated = await this._accountRespository.create({ ...account, token: account.token });
-
-    if (accountCreated) throw new NotFoundError('cannt find your account');
 
     return { account: accountCreated };
   }

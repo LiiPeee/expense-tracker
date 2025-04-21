@@ -1,16 +1,16 @@
-import { ITransaction } from "../../../domain/entity/transaction";
-import { Transaction } from "../../../domain/models/entities/transaction";
-import { IAccountRepository } from "../../../domain/repository/IAcountRepository";
-import { ICategoryRepository } from "../../../domain/repository/ICategoryRepository";
-import { IContactRepository } from "../../../domain/repository/IContactRepository";
-import { ITransactionRepository } from "../../../domain/repository/ITransactionRepository";
+import { ITransaction } from '../../../domain/entity/transaction';
+import { Transaction } from '../../../domain/models/entities/transaction';
+import { IAccountRepository } from '../../../domain/repository/IAcountRepository';
+import { ICategoryRepository } from '../../../domain/repository/ICategoryRepository';
+import { IContactRepository } from '../../../domain/repository/IContactRepository';
+import { ITransactionRepository } from '../../../domain/repository/ITransactionRepository';
 import {
   CreateTransactionInput,
   CreateTransactionOutPut,
   ICreateTransactionUseCase,
-} from "../../../domain/use-case/transaction/create-transaction-usecase";
-import { DataBaseError } from "../../errors/data-base-error";
-import { NotFoundError } from "../../errors/not-found-error";
+} from '../../../domain/use-case/transaction/create-transaction-usecase';
+import { DataBaseError } from '../../errors/data-base-error';
+import { NotFoundError } from '../../errors/not-found-error';
 
 export class CreateTransactionUseCase implements ICreateTransactionUseCase {
   constructor(
@@ -23,15 +23,15 @@ export class CreateTransactionUseCase implements ICreateTransactionUseCase {
   async execute(input: CreateTransactionInput): Promise<CreateTransactionOutPut> {
     const account = await this.accountRepository.getUnique(input.email);
 
-    if (!account) throw new NotFoundError("cannt find your account");
+    if (!account) throw new NotFoundError('cannt find your account');
 
-    const category = await this.categoryRepository.get(input.category.categoryId);
+    const category = await this.categoryRepository.getByName(input.category.name);
 
-    if (!category) throw new NotFoundError("cannt find your account");
+    if (!category) throw new NotFoundError('cannt find your account');
 
-    const contact = await this.contactRepository.getByName(input.contact.name);
+    const contact = await this.contactRepository.getByName(input.contact.email);
 
-    if (!contact) throw new NotFoundError("cannt find your account");
+    if (!contact) throw new NotFoundError('cannt find your account');
 
     const transaction = new Transaction({
       account: account,
@@ -46,13 +46,13 @@ export class CreateTransactionUseCase implements ICreateTransactionUseCase {
       installments_date: input.installments_date,
     });
 
-    if (input.recurrence === "M") {
-      const transactionPerMonth = await this.createInstallmentsPerWeek(transaction);
+    if (input.recurrence === 'M') {
+      const transactionPerMonth = await this.createInstallmentsPerMonth(transaction);
       return { transaction: transactionPerMonth };
     }
 
-    if (input.recurrence === "W") {
-      const transactionPerWeek = await this.createInstallmentsPerMonth(transaction);
+    if (input.recurrence === 'W') {
+      const transactionPerWeek = await this.createInstallmentsPerWeek(transaction);
       return {
         transaction: transactionPerWeek,
       };
@@ -93,9 +93,9 @@ export class CreateTransactionUseCase implements ICreateTransactionUseCase {
 
       const transactionCreated: Transaction = await this.transactionRepository.create(transaction);
 
-      if (transactionCreated) throw new DataBaseError("somethings wrong when create transaction");
+      if (!transactionCreated) throw new DataBaseError('somethings wrong when create transaction');
 
-      if (transaction.number_of_installments === index) return { transaction: transactionCreated };
+      if (transaction.number_of_installments === index) return transactionCreated;
     }
   }
 }
