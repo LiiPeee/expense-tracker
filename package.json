@@ -7,7 +7,7 @@
     "build": "tsc",
     "test:unit": "jest --passWithNoTests --watch",
     "dev": "nodemon src/main/index.ts",
-    "start": "nodemon src/index.ts",
+    "start": "nodemon src/main/index.ts",
     "test": "jest"
   },
   "keywords": [],

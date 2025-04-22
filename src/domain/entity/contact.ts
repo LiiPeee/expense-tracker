@@ -1,5 +1,6 @@
 import { IAddress } from './address';
 import { IEntityBase } from './entity';
+import { ITransaction } from './transaction';
 
 export interface IContact extends IEntityBase {
   name: string;
@@ -9,6 +10,7 @@ export interface IContact extends IEntityBase {
   type: TypeContact;
   document: string;
   is_active: boolean;
+  transactions?: ITransaction[];
 }
 
 export enum TypeContact {

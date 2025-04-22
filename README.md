@@ -1,9 +1,11 @@
 # 💸 Expense Tracker
+
 Expense Tracker é uma aplicação para controle de gastos pessoais. Com ela, é possível cadastrar e visualizar transações financeiras de forma simples e organizada.
 
 O projeto foi desenvolvido utilizando os princípios da Clean Architecture e DDD (Domain-Driven Design), garantindo uma estrutura robusta, escalável e de fácil manutenção.
 
 # 🛠️ Tecnologias Utilizadas
+
 Node.js + TypeScript
 
 Prisma ORM
@@ -15,6 +17,10 @@ Programação Orientada a Objetos (POO)
 Clean Architecture
 
 Domain-Driven Design (DDD)
+
+# 🛠️ DIAGRAMA DE CASE
+
+![alt text](image.png)
 
 ## 📦 Instalação
 
@@ -49,7 +55,7 @@ npm run dev
 
 ```
 
-##  📌 Rotas da API
+## 📌 Rotas da API
 
 ```
 
@@ -129,7 +135,6 @@ Application: casos de uso
 Infrastructure: comunicação com banco de dados (Prisma)
 
 Interface/HTTP: rotas e controladores
-
 
 ## License
 

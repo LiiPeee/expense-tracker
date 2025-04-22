@@ -27,11 +27,11 @@ export class CreateTransactionUseCase implements ICreateTransactionUseCase {
 
     const category = await this.categoryRepository.getByName(input.category.name);
 
-    if (!category) throw new NotFoundError('cannt find your account');
+    if (!category) throw new NotFoundError('cannt find your category');
 
-    const contact = await this.contactRepository.getByName(input.contact.email);
+    const contact = await this.contactRepository.getByEmail(input.contact.email);
 
-    if (!contact) throw new NotFoundError('cannt find your account');
+    if (!contact) throw new NotFoundError('cannt find your contact');
 
     const transaction = new Transaction({
       account: account,
@@ -77,7 +77,7 @@ export class CreateTransactionUseCase implements ICreateTransactionUseCase {
 
       const transactionCreated = await this.transactionRepository.create(transaction);
 
-      if (transaction.number_of_installments === index) return { transaction: transactionCreated };
+      if (transaction.number_of_installments === index) return transactionCreated;
     }
   }
 

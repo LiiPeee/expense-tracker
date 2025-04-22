@@ -33,7 +33,7 @@ export class ContactRepository implements IContactRepository {
       },
     });
   }
-  async getByName(email: string): Promise<any> {
+  async getByEmail(email: string): Promise<any> {
     const contact = await this.prisma.contact.findFirst({
       where: {
         email: email,
@@ -43,9 +43,9 @@ export class ContactRepository implements IContactRepository {
     return contact;
   }
 
-  async getTransactionByContact(input: any): Promise<any> {
+  async getTransactionByContact(email: string): Promise<any> {
     const contact = await this.prisma.contact.findFirst({
-      where: { email: input },
+      where: { email: email },
       include: {
         transactions: true,
       },
