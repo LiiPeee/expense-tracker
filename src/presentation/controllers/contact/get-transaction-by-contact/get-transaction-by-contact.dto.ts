@@ -1,4 +1,4 @@
-import { IContact } from '../../../entity/contact';
+import { IContact } from '../../../../domain/entity/contact';
 
 export class TransatactionByContactDto {
   constructor(public value: number, public paymentName: string, public recurrence: string, public paid: boolean) {}

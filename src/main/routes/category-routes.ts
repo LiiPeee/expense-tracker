@@ -9,8 +9,4 @@ export const categoryRouter = async (router: Router): Promise<void> => {
   router.post('/category', adaptRoute(await makeCreateCategoryFactory()));
 
   router.get('/category', adaptRoute(await makeGetCategoryFactory()));
-
-  // router.put("/category", adaptRoute(await makeUpdateCategoryFactory()));
-
-  //   router.delete("/category", adaptRoute(await makeDeleteCategoryFactory()));
 };

@@ -6,12 +6,8 @@ import { makeSignUpController } from '../factories/account/sign-up-account.contr
 
 export const accountRouter = async (router: Router): Promise<void> => {
   router.post('/account', adaptRoute(await makeAccountController()));
+
   router.post('/sign-up', adaptRoute(await makeSignUpController()));
 
   router.get('/get-transaction-by-account', adaptRoute(await makeGetTransactionAccountController()));
-
-  // router.get(
-  //   "/account/:email",
-  //   accountController.findAccountByEmail.bind(accountController)
-  // );
 };

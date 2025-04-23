@@ -7,7 +7,7 @@ export interface IAccount extends IEntityBase {
   token: string;
   balance?: number;
   password: string;
-  transaction?: ITransaction;
+  transaction?: ITransaction[];
 }
 
 export interface IAccountBehavior {
