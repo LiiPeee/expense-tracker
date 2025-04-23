@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "prisma generate",
     "build": "tsc",
     "test:unit": "jest --passWithNoTests --watch",
     "dev": "nodemon src/main/index.ts",
