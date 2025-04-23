@@ -7,7 +7,7 @@ import { transactionRouter } from '../routes/transaction-routes';
 
 export default (app: Express): void => {
   const router = Router();
-  app.use('/api', router);
+  app.use('/api/v1', router);
 
   accountRouter(router);
   transactionRouter(router);

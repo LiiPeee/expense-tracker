@@ -1,6 +1,6 @@
-import express, { Express, json } from "express";
-import setupMiddleware from "./middlewares";
-import setupRoutes from "./routes";
+import express, { Express } from 'express';
+import setupMiddleware from './middlewares';
+import setupRoutes from './routes';
 export const setupApp = async (): Promise<Express> => {
   const app = express();
 
@@ -9,5 +9,3 @@ export const setupApp = async (): Promise<Express> => {
 
   return app;
 };
-
-export const bodyParser = json();
