@@ -47,7 +47,7 @@ export class TransactionRepository implements ITransactionRepository {
     });
     if (!transaction) throw new NotFoundError("don't have any transaction");
 
-    const response = transaction.map((res) => {
+    const response = transaction.map((res: any) => {
       return new GetTransactionDto({
         createDate: res.createDate.toLocaleDateString('pt-BR'),
         value: res.value,
