@@ -10,7 +10,7 @@ export class AccountRepository implements IAccountRepository {
     return new AccountRepository(prismaClient);
   }
 
-  async create(data: Account): Promise<IAccount | null> {
+  async create(data: Account): Promise<IAccount> {
     const account = await this.prisma.account.create({ data: data });
     return account;
   }
@@ -41,5 +41,16 @@ export class AccountRepository implements IAccountRepository {
     });
 
     return updateAccount;
+  }
+  async getAccountWithTransaction(email: string): Promise<any> {
+    const account = await this.prisma.account.findUnique({
+      where: {
+        email: email,
+      },
+      include: {
+        transaction: true,
+      },
+    });
+    return account;
   }
 }

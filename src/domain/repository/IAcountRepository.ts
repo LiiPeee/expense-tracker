@@ -1,5 +1,5 @@
-import { IAccount } from "../entity/account";
-import { Account } from "../models/entities/account";
+import { IAccount } from '../entity/account';
+import { Account } from '../models/entities/account';
 
 export interface CreateAccountOutput {
   name: string;
@@ -18,5 +18,7 @@ export abstract class IAccountRepository {
 
   abstract getUnique(email: string): Promise<Account>;
 
-  abstract create(data: IAccount): Promise<IAccount | null>;
+  abstract create(data: IAccount): Promise<IAccount>;
+
+  abstract getAccountWithTransaction(email: string): Promise<any>;
 }

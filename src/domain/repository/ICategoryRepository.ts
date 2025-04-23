@@ -11,7 +11,7 @@ export abstract class ICategoryRepository {
 
   abstract create(input: InputCategory): Promise<any>;
 
-  abstract getMany(input: any): Promise<any>;
+  abstract getMany(): Promise<any>;
 
   abstract delete(input: any): Promise<any>;
 }

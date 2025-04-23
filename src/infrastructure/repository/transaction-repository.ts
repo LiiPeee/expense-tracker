@@ -61,15 +61,4 @@ export class TransactionRepository implements ITransactionRepository {
     });
     return response;
   }
-
-  async getMany(input: any): Promise<any> {
-    const transaction = await this.prisma.contact.findMany({
-      where: { email: input.email },
-      include: {
-        transactions: true,
-      },
-    });
-
-    return transaction;
-  }
 }

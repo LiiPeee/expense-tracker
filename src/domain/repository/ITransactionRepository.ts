@@ -5,6 +5,4 @@ export abstract class ITransactionRepository {
   abstract getByMonth(input: GetTransactionByMonthInput): Promise<any>;
 
   abstract create(input: ITransaction): Promise<any>;
-
-  abstract getMany(input: any): Promise<any>;
 }
