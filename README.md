@@ -18,7 +18,7 @@ Clean Architecture
 
 Domain-Driven Design (DDD)
 
-# 🛠️ DIAGRAMA DE CASE
+# 🛠️ DIAGRAMA DE CLASSES
 
 ![alt text](image.png)
 
