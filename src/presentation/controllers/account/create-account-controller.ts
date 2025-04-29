@@ -1,12 +1,12 @@
 import { Request } from 'express';
 import { BadRequestError } from '../../../data-layer/errors/bad-request-error';
-import { CreateAccountUseCase } from '../../../data-layer/usecase/account/create-account.usecase';
+import { ICreateAccountUseCase } from '../../../domain/use-case/account/create-account-usecase';
 import { Controller } from '../../protocols/controller';
 import { HttpResponse } from '../../protocols/http';
 import { badRequest, ok, serverError } from '../../response/helper';
 
 export class CreateAccountController implements Controller {
-  constructor(private readonly accountUsecase: CreateAccountUseCase) {}
+  constructor(private readonly accountUsecase: ICreateAccountUseCase) {}
   async handle(req: Request): Promise<HttpResponse> {
     try {
       const { name, email, password, balance } = req.body;

@@ -1,3 +1,4 @@
+import { IEvent } from '../../../domain/entity/event';
 import { ITransaction } from '../../../domain/entity/transaction';
 import { Transaction } from '../../../domain/models/entities/transaction';
 import { IAccountRepository } from '../../../domain/repository/IAcountRepository';
@@ -17,11 +18,12 @@ export class CreateTransactionUseCase implements ICreateTransactionUseCase {
     private readonly transactionRepository: ITransactionRepository,
     private readonly accountRepository: IAccountRepository,
     private readonly categoryRepository: ICategoryRepository,
-    private readonly contactRepository: IContactRepository
+    private readonly contactRepository: IContactRepository,
+    private readonly _event: IEvent
   ) {}
 
   async execute(input: CreateTransactionInput): Promise<CreateTransactionOutPut> {
-    const account = await this.accountRepository.getUnique(input.email);
+    const account = await this.accountRepository.getWithEmail(input.email);
 
     if (!account) throw new NotFoundError('cannt find your account');
 
@@ -43,7 +45,7 @@ export class CreateTransactionUseCase implements ICreateTransactionUseCase {
       category: category,
       contact: contact,
       number_of_installments: input.number_of_installments,
-      installments_date: input.installments_date,
+      installments_date: new Date(input.installments_date),
     });
 
     if (input.recurrence === 'M') {
@@ -59,7 +61,8 @@ export class CreateTransactionUseCase implements ICreateTransactionUseCase {
     }
 
     const transactionCreated = await this.transactionRepository.create(transaction);
-
+    const event = this._event.emit('creted-transaction-day', transactionCreated);
+    event;
     return {
       transaction: transactionCreated,
     };

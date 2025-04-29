@@ -15,10 +15,17 @@ export class AccountRepository implements IAccountRepository {
     return account;
   }
 
-  async getUnique(email: string): Promise<any> {
+  async getWithEmail(email: string): Promise<any> {
     return await this.prisma.account.findUnique({
       where: {
         email: email,
+      },
+    });
+  }
+  async getWithId(id: string): Promise<any> {
+    return await this.prisma.account.findUnique({
+      where: {
+        id: id,
       },
     });
   }

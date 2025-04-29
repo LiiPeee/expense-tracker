@@ -12,7 +12,7 @@ export class TransactionRepository implements ITransactionRepository {
     return new TransactionRepository(prismaClient);
   }
   async create(input: ITransaction): Promise<any> {
-    const newTransaction = await this.prisma.transaction.create({
+    const response = await this.prisma.transaction.create({
       data: {
         ...input,
         account: {
@@ -27,14 +27,25 @@ export class TransactionRepository implements ITransactionRepository {
       },
     });
 
-    return newTransaction;
+    return response;
+  }
+
+  async paidTransaction(id: string): Promise<void> {
+    await this.prisma.transaction.update({
+      where: {
+        id: id,
+      },
+      data: {
+        paid: true,
+      },
+    });
   }
 
   async getByMonth(input: GetTransactionByMonthInput): Promise<GetTransactionDto[] | null> {
     const start = new Date(input.year, input.month - 1, 1);
     const end = new Date(input.year, input.month, 0, 23, 59, 59, 999);
 
-    const transaction = await this.prisma.transaction.findMany({
+    const reponseDB = await this.prisma.transaction.findMany({
       skip: input.skip,
       take: input.take,
       where: {
@@ -45,9 +56,9 @@ export class TransactionRepository implements ITransactionRepository {
         },
       },
     });
-    if (!transaction) throw new NotFoundError("don't have any transaction");
+    if (!reponseDB) throw new NotFoundError("don't have any transaction");
 
-    const response = transaction.map((res: any) => {
+    const response = reponseDB.map((res: any) => {
       return new GetTransactionDto({
         createDate: res.createDate.toLocaleDateString('pt-BR'),
         value: res.value,

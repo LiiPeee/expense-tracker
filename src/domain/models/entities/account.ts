@@ -41,4 +41,13 @@ export class Account extends EntityBase implements IAccount, IAccountBehavior {
 
     return this;
   }
+
+  updateBalance(value: number, typeTransaction: string) {
+    if (typeTransaction === 'expense') {
+      this.balance -= value;
+      return this.balance;
+    }
+    this.balance += value;
+    return this.balance;
+  }
 }

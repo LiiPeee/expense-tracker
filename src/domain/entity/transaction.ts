@@ -1,8 +1,9 @@
-import { IAccount } from "./account";
-import { ICategory } from "./category";
-import { IContact } from "./contact";
+import { IAccount } from './account';
+import { ICategory } from './category';
+import { IContact } from './contact';
+import { IEntityBase } from './entity';
 
-export interface ITransaction {
+export interface ITransaction extends IEntityBase {
   account: IAccount;
   value: number;
   paymentName: string;
@@ -16,8 +17,8 @@ export interface ITransaction {
 }
 
 export enum Recurrence {
-  M = "M",
-  w = "W",
-  D = "D",
-  B = "B",
+  M = 'M',
+  w = 'W',
+  D = 'D',
+  B = 'B',
 }

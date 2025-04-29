@@ -21,7 +21,7 @@ export class CreateAccountUseCase implements ICreateAccountUseCase {
 
     const token = this.jwtToken.sign(hashPassword, process.env.JWT_SECRET);
 
-    const accountFound = await this._accountRespository.getUnique(input.email);
+    const accountFound = await this._accountRespository.getWithEmail(input.email);
 
     if (accountFound) throw new BadRequestError('Already exists this email');
 

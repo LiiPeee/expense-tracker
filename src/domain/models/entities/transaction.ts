@@ -1,15 +1,15 @@
-import { IAccount } from "../../entity/account";
-import { ICategory } from "../../entity/category";
-import { IContact } from "../../entity/contact";
-import { ITransaction, Recurrence } from "../../entity/transaction";
-import { EntityBase } from "./entity-base";
+import { IAccount } from '../../entity/account';
+import { ICategory } from '../../entity/category';
+import { IContact } from '../../entity/contact';
+import { ITransaction, Recurrence } from '../../entity/transaction';
+import { EntityBase } from './entity-base';
 
 export class Transaction extends EntityBase implements ITransaction {
   account: IAccount;
   value: number;
   paymentName: string;
   paid: boolean;
-  comment?: string | undefined;
+  comment?: string;
   recurrence: Recurrence;
   category: ICategory;
   contact: IContact;
