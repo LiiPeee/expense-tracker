@@ -1,4 +1,4 @@
 export interface IEvent {
-  on(input: string, data: any): any;
-  emit(input: string, data: any): any;
+  on(input: string, data: any): void;
+  emit(input: string, data: any): void;
 }

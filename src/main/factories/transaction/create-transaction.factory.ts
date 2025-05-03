@@ -1,4 +1,4 @@
-import EventEmitter from 'events';
+import { EventEmitter } from 'events';
 import { CreateTransactionUseCase } from '../../../data-layer/usecase/transaction/create-transaction.usecase';
 import { AccountRepository } from '../../../infrastructure/repository/account-repository';
 import { CategoryRepository } from '../../../infrastructure/repository/category-repository';
@@ -7,7 +7,6 @@ import { TransactionRepository } from '../../../infrastructure/repository/transa
 import { CreateTransactionController } from '../../../presentation/controllers/transaction/create-transaction-controller';
 import { Controller } from '../../../presentation/protocols/controller';
 import { validatePrisma } from '../../package/prisma';
-
 export const eventEmitter = new EventEmitter();
 
 export const makeCreateTransactionController = async (): Promise<Controller> => {
