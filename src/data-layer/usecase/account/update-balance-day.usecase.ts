@@ -1,4 +1,4 @@
-import { IEvent } from '../../../domain/entity/event';
+import { IEvent } from '../../../domain/framework/event';
 import { Account } from '../../../domain/models/entities/account';
 import { IAccountRepository } from '../../../domain/repository/IAcountRepository';
 import { ICategoryRepository } from '../../../domain/repository/ICategoryRepository';

@@ -1,6 +1,6 @@
 import { IAccount } from 'src/domain/entity/account';
 import { IUseCase } from 'src/domain/use-case/usecase';
-import { IBcrypter } from '../../../domain/entity/bcrypter';
+import { IBcrypter } from '../../../domain/framework/bcrypter';
 import { InputSignAccount } from '../../../domain/inputAndOutput';
 import { IAccountRepository } from '../../../domain/repository/IAcountRepository';
 

@@ -72,4 +72,15 @@ export class TransactionRepository implements ITransactionRepository {
     });
     return response;
   }
+
+  async getMany(accountId: string): Promise<any> {
+    const response = await this.prisma.transaction.findMany({
+      where: {
+        account: {
+          id: accountId,
+        },
+      },
+    });
+    return response;
+  }
 }

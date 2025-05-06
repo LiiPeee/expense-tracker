@@ -1,4 +1,4 @@
-import { UpdateBalanceDayAccountUseCase } from '../../../data-layer/usecase/account/update-balance.usecase';
+import { UpdateBalanceDayAccountUseCase } from '../../../data-layer/usecase/account/update-balance-day.usecase';
 import { AccountRepository } from '../../../infrastructure/repository/account-repository';
 import { CategoryRepository } from '../../../infrastructure/repository/category-repository';
 import { TransactionRepository } from '../../../infrastructure/repository/transaction-repository';

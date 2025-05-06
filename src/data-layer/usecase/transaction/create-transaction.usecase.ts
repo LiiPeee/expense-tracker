@@ -1,5 +1,5 @@
-import { IEvent } from '../../../domain/entity/event';
 import { ITransaction } from '../../../domain/entity/transaction';
+import { IEvent } from '../../../domain/framework/event';
 import { Transaction } from '../../../domain/models/entities/transaction';
 import { IAccountRepository } from '../../../domain/repository/IAcountRepository';
 import { ICategoryRepository } from '../../../domain/repository/ICategoryRepository';

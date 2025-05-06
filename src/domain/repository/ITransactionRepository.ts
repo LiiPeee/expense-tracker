@@ -7,4 +7,6 @@ export abstract class ITransactionRepository {
   abstract create(input: ITransaction): Promise<any>;
 
   abstract paidTransaction(id: string): Promise<any>;
+
+  abstract getMany(accountId: string): Promise<any>;
 }

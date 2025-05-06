@@ -3,8 +3,8 @@ import {
   CreateAccountOutPut,
   ICreateAccountUseCase,
 } from 'src/domain/use-case/account/create-account-usecase';
-import { IEncrypter } from '../../../domain/entity/encrypter';
-import { IJwt } from '../../../domain/entity/jwt';
+import { IEncrypter } from '../../../domain/framework/encrypter';
+import { IJwt } from '../../../domain/framework/jwt';
 import { Account } from '../../../domain/models/entities/account';
 import { IAccountRepository } from '../../../domain/repository/IAcountRepository';
 import { BadRequestError } from '../../errors/bad-request-error';

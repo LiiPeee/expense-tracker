@@ -6,7 +6,7 @@ import { Controller } from '../../../protocols/controller';
 import { HttpResponse } from '../../../protocols/http';
 import { badRequest, ok, serverError } from '../../../response/helper';
 
-export class GetAllTransactionByAccountController implements Controller {
+export class GetAllTransactionAccountController implements Controller {
   constructor(
     private readonly accountUsecase: IGetAllTransactionByAccountUseCase,
     private readonly accountTransactionMapper: IGetTransactionByAccountMapper
