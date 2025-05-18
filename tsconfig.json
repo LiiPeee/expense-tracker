@@ -2,10 +2,8 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "baseUrl": "./", // Define o diretório base
-    "paths": {
-      "src/*": ["src/*"] // Mapeia `src/...` para `./src/...`
-    },
+    "baseUrl": "./src", // Define o diretório base
+    "paths": {},
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -18,5 +16,7 @@
     "types": ["node"]
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "moduleResolution": "bundler",
+  "module": "esnext"
 }

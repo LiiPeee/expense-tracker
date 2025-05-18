@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client';
-import { NotFoundError } from '../../data-layer/errors/not-found-error';
 import { ITransaction } from '../../domain/entity/transaction';
 import { GetTransactionDto } from '../../domain/models/dto/get-transaction-dto';
 import { ITransactionRepository } from '../../domain/repository/ITransactionRepository';
 import { GetTransactionByMonthInput } from '../../domain/use-case/transaction/get-transaction-by-month-usecase';
+import { NotFoundError } from '../errors/not-found-error';
 
 export class TransactionRepository implements ITransactionRepository {
   constructor(private readonly prisma: PrismaClient) {}

@@ -1,18 +1,11 @@
 import { Contact } from '../../../domain/models/entities/contact';
 import { IAddressRepository } from '../../../domain/repository/IAddressRepository';
 import { IContactRepository } from '../../../domain/repository/IContactRepository';
-import {
-  CreateContactInput,
-  CreateContactOutPut,
-  ICreateContactUseCase,
-} from '../../../domain/use-case/contact/create-contact-usecase';
-import { DataBaseError } from '../../errors/data-base-error';
+import { CreateContactInput, CreateContactOutPut, ICreateContactUseCase } from '../../../domain/use-case/contact/create-contact-usecase';
+import { DataBaseError } from '../../../infrastructure/errors/data-base-error';
 
 export class CreateContactUseCase implements ICreateContactUseCase {
-  constructor(
-    private readonly _contactRepository: IContactRepository,
-    private readonly _addressRepository: IAddressRepository
-  ) {}
+  constructor(private readonly _contactRepository: IContactRepository, private readonly _addressRepository: IAddressRepository) {}
   async execute(data: CreateContactInput): Promise<CreateContactOutPut> {
     const address = await this._addressRepository.get(data.street);
 

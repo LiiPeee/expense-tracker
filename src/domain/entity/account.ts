@@ -5,8 +5,9 @@ export interface IAccount extends IEntityBase {
   name: string;
   email: string;
   token: string;
-  balance?: number;
+  balance: number;
   password: string;
+  organizationId: string;
   transaction?: ITransaction[];
 }
 
@@ -16,4 +17,5 @@ export interface IAccountBehavior {
   // setToken(token?: string): IAccountBehavior
   setBalance(balance?: number): IAccountBehavior;
   setPassword(password: string): IAccountBehavior;
+  setOrganization(organizationId: string): IAccountBehavior;
 }

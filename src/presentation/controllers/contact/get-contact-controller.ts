@@ -1,6 +1,6 @@
 import { Request } from 'express';
-import { DataBaseError } from '../../../data-layer/errors/data-base-error';
 import { IGetAllContactUseCase } from '../../../domain/use-case/contact/get-contact-usecase';
+import { DataBaseError } from '../../../infrastructure/errors/data-base-error';
 import { Controller } from '../../protocols/controller';
 import { HttpResponse } from '../../protocols/http';
 import { badRequest, created, serverError } from '../../response/helper';

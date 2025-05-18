@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { NotFoundError } from '../../../data-layer/errors/not-found-error';
+import { NotFoundError } from '../../../infrastructure/errors/not-found-error';
 
 import { IGetTransactionByMonthUseCase } from '../../../domain/use-case/transaction/get-transaction-by-month-usecase';
 import { Controller } from '../../protocols/controller';

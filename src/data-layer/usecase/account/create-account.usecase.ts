@@ -1,13 +1,9 @@
-import {
-  CreateAccountInput,
-  CreateAccountOutPut,
-  ICreateAccountUseCase,
-} from 'src/domain/use-case/account/create-account-usecase';
 import { IEncrypter } from '../../../domain/framework/encrypter';
 import { IJwt } from '../../../domain/framework/jwt';
 import { Account } from '../../../domain/models/entities/account';
 import { IAccountRepository } from '../../../domain/repository/IAcountRepository';
-import { BadRequestError } from '../../errors/bad-request-error';
+import { CreateAccountInput, CreateAccountOutPut, ICreateAccountUseCase } from '../../../domain/use-case/account/create-account-usecase';
+import { BadRequestError } from '../../../infrastructure/errors/bad-request-error';
 
 export class CreateAccountUseCase implements ICreateAccountUseCase {
   constructor(

@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { NotFoundError } from '../../../../data-layer/errors/not-found-error';
+import { NotFoundError } from '../../../../infrastructure/errors/not-found-error';
 
 import { IGetTransactionByContactMapper } from '../../../../domain/controller/contact/get-transaction-by-contact/get-transaction-by-contact.mapper';
 import { IGetTransactionByContactUseCase } from '../../../../domain/use-case/contact/get-transaction-by-contact-usecase';

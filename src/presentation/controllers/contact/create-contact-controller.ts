@@ -1,9 +1,9 @@
-import { Request } from "express";
-import { DataBaseError } from "../../../data-layer/errors/data-base-error";
-import { ICreateContactUseCase } from "../../../domain/use-case/contact/create-contact-usecase";
-import { Controller } from "../../protocols/controller";
-import { HttpResponse } from "../../protocols/http";
-import { badRequest, created, serverError } from "../../response/helper";
+import { Request } from 'express';
+import { ICreateContactUseCase } from '../../../domain/use-case/contact/create-contact-usecase';
+import { DataBaseError } from '../../../infrastructure/errors/data-base-error';
+import { Controller } from '../../protocols/controller';
+import { HttpResponse } from '../../protocols/http';
+import { badRequest, created, serverError } from '../../response/helper';
 
 export class CreateContactController implements Controller {
   constructor(private readonly contactUseCase: ICreateContactUseCase) {}
@@ -11,7 +11,7 @@ export class CreateContactController implements Controller {
     try {
       const contact = await this.contactUseCase.execute(req.body);
 
-      if (!contact) throw new DataBaseError("somenthing is wrong in Database");
+      if (!contact) throw new DataBaseError('somenthing is wrong in Database');
 
       return created(contact);
     } catch (error: any) {

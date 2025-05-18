@@ -10,8 +10,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+
+model Organization {
+  id         String    @id @default(uuid())
+  endDate    DateTime?
+  createDate DateTime  @default(now())
+  name       String
+  email      String    @unique
+  account    Account[]   @relation("AccountOrganization")
+}
+
+
 model Account {
-  id         String       @id @default(uuid())
+  id         String    @id @default(uuid())
   endDate    DateTime?
   createDate DateTime  @default(now())
   name       String
@@ -19,6 +31,8 @@ model Account {
   balance    Float
   token      String
   password   String
+  organization  Organization @relation("AccountOrganization", fields: [organizationId], references: [id])
+  organizationId String
   transaction Transaction[] @relation("AccountTransaction")
 }
 

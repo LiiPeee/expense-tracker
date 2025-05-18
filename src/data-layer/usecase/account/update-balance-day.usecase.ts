@@ -3,11 +3,8 @@ import { Account } from '../../../domain/models/entities/account';
 import { IAccountRepository } from '../../../domain/repository/IAcountRepository';
 import { ICategoryRepository } from '../../../domain/repository/ICategoryRepository';
 import { ITransactionRepository } from '../../../domain/repository/ITransactionRepository';
-import {
-  IUpdateBalanceDayAcountUseCase,
-  UpdateBalanceInput,
-} from '../../../domain/use-case/account/update-balance-day-usecase';
-import { BadRequestError } from '../../errors/bad-request-error';
+import { IUpdateBalanceDayAcountUseCase, UpdateBalanceInput } from '../../../domain/use-case/account/update-balance-day-usecase';
+import { BadRequestError } from '../../../infrastructure/errors/bad-request-error';
 
 export class UpdateBalanceDayAccountUseCase implements IUpdateBalanceDayAcountUseCase {
   constructor(
@@ -25,8 +22,7 @@ export class UpdateBalanceDayAccountUseCase implements IUpdateBalanceDayAcountUs
   async update(transaction: UpdateBalanceInput): Promise<void> {
     const account: Account = await this._accountRepository.getWithId(transaction.accountId);
 
-    if (transaction.recurrence != 'D' && transaction.paid != true)
-      throw new BadRequestError('Its not a transaction from this day');
+    if (transaction.recurrence != 'D' && transaction.paid != true) throw new BadRequestError('Its not a transaction from this day');
 
     const newAccount = new Account().setBalance(account.balance);
 

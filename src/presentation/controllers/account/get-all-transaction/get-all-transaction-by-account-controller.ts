@@ -1,7 +1,7 @@
 import { Request } from 'express';
-import { DataBaseError } from '../../../../data-layer/errors/data-base-error';
 import { IGetTransactionByAccountMapper } from '../../../../domain/controller/account/get-all-transaction-by-account/get-transaction-by-contact.mapper';
 import { IGetAllTransactionByAccountUseCase } from '../../../../domain/use-case/account/get-all-transaction-by-account-usecase';
+import { DataBaseError } from '../../../../infrastructure/errors/data-base-error';
 import { Controller } from '../../../protocols/controller';
 import { HttpResponse } from '../../../protocols/http';
 import { badRequest, ok, serverError } from '../../../response/helper';

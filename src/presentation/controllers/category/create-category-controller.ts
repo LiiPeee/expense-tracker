@@ -1,9 +1,9 @@
-import { Request } from "express";
-import { DataBaseError } from "../../../data-layer/errors/data-base-error";
-import { ICreateCategoryUseCase } from "../../../domain/use-case/category/create-category-usecase";
-import { Controller } from "../../protocols/controller";
-import { HttpResponse } from "../../protocols/http";
-import { badRequest, created, serverError } from "../../response/helper";
+import { Request } from 'express';
+import { ICreateCategoryUseCase } from '../../../domain/use-case/category/create-category-usecase';
+import { DataBaseError } from '../../../infrastructure/errors/data-base-error';
+import { Controller } from '../../protocols/controller';
+import { HttpResponse } from '../../protocols/http';
+import { badRequest, created, serverError } from '../../response/helper';
 
 export class CreateCategoryController implements Controller {
   constructor(private readonly categoryUseCase: ICreateCategoryUseCase) {}
@@ -11,7 +11,7 @@ export class CreateCategoryController implements Controller {
     try {
       const category = await this.categoryUseCase.execute(req.body);
 
-      if (!category) throw new DataBaseError("somenthing is wrong in Database");
+      if (!category) throw new DataBaseError('somenthing is wrong in Database');
 
       return created(category);
     } catch (error: any) {

@@ -10,8 +10,8 @@ import {
   CreateTransactionOutPut,
   ICreateTransactionUseCase,
 } from '../../../domain/use-case/transaction/create-transaction-usecase';
-import { DataBaseError } from '../../errors/data-base-error';
-import { NotFoundError } from '../../errors/not-found-error';
+import { DataBaseError } from '../../../infrastructure/errors/data-base-error';
+import { NotFoundError } from '../../../infrastructure/errors/not-found-error';
 
 export class CreateTransactionUseCase implements ICreateTransactionUseCase {
   constructor(
@@ -74,11 +74,10 @@ export class CreateTransactionUseCase implements ICreateTransactionUseCase {
     let date = new Date();
 
     for (let index = 1; index <= transaction.number_of_installments; index++) {
+      const transactionCreated = await this.transactionRepository.create(transaction);
       const newDate = new Date(date.setMonth(date.getMonth() + 1));
 
       transaction.installments_date = newDate;
-
-      const transactionCreated = await this.transactionRepository.create(transaction);
 
       if (transaction.number_of_installments === index) return transactionCreated;
     }

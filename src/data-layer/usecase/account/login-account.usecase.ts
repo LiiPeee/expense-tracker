@@ -1,8 +1,8 @@
-import { IAccount } from 'src/domain/entity/account';
-import { IUseCase } from 'src/domain/use-case/usecase';
+import { IAccount } from '../../../domain/entity/account';
 import { IBcrypter } from '../../../domain/framework/bcrypter';
 import { InputSignAccount } from '../../../domain/inputAndOutput';
 import { IAccountRepository } from '../../../domain/repository/IAcountRepository';
+import { IUseCase } from '../../../domain/use-case/usecase';
 
 export class SingUpAccountUseCase implements IUseCase<InputSignAccount, IAccount> {
   constructor(private readonly _repository: IAccountRepository, private readonly _bcrypt: IBcrypter) {}

@@ -1,11 +1,7 @@
 import { Address } from '../../../domain/models/entities/address';
 import { IAddressRepository } from '../../../domain/repository/IAddressRepository';
-import {
-  CreateAddressInput,
-  CreateAddressOutPut,
-  ICreateAddressUseCase,
-} from '../../../domain/use-case/address/create-address.usecase';
-import { NotFoundError } from '../../errors/not-found-error';
+import { CreateAddressInput, CreateAddressOutPut, ICreateAddressUseCase } from '../../../domain/use-case/address/create-address.usecase';
+import { NotFoundError } from '../../../infrastructure/errors/not-found-error';
 
 export class CreateAddressUseCase implements ICreateAddressUseCase {
   constructor(private readonly _addressRepository: IAddressRepository) {}

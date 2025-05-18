@@ -1,4 +1,4 @@
-import { BadRequestError } from '../../../data-layer/errors/bad-request-error';
+import { BadRequestError } from '../../../infrastructure/errors/bad-request-error';
 import { IAccount, IAccountBehavior } from '../../entity/account';
 import { EntityBase } from './entity-base';
 
@@ -8,6 +8,7 @@ export class Account extends EntityBase implements IAccount, IAccountBehavior {
   token!: string;
   balance!: number;
   password!: string;
+  organizationId!: string;
 
   constructor() {
     super();
@@ -38,6 +39,13 @@ export class Account extends EntityBase implements IAccount, IAccountBehavior {
   setPassword(password: string): Account {
     if (!password) throw new BadRequestError('You dont send password');
     this.password = password;
+
+    return this;
+  }
+
+  setOrganization(organizationId: string): Account {
+    if (!organizationId) throw new BadRequestError('You didnt send organization');
+    this.organizationId = organizationId;
 
     return this;
   }

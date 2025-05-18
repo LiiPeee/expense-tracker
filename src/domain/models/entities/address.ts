@@ -1,6 +1,6 @@
-import { BadRequestError } from "../../../data-layer/errors/bad-request-error";
-import { IAddress, IAddressBehavior } from "../../entity/address";
-import { EntityBase } from "./entity-base";
+import { BadRequestError } from '../../../infrastructure/errors/bad-request-error';
+import { IAddress, IAddressBehavior } from '../../entity/address';
+import { EntityBase } from './entity-base';
 
 export class Address extends EntityBase implements IAddress, IAddressBehavior {
   street!: string;
@@ -16,50 +16,50 @@ export class Address extends EntityBase implements IAddress, IAddressBehavior {
     super();
   }
   setStreet(street: string): Address {
-    if (!street) throw new BadRequestError("You dont send street");
+    if (!street) throw new BadRequestError('You dont send street');
     this.street = street;
 
     return this;
   }
   setNumber(number: string): Address {
-    if (!number) this.number = "";
+    if (!number) this.number = '';
 
     this.number = number;
 
     return this;
   }
   setNeighborhood(neighborhood: string): Address {
-    if (!neighborhood) this.neighborhood = "";
+    if (!neighborhood) this.neighborhood = '';
     this.neighborhood = neighborhood;
 
     return this;
   }
   setCity(city: string): Address {
-    if (!city) throw new BadRequestError("You dont send city");
+    if (!city) throw new BadRequestError('You dont send city');
     this.city = city;
 
     return this;
   }
   setState(state: string): Address {
-    if (!state) throw new BadRequestError("You dont send state");
+    if (!state) throw new BadRequestError('You dont send state');
     this.state = state;
 
     return this;
   }
   setPostalCode(postal: string): Address {
-    if (!postal) throw new BadRequestError("You dont send postal");
+    if (!postal) throw new BadRequestError('You dont send postal');
     this.postalCode = postal;
 
     return this;
   }
   setCountry(country: string): Address {
-    if (!country) throw new BadRequestError("You dont send country");
+    if (!country) throw new BadRequestError('You dont send country');
     this.country = country;
 
     return this;
   }
   setComplement(complement: string): Address {
-    if (!complement) this.complement = "";
+    if (!complement) this.complement = '';
     this.complement = complement;
 
     return this;

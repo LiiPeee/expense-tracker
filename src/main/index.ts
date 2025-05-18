@@ -1,6 +1,6 @@
-import dotenv from "dotenv";
-import { Express } from "express";
-import { setupApp } from "./config/app";
+import dotenv from 'dotenv';
+import { Express } from 'express';
+import { setupApp } from './config/app';
 
 dotenv.config();
 
@@ -15,5 +15,5 @@ const startServer = async (): Promise<void> => {
 };
 
 startServer().catch((error) => {
-  console.error("Failed to start server:", error);
+  console.error('Failed to start server:', error);
 });
