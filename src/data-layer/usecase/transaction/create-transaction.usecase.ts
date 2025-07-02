@@ -1,17 +1,17 @@
-import { ITransaction } from '../../../domain/entity/transaction';
-import { IEvent } from '../../../domain/framework/event';
-import { Transaction } from '../../../domain/models/entities/transaction';
-import { IAccountRepository } from '../../../domain/repository/IAcountRepository';
-import { ICategoryRepository } from '../../../domain/repository/ICategoryRepository';
-import { IContactRepository } from '../../../domain/repository/IContactRepository';
-import { ITransactionRepository } from '../../../domain/repository/ITransactionRepository';
+import { ITransaction } from "../../../domain/entity/transaction";
+import { MQ } from "../../../domain/framework/MQ";
+import { Transaction } from "../../../domain/models/entities/transaction";
+import { IAccountRepository } from "../../../domain/repository/IAcountRepository";
+import { ICategoryRepository } from "../../../domain/repository/ICategoryRepository";
+import { IContactRepository } from "../../../domain/repository/IContactRepository";
+import { ITransactionRepository } from "../../../domain/repository/ITransactionRepository";
 import {
   CreateTransactionInput,
   CreateTransactionOutPut,
   ICreateTransactionUseCase,
-} from '../../../domain/use-case/transaction/create-transaction-usecase';
-import { DataBaseError } from '../../../infrastructure/errors/data-base-error';
-import { NotFoundError } from '../../../infrastructure/errors/not-found-error';
+} from "../../../domain/use-case/transaction/create-transaction-usecase";
+import { DataBaseError } from "../../../infrastructure/errors/data-base-error";
+import { NotFoundError } from "../../../infrastructure/errors/not-found-error";
 
 export class CreateTransactionUseCase implements ICreateTransactionUseCase {
   constructor(
@@ -19,21 +19,21 @@ export class CreateTransactionUseCase implements ICreateTransactionUseCase {
     private readonly accountRepository: IAccountRepository,
     private readonly categoryRepository: ICategoryRepository,
     private readonly contactRepository: IContactRepository,
-    private readonly _event: IEvent
+    private readonly _event: MQ
   ) {}
 
   async execute(input: CreateTransactionInput): Promise<CreateTransactionOutPut> {
     const account = await this.accountRepository.getWithEmail(input.email);
 
-    if (!account) throw new NotFoundError('cannt find your account');
+    if (!account) throw new NotFoundError("cannt find your account");
 
     const category = await this.categoryRepository.getByName(input.category.name);
 
-    if (!category) throw new NotFoundError('cannt find your category');
+    if (!category) throw new NotFoundError("cannt find your category");
 
     const contact = await this.contactRepository.getByEmail(input.contact.email);
 
-    if (!contact) throw new NotFoundError('cannt find your contact');
+    if (!contact) throw new NotFoundError("cannt find your contact");
 
     const transaction = new Transaction({
       account: account,
@@ -48,12 +48,12 @@ export class CreateTransactionUseCase implements ICreateTransactionUseCase {
       installments_date: new Date(input.installments_date),
     });
 
-    if (input.recurrence === 'M') {
+    if (input.recurrence === "M") {
       const transactionPerMonth = await this.createInstallmentsPerMonth(transaction);
       return { transaction: transactionPerMonth };
     }
 
-    if (input.recurrence === 'W') {
+    if (input.recurrence === "W") {
       const transactionPerWeek = await this.createInstallmentsPerWeek(transaction);
       return {
         transaction: transactionPerWeek,
@@ -61,8 +61,7 @@ export class CreateTransactionUseCase implements ICreateTransactionUseCase {
     }
 
     const transactionCreated = await this.transactionRepository.create(transaction);
-    const event = this._event.emit('creted-transaction-day', transactionCreated);
-    event;
+    const event = this._event.createQueue("creted-transaction-day", "creating-transaction", transactionCreated);
     return {
       transaction: transactionCreated,
     };
@@ -95,7 +94,7 @@ export class CreateTransactionUseCase implements ICreateTransactionUseCase {
 
       const transactionCreated: Transaction = await this.transactionRepository.create(transaction);
 
-      if (!transactionCreated) throw new DataBaseError('somethings wrong when create transaction');
+      if (!transactionCreated) throw new DataBaseError("somethings wrong when create transaction");
 
       if (transaction.number_of_installments === index) return transactionCreated;
     }

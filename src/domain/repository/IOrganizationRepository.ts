@@ -1,5 +1,6 @@
-import { IOrganization } from 'src/domain/entity/organization';
-import { IRepositoryBase } from 'src/domain/repository/IRepositoryBase';
+import { IOrganization } from "domain/entity/organization";
+import { IRepositoryBase } from "./IRepositoryBase";
+
 
 export abstract class IOrganizationRepository implements IRepositoryBase<IOrganization> {
   abstract create(data: IOrganization): Promise<any>;
@@ -7,4 +8,5 @@ export abstract class IOrganizationRepository implements IRepositoryBase<IOrgani
   abstract getMany(input: any): Promise<any>;
   abstract update(input: any): Promise<any>;
   abstract delete(input: any): Promise<any>;
+  abstract getAccountWithTransaction():Promise<any>;
 }

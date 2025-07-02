@@ -35,13 +35,13 @@ describe('CreateTransactionUseCase', () => {
     number_of_installments: 1,
     value: 10,
     category: {
-      categoryId: 1,
+      name: '1',
     },
-    account: { accountId: 1 },
+    account: { name: '1' },
     paymentName: 'xpto',
     paid: true,
     contact: {
-      name: 'xpto',
+      email: 'xpto',
     },
   };
 
@@ -54,10 +54,15 @@ describe('CreateTransactionUseCase', () => {
       getUnique: jest.fn().mockResolvedValue(accountFake),
     } as unknown as jest.Mocked<IAccountRepository>;
     contactRepository = {
+      getByEmail: jest.fn().mockResolvedValue(),
+    } as unknown as jest.Mocked<IAccountRepository>;
+
+
+    categoryRepository = {
       getByName: jest.fn().mockResolvedValue(),
     } as jest.Mocked<IAccountRepository>;
 
-    sut = new CreateTransactionUseCase(transactionRepository, accountRepository);
+    sut = new CreateTransactionUseCase(transactionRepository, accountRepository, contactRepository, categoryRepository);
   });
 
   test('should be return success ', async () => {

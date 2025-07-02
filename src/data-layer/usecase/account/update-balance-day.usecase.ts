@@ -1,28 +1,28 @@
-import { IEvent } from '../../../domain/framework/event';
-import { Account } from '../../../domain/models/entities/account';
-import { IAccountRepository } from '../../../domain/repository/IAcountRepository';
-import { ICategoryRepository } from '../../../domain/repository/ICategoryRepository';
-import { ITransactionRepository } from '../../../domain/repository/ITransactionRepository';
-import { IUpdateBalanceDayAcountUseCase, UpdateBalanceInput } from '../../../domain/use-case/account/update-balance-day-usecase';
-import { BadRequestError } from '../../../infrastructure/errors/bad-request-error';
+import { MQ } from "../../../domain/framework/MQ";
+import { Account } from "../../../domain/models/entities/account";
+import { IAccountRepository } from "../../../domain/repository/IAcountRepository";
+import { ICategoryRepository } from "../../../domain/repository/ICategoryRepository";
+import { ITransactionRepository } from "../../../domain/repository/ITransactionRepository";
+import { IUpdateBalanceDayAcountUseCase, UpdateBalanceInput } from "../../../domain/use-case/account/update-balance-day-usecase";
+import { BadRequestError } from "../../../infrastructure/errors/bad-request-error";
 
 export class UpdateBalanceDayAccountUseCase implements IUpdateBalanceDayAcountUseCase {
   constructor(
     private readonly _accountRepository: IAccountRepository,
     private readonly _transactionRepository: ITransactionRepository,
     private readonly _categoryRepository: ICategoryRepository,
-    private readonly _event: IEvent
+    private readonly _event: MQ
   ) {
     this.execute();
   }
   async execute(): Promise<void> {
-    this._event.on('creted-transaction-day', this.update.bind(this));
+    this._event.consumer("creted-transaction-day", this.update.bind(this));
   }
 
   async update(transaction: UpdateBalanceInput): Promise<void> {
     const account: Account = await this._accountRepository.getWithId(transaction.accountId);
 
-    if (transaction.recurrence != 'D' && transaction.paid != true) throw new BadRequestError('Its not a transaction from this day');
+    if (transaction.recurrence != "D" && transaction.paid != true) throw new BadRequestError("Its not a transaction from this day");
 
     const newAccount = new Account().setBalance(account.balance);
 

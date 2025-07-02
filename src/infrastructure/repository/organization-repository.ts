@@ -4,6 +4,7 @@ import { IOrganizationRepository } from '../../domain/repository/IOrganizationRe
 
 export class OrganizationRepository implements IOrganizationRepository {
   constructor(private readonly prisma: PrismaClient) {}
+ 
 
   public static createClient(prismaClient: PrismaClient) {
     return new OrganizationRepository(prismaClient);
@@ -11,6 +12,12 @@ export class OrganizationRepository implements IOrganizationRepository {
 
   async create(data: IOrganization): Promise<any> {
     return await this.prisma.organization.create({ data: data });
+  }
+
+  async getAccountWithTransaction(): Promise<any> {
+    return await this.prisma.organization.findMany({include:{
+      account:true
+    }})
   }
   get(data: any): Promise<any> {
     throw new Error('Method not implemented.');
