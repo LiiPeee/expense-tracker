@@ -9,6 +9,5 @@ export interface UpdateBalanceInput {
 }
 
 export abstract class IUpdateBalanceDayAcountUseCase {
-  abstract execute(): Promise<void>;
   abstract update(transaction: UpdateBalanceInput): Promise<void>;
 }

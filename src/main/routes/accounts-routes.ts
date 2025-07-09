@@ -4,7 +4,7 @@ import { makeAccountController } from '../factories/account/create-account-contr
 import { makeGetTransactionAccountController } from '../factories/account/get-all-transaction-by-account-controller.factory';
 import { makeSignUpController } from '../factories/account/sign-up-account.controller.factory';
 import { makeUpdateBalanceInstallmentsListener } from '../factories/account/update-balance-installments.factory';
-import { makeUpdateBalanceDayListener } from '../factories/account/update-balance-listener';
+import { makeUpdateBalanceDayListener } from '../factories/account/update-balance-day-listener';
 
 export const accountRouter = async (router: Router): Promise<void> => {
   router.post('/account', adaptRoute(await makeAccountController()));

@@ -1,8 +1,7 @@
-// src/users/testing/user-fake-builder.ts
 
 import { Account } from "../../src/domain/models/entities/account";
 import { Transaction } from "../../src/domain/models/entities/transaction";
-import { FakeBuilder, PropOrFactory } from "./fake-builder";
+import { FakeBuilder, PropOrFactory } from './fake-builder';
 
 export class AccountFakeBuilder<TBuild = Account | Account[]> extends FakeBuilder<TBuild> {
   [x: string]: any;

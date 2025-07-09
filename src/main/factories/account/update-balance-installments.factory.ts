@@ -9,7 +9,7 @@ export const makeUpdateBalanceInstallmentsListener = async (): Promise<Controlle
 
   const transactionRepository = TransactionRepository.createClient(prisma);
 
-  const usecase = new UpdateBalanceInstallmentsUseCase(transactionRepository);
+  const usecase= new UpdateBalanceInstallmentsUseCase(transactionRepository);
   const controller = new UpdateBalanceInstallmentsListener(usecase);
 
   return controller;

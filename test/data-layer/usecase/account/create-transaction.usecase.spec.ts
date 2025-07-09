@@ -1,13 +1,13 @@
-import { CreateTransactionUseCase } from '../../../../src/data-layer/usecase/transaction/create-transaction.usecase';
-import { Recurrence } from '../../../../src/domain/entity/transaction';
-import { IAccountRepository } from '../../../../src/domain/repository/IAcountRepository';
-import { ICategoryRepository } from '../../../../src/domain/repository/ICategoryRepository';
-import { IContactRepository } from '../../../../src/domain/repository/IContactRepository';
-import { ITransactionRepository } from '../../../../src/domain/repository/ITransactionRepository';
+import { CreateTransactionUseCase } from '@/data-layer/usecase/transaction/create-transaction.usecase';
+import { Recurrence } from '@/domain/entity/transaction';
+import { IAccountRepository } from '@/domain/repository/IAcountRepository';
+import { ICategoryRepository } from '@/domain/repository/ICategoryRepository';
+import { IContactRepository } from '@/domain/repository/IContactRepository';
+import { ITransactionRepository } from '@/domain/repository/ITransactionRepository';
 
-import { CreateTransactionInput } from '../../../../src/domain/use-case/transaction/create-transaction-usecase';
-import { AccountFakeBuilder } from '../../../mocks/account-fake';
-import { TransactionFakeBuilder } from '../../../mocks/transaction-fake';
+import { CreateTransactionInput } from '@/domain/use-case/transaction/create-transaction-usecase';
+import { AccountFakeBuilder } from "@test/mocks/account-fake";
+import { TransactionFakeBuilder } from '@test/mocks/transaction-fake';
 
 describe('CreateTransactionUseCase', () => {
   let sut: CreateTransactionUseCase;

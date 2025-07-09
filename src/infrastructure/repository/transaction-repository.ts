@@ -8,7 +8,7 @@ import { NotFoundError } from '../errors/not-found-error';
 export class TransactionRepository implements ITransactionRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
-  public static createClient(prismaClient: PrismaClient) {
+  public static createClient(prismaClient: PrismaClient): TransactionRepository {
     return new TransactionRepository(prismaClient);
   }
   async create(input: ITransaction): Promise<any> {

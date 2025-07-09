@@ -1,3 +1,5 @@
+import {ICategory} from "@/domain/entity/category";
+
 export interface InputCategory {
   name: string;
 }
@@ -5,7 +7,7 @@ export interface InputCategory {
 export abstract class ICategoryRepository {
   abstract update(id: string, input: any): Promise<any>;
 
-  abstract get(id?: string): Promise<any>;
+  abstract get(id?: string): Promise<ICategory>;
 
   abstract getByName(name: string): Promise<any>;
 

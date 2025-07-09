@@ -4,15 +4,15 @@ import { Controller } from '../../protocols/controller';
 import { HttpResponse } from '../../protocols/http';
 import { badRequest, ok, serverError } from '../../response/helper';
 
-export class UpdateBalanceInstallmentsListener implements Controller {
+export class UpdateBalanceInstallmentsListener  {
   constructor(private readonly usecase: IUpdateBalanceInstallmentsUseCase) {}
-  async handle(req: Request): Promise<HttpResponse> {
+  async handle(): Promise<void> {
     try {
-      const result = await this.usecase.execute(req.body);
-      return ok(result);
-    } catch (error: any) {
-      if (badRequest(error)) return badRequest(error);
-      return serverError(error);
+
+
+      const result = await this.usecase.execute();
+    } catch  {
+       console.info("error in UpdateBalanceInstallments")
     }
   }
 }
