@@ -1,9 +1,9 @@
-import { PrismaClient } from '@prisma/client';
-import { ITransaction } from '../../domain/entity/transaction';
-import { GetTransactionDto } from '../../domain/models/dto/get-transaction-dto';
-import { ITransactionRepository } from '../../domain/repository/ITransactionRepository';
-import { GetTransactionByMonthInput } from '../../domain/use-case/transaction/get-transaction-by-month-usecase';
-import { NotFoundError } from '../errors/not-found-error';
+import { PrismaClient } from "@prisma/client";
+import { ITransaction } from "../../domain/entity/transaction";
+import { GetTransactionDto } from "../../domain/models/dto/get-transaction-dto";
+import { ITransactionRepository } from "../../domain/repository/ITransactionRepository";
+import { GetTransactionByMonthInput } from "../../domain/use-case/transaction/get-transaction-by-month-usecase";
+import { NotFoundError } from "../errors/not-found-error";
 
 export class TransactionRepository implements ITransactionRepository {
   constructor(private readonly prisma: PrismaClient) {}
@@ -60,7 +60,7 @@ export class TransactionRepository implements ITransactionRepository {
 
     const response = reponseDB.map((res: any) => {
       return new GetTransactionDto({
-        createDate: res.createDate.toLocaleDateString('pt-BR'),
+        createDate: res.createDate.toLocaleDateString("pt-BR"),
         value: res.value,
         formatPayment: res.paymentName,
         paid: res.paid,

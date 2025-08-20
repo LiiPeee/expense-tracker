@@ -1,5 +1,5 @@
-import { ITransaction, Recurrence } from '../../entity/transaction';
-import { IUseCase } from '../usecase';
+import { ITransaction, Recurrence } from "../../entity/transaction";
+import { IUseCase } from "../usecase";
 
 export interface CreateTransactionInput {
   account: { name: string };
@@ -16,6 +16,6 @@ export interface CreateTransactionInput {
 }
 export type CreateTransactionOutPut = { transaction: ITransaction };
 
-export abstract class ICreateTransactionUseCase implements IUseCase<CreateTransactionInput, CreateTransactionOutPut> {
+export abstract class ICreateTransactioInstallmentsUseCase implements IUseCase<CreateTransactionInput, CreateTransactionOutPut> {
   abstract execute(input: CreateTransactionInput): Promise<CreateTransactionOutPut>;
 }

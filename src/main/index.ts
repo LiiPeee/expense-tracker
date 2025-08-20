@@ -7,7 +7,7 @@ dotenv.config();
 const startServer = async (): Promise<void> => {
   const app: Express = await setupApp();
 
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT;
 
   app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
